@@ -1,4 +1,6 @@
+mod content;
 mod handle;
+mod header;
 mod js;
 mod main_component;
 mod theme;

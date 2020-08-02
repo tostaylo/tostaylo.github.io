@@ -1,4 +1,4 @@
-# rust_beats
+# rust-portfolio
 
 Bootstrapped with
 wasm-bindgen/example/without-a-bundler
