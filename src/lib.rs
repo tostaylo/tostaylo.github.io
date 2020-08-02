@@ -4,6 +4,7 @@ mod header;
 mod js;
 mod main_component;
 mod theme;
+mod theme_switcher;
 // mod text_wrapper;
 use crate::main_component::Main;
 use wasm_bindgen::prelude::*;

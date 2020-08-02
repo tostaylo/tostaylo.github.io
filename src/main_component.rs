@@ -2,6 +2,7 @@ use crate::content::Content;
 use crate::handle;
 use crate::header::header;
 use crate::theme::Theme;
+use crate::theme_switcher::theme_switcher;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -48,32 +49,17 @@ impl rust_fel::Component for handle::Handle<Main> {
         let borrow = self.0.borrow_mut();
         let state = borrow.state.clone();
         let child_content_component = borrow.child_content_component.render();
-
-        let theme_class = match state.theme {
-            Theme::Dark => "dark".to_owned(),
-            Theme::Light => "light".to_owned(),
+        let (theme_class, toggle_theme_state) = match state.theme {
+            Theme::Dark => (
+                "dark".to_owned(),
+                MainState {
+                    theme: Theme::Light,
+                },
+            ),
+            Theme::Light => ("light".to_owned(), MainState { theme: Theme::Dark }),
         };
-
-        let toggle_theme_state = match state.theme {
-            Theme::Dark => MainState {
-                theme: Theme::Light,
-            },
-            Theme::Light => MainState { theme: Theme::Dark },
-        };
-        let theme_switcher_text = rust_fel::html(format!(
-            "<span |class=theme-switcher-text|>Switch Themes!</span>"
-        ));
-        let theme_switcher = rust_fel::create_element(
-            "div".to_owned(),
-            rust_fel::Props {
-                id: Some(borrow.id.clone()),
-                on_click: Some(Box::new(move || {
-                    clone.set_state(toggle_theme_state.clone())
-                })),
-                class_name: Some(format!("theme-switcher")),
-                children: Some(vec![theme_switcher_text]),
-                ..Default::default()
-            },
+        let theme_onclick = Some(
+            Box::new(move || clone.set_state(toggle_theme_state.clone())) as rust_fel::ClosureProp,
         );
 
         let main = rust_fel::create_element(
@@ -81,7 +67,11 @@ impl rust_fel::Component for handle::Handle<Main> {
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("main {}", theme_class)),
-                children: Some(vec![header(), theme_switcher, child_content_component]),
+                children: Some(vec![
+                    header(),
+                    theme_switcher(theme_onclick),
+                    child_content_component,
+                ]),
                 ..Default::default()
             },
         );
