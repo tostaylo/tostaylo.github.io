@@ -1,4 +1,6 @@
+use crate::about::about;
 use crate::handle;
+use crate::text_wrapper::text_wrapper;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -52,15 +54,37 @@ impl rust_fel::Component for handle::Handle<Content> {
     }
 
     fn render(&self) -> rust_fel::Element {
-        let mut _clone = self.clone();
+        let mut clone = self.clone();
         let borrow = self.0.borrow_mut();
         let _state = borrow.state.clone();
+        let list_item_onclick = Some(Box::new(move || {
+            clone.set_state(ContentState {
+                content: ContentType::About,
+            })
+        }) as rust_fel::ClosureProp);
+
+        let list_item_1 =
+            text_wrapper("li".to_owned(), "About".to_owned(), list_item_onclick, None);
+
+        let list = rust_fel::create_element(
+            "ul".to_owned(),
+            rust_fel::Props {
+                children: Some(vec![list_item_1]),
+                ..Default::default()
+            },
+        );
+
+        let content_children = match borrow.state.content {
+            ContentType::About => Some(vec![about()]),
+            _ => Some(vec![list]),
+        };
 
         let content = rust_fel::create_element(
             "div".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("content")),
+                children: content_children,
                 ..Default::default()
             },
         );

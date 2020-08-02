@@ -1,11 +1,12 @@
+mod about;
 mod content;
 mod handle;
 mod header;
 mod js;
 mod main_component;
+mod text_wrapper;
 mod theme;
 mod theme_switcher;
-// mod text_wrapper;
 use crate::main_component::Main;
 use wasm_bindgen::prelude::*;
 extern crate console_error_panic_hook;

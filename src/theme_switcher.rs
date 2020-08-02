@@ -1,4 +1,3 @@
-use crate::theme::Theme;
 use rust_fel;
 
 pub fn theme_switcher(on_click: Option<rust_fel::ClosureProp>) -> rust_fel::Element {
