@@ -1,6 +1,5 @@
 use crate::about::about;
 use crate::handle;
-use crate::text_wrapper::text_wrapper;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -63,7 +62,7 @@ impl rust_fel::Component for handle::Handle<Content> {
             })
         }) as rust_fel::ClosureProp);
 
-        let list_item_1 = text_wrapper(
+        let list_item_1 = rust_fel::wrapper(
             "li".to_owned(),
             Some("About".to_owned()),
             list_item_onclick,
