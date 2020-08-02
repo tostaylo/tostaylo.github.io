@@ -1,0 +1,19 @@
+html,
+body {
+	margin: 0;
+}
+.main {
+	width: 100vw;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+
+.dark {
+	background: black;
+	color: white;
+}
+
+.light {
+	background: white;
+	color: black;
+}
