@@ -10,6 +10,7 @@ pub enum ContentType {
     About,
     Posts,
     SiteInfo,
+    Github,
 }
 
 impl Default for ContentType {
@@ -54,10 +55,14 @@ impl rust_fel::Component for handle::Handle<Content> {
     }
 
     fn render(&self) -> rust_fel::Element {
-        let mut clone = self.clone();
         let borrow = self.0.borrow_mut();
         let _state = borrow.state.clone();
-        let content_vec = vec![ContentType::About, ContentType::SiteInfo];
+        let content_vec = vec![
+            ContentType::About,
+            ContentType::SiteInfo,
+            ContentType::Posts,
+            ContentType::Github,
+        ];
         let mut list_items: Vec<rust_fel::Element> = vec![];
 
         for content in content_vec.iter() {
@@ -65,12 +70,29 @@ impl rust_fel::Component for handle::Handle<Content> {
             let state = ContentState {
                 content: content.to_owned(),
             };
+
+            let (label, html_type) = match content {
+                ContentType::Posts => ("<span>Posts</span>", "li"),
+                ContentType::SiteInfo => ("<span>Site Info</span>", "li"),
+                ContentType::About => ("<span>About</span>", "li"),
+                ContentType::Github => ("<a>Github</a>", "li"),
+                _ => ("", ""),
+            };
+
+            let on_click = match content {
+                ContentType::Github => None,
+                _ => {
+                    Some(Box::new(move || clone.set_state(state.clone())) as rust_fel::ClosureProp)
+                }
+            };
+
             let list_item = rust_fel::wrapper(
-                "li".to_owned(),
-                Some("About".to_owned()),
-                Some(Box::new(move || clone.set_state(state.clone()))),
+                html_type.to_owned(),
                 None,
-                None,
+                on_click,
+                Some("list-item".to_owned()),
+                //href
+                Some(rust_fel::html(label.to_owned())),
             );
             list_items.push(list_item);
         }
@@ -86,6 +108,7 @@ impl rust_fel::Component for handle::Handle<Content> {
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![list, about()]),
             ContentType::SiteInfo => Some(vec![about(), list]),
+            ContentType::Posts => Some(vec![]),
             _ => Some(vec![list]),
         };
 
