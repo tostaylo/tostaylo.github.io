@@ -98,19 +98,26 @@ impl rust_fel::Component for handle::Handle<Content> {
             list_items.push(list_item);
         }
 
-        let list = rust_fel::create_element(
-            "ul".to_owned(),
-            rust_fel::Props {
-                children: Some(list_items),
-                ..Default::default()
-            },
-        );
+        fn list(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
+            let list = rust_fel::create_element(
+                "ul".to_owned(),
+                rust_fel::Props {
+                    children: Some(list_items),
+                    class_name: Some(class_name),
+                    ..Default::default()
+                },
+            );
+            list
+        }
 
         let content_children = match borrow.state.content {
-            ContentType::About => Some(vec![list, about()]),
-            ContentType::SiteInfo => Some(vec![list, site_info()]),
-            ContentType::Posts => Some(vec![list, posts()]),
-            _ => Some(vec![list]),
+            ContentType::About => Some(vec![about(), list(list_items, "bottom-list".to_owned())]),
+            ContentType::SiteInfo => Some(vec![
+                site_info(),
+                list(list_items, "bottom-list".to_owned()),
+            ]),
+            ContentType::Posts => Some(vec![posts(), list(list_items, "bottom-list".to_owned())]),
+            _ => Some(vec![list(list_items, "side-list".to_owned())]),
         };
 
         let content = rust_fel::create_element(
