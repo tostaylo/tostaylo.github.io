@@ -75,3 +75,7 @@ pre {
 	justify-content: space-evenly;
 	width: 100%;
 }
+
+.list-item-active {
+	font-weight: bold;
+}

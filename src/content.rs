@@ -6,7 +6,7 @@ use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum ContentType {
     List,
     About,
@@ -21,7 +21,7 @@ impl Default for ContentType {
     }
 }
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, PartialEq)]
 pub struct ContentState {
     content: ContentType,
 }
@@ -61,7 +61,7 @@ impl rust_fel::Component for handle::Handle<Content> {
 
     fn render(&self) -> rust_fel::Element {
         let borrow = self.0.borrow_mut();
-        let _state = borrow.state.clone();
+        let state = borrow.state.clone();
         let content_vec = vec![
             ContentType::About,
             ContentType::SiteInfo,
@@ -87,12 +87,17 @@ impl rust_fel::Component for handle::Handle<Content> {
                     as rust_fel::ClosureProp),
             };
 
+            let class_name = if content == &state.content.clone() {
+                Some(format!("list-item list-item-active"))
+            } else {
+                Some("list-item".to_owned())
+            };
+
             let list_item = rust_fel::wrapper(
                 html_type.to_owned(),
                 None,
                 on_click,
-                Some("list-item".to_owned()),
-                //href
+                class_name,
                 Some(rust_fel::html(label.to_owned())),
             );
             list_items.push(list_item);
