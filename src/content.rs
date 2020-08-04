@@ -1,5 +1,7 @@
 use crate::about::about;
 use crate::handle;
+use crate::posts::posts;
+use crate::site_info::site_info;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -106,8 +108,8 @@ impl rust_fel::Component for handle::Handle<Content> {
 
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![list, about()]),
-            ContentType::SiteInfo => Some(vec![about(), list]),
-            ContentType::Posts => Some(vec![]),
+            ContentType::SiteInfo => Some(vec![list, site_info()]),
+            ContentType::Posts => Some(vec![list, posts()]),
             _ => Some(vec![list]),
         };
 

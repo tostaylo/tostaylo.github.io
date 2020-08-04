@@ -17,3 +17,24 @@ body {
 	background: white;
 	color: black;
 }
+pre {
+	width: 320px;
+}
+
+.light code {
+	background: hsl(220, 8%, 42%);
+}
+
+.light pre {
+	white-space: pre-wrap;
+	background: hsl(220, 8%, 42%);
+}
+
+.dark code {
+	background: hsl(0, 0%, 4%);
+}
+
+.dark pre {
+	white-space: pre-wrap;
+	background: hsl(0, 0%, 4%);
+}

@@ -4,6 +4,8 @@ mod handle;
 mod header;
 mod js;
 mod main_component;
+mod posts;
+mod site_info;
 mod theme;
 mod theme_switcher;
 use crate::main_component::Main;
