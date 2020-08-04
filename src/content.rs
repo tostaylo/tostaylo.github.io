@@ -75,7 +75,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                 ContentType::Posts => ("<span>Posts</span>", "li"),
                 ContentType::SiteInfo => ("<span>Site Info</span>", "li"),
                 ContentType::About => ("<span>About</span>", "li"),
-                ContentType::Github => ("<a>Github</a>", "li"),
+                ContentType::Github => ("<a | href=https://github.com/tostaylo |>Github</a>", "li"),
                 _ => ("", ""),
             };
 
