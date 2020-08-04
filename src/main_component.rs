@@ -6,6 +6,17 @@ use crate::theme_switcher::theme_switcher;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
+#[derive(Debug, Clone)]
+pub enum Actions {
+    DarkMode,
+    LightMode,
+}
+
+impl Default for Actions {
+    fn default() -> Self {
+        Actions::LightMode
+    }
+}
 
 #[derive(Debug, Default, Clone)]
 pub struct MainState {
@@ -32,15 +43,19 @@ impl Main {
 
 impl rust_fel::Component for handle::Handle<Main> {
     type Properties = Option<String>;
-    type Message = String;
+    type Message = Actions;
     type State = MainState;
 
     fn add_props(&mut self, _props: Self::Properties) {
         ()
     }
 
-    fn set_state(&mut self, new_state: Self::State) {
-        self.0.borrow_mut().state.theme = new_state.theme;
+    fn reduce_state(&mut self, message: Self::Message) {
+        match message {
+            Actions::LightMode => self.0.borrow_mut().state.theme = Theme::Light,
+            Actions::DarkMode => self.0.borrow_mut().state.theme = Theme::Dark,
+        }
+
         rust_fel::re_render(self.render(), Some(self.0.borrow().id.clone()));
     }
 
@@ -50,16 +65,13 @@ impl rust_fel::Component for handle::Handle<Main> {
         let state = borrow.state.clone();
         let child_content_component = borrow.child_content_component.render();
         let (theme_class, toggle_theme_state) = match state.theme {
-            Theme::Dark => (
-                "dark".to_owned(),
-                MainState {
-                    theme: Theme::Light,
-                },
-            ),
-            Theme::Light => ("light".to_owned(), MainState { theme: Theme::Dark }),
+            Theme::Dark => ("dark".to_owned(), Actions::LightMode),
+            Theme::Light => ("light".to_owned(), Actions::DarkMode),
         };
+
         let theme_onclick = Some(
-            Box::new(move || clone.set_state(toggle_theme_state.clone())) as rust_fel::ClosureProp,
+            Box::new(move || clone.reduce_state(toggle_theme_state.clone()))
+                as rust_fel::ClosureProp,
         );
 
         let main = rust_fel::create_element(

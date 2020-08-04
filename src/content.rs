@@ -42,15 +42,18 @@ impl Content {
 
 impl rust_fel::Component for handle::Handle<Content> {
     type Properties = Option<String>;
-    type Message = String;
+    type Message = ContentType;
     type State = ContentState;
 
     fn add_props(&mut self, _props: Self::Properties) {
         ()
     }
 
-    fn set_state(&mut self, new_state: Self::State) {
-        self.0.borrow_mut().state.content = new_state.content;
+    fn reduce_state(&mut self, message: Self::Message) {
+        match message {
+            _ => self.0.borrow_mut().state.content = message,
+        }
+
         rust_fel::re_render(self.render(), Some(self.0.borrow().id.clone()));
     }
 
@@ -67,9 +70,6 @@ impl rust_fel::Component for handle::Handle<Content> {
 
         for content in content_vec.iter() {
             let mut clone = self.clone();
-            let state = ContentState {
-                content: content.to_owned(),
-            };
 
             let (label, html_type) = match content {
                 ContentType::Posts => ("<span>Posts</span>", "li"),
@@ -78,12 +78,11 @@ impl rust_fel::Component for handle::Handle<Content> {
                 ContentType::Github => ("<a | href=https://github.com/tostaylo |>Github</a>", "li"),
                 _ => ("", ""),
             };
-
+            let new_content = content.to_owned();
             let on_click = match content {
                 ContentType::Github => None,
-                _ => {
-                    Some(Box::new(move || clone.set_state(state.clone())) as rust_fel::ClosureProp)
-                }
+                _ => Some(Box::new(move || clone.reduce_state(new_content.clone()))
+                    as rust_fel::ClosureProp),
             };
 
             let list_item = rust_fel::wrapper(
