@@ -1,6 +1,5 @@
 use crate::content::Content;
 use crate::handle;
-use crate::header::header;
 use crate::theme::Theme;
 use crate::theme_switcher::theme_switcher;
 use rust_fel;
@@ -14,7 +13,7 @@ pub enum Actions {
 
 impl Default for Actions {
     fn default() -> Self {
-        Actions::LightMode
+        Actions::DarkMode
     }
 }
 
@@ -79,11 +78,7 @@ impl rust_fel::Component for handle::Handle<Main> {
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("main {}", theme_class)),
-                children: Some(vec![
-                    header(),
-                    theme_switcher(theme_onclick),
-                    child_content_component,
-                ]),
+                children: Some(vec![theme_switcher(theme_onclick), child_content_component]),
                 ..Default::default()
             },
         );

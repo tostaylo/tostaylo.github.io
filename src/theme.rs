@@ -6,6 +6,6 @@ pub enum Theme {
 
 impl Default for Theme {
     fn default() -> Self {
-        Theme::Light
+        Theme::Dark
     }
 }

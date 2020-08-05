@@ -8,16 +8,17 @@ use std::rc::Rc;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ContentType {
-    List,
+    Home,
     About,
     Posts,
     SiteInfo,
     Github,
+    LinkedIn,
 }
 
 impl Default for ContentType {
     fn default() -> Self {
-        ContentType::List
+        ContentType::Home
     }
 }
 
@@ -55,7 +56,6 @@ impl rust_fel::Component for handle::Handle<Content> {
         match message {
             _ => self.0.borrow_mut().state.content = message,
         }
-
         rust_fel::re_render(self.render(), Some(self.0.borrow().id.clone()));
     }
 
@@ -63,22 +63,28 @@ impl rust_fel::Component for handle::Handle<Content> {
         let borrow = self.0.borrow_mut();
         let state = borrow.state.clone();
         let content_vec = vec![
+            ContentType::Home,
             ContentType::About,
             ContentType::SiteInfo,
             ContentType::Posts,
             ContentType::Github,
+            ContentType::LinkedIn,
         ];
-        let mut list_items: Vec<rust_fel::Element> = vec![];
+        let mut nav_items: Vec<rust_fel::Element> = vec![];
 
         for content in content_vec.iter() {
             let mut clone = self.clone();
 
             let (label, html_type) = match content {
+                ContentType::Home => ("<span>Home</span>", "li"),
                 ContentType::Posts => ("<span>Posts</span>", "li"),
                 ContentType::SiteInfo => ("<span>Site Info</span>", "li"),
                 ContentType::About => ("<span>About</span>", "li"),
                 ContentType::Github => ("<a | href=https://github.com/tostaylo |>Github</a>", "li"),
-                _ => ("", ""),
+                ContentType::LinkedIn => (
+                    "<a | href=https://www.linkedin.com/in/taylortorre |>LinkedIn</a>",
+                    "li",
+                ),
             };
             let new_content = content.to_owned();
             let on_click = match content {
@@ -93,18 +99,18 @@ impl rust_fel::Component for handle::Handle<Content> {
                 Some("list-item".to_owned())
             };
 
-            let list_item = rust_fel::wrapper(
+            let nav_item = rust_fel::wrapper(
                 html_type.to_owned(),
                 None,
                 on_click,
                 class_name,
                 Some(rust_fel::html(label.to_owned())),
             );
-            list_items.push(list_item);
+            nav_items.push(nav_item);
         }
 
         fn list(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
-            let list = rust_fel::create_element(
+            let list = rust_fel::Element::new(
                 "ul".to_owned(),
                 rust_fel::Props {
                     children: Some(list_items),
@@ -116,13 +122,12 @@ impl rust_fel::Component for handle::Handle<Content> {
         }
 
         let content_children = match borrow.state.content {
-            ContentType::About => Some(vec![about(), list(list_items, "bottom-list".to_owned())]),
-            ContentType::SiteInfo => Some(vec![
-                site_info(),
-                list(list_items, "bottom-list".to_owned()),
-            ]),
-            ContentType::Posts => Some(vec![posts(), list(list_items, "bottom-list".to_owned())]),
-            _ => Some(vec![list(list_items, "side-list".to_owned())]),
+            ContentType::About => Some(vec![about(), list(nav_items, "bottom-list".to_owned())]),
+            ContentType::SiteInfo => {
+                Some(vec![site_info(), list(nav_items, "bottom-list".to_owned())])
+            }
+            ContentType::Posts => Some(vec![posts(), list(nav_items, "bottom-list".to_owned())]),
+            _ => Some(vec![list(nav_items, "side-list".to_owned())]),
         };
 
         let content = rust_fel::create_element(
