@@ -59,26 +59,43 @@ impl rust_fel::Component for handle::Handle<Main> {
     }
 
     fn render(&self) -> rust_fel::Element {
-        let mut clone = self.clone();
         let borrow = self.0.borrow_mut();
         let state = borrow.state.clone();
         let child_content_component = borrow.child_content_component.render();
-        let (theme_class, toggle_theme_state) = match state.theme {
-            Theme::Dark => ("dark".to_owned(), Actions::LightMode),
-            Theme::Light => ("light".to_owned(), Actions::DarkMode),
+        let theme_class = match state.theme {
+            Theme::Dark => "dark".to_owned(),
+            Theme::Light => "light".to_owned(),
         };
+        let actions_vec = vec![Actions::DarkMode, Actions::LightMode];
+        let mut items: Vec<rust_fel::Element> = actions_vec
+            .iter()
+            .map(|action| {
+                let mut new_clone = self.clone();
+                let (theme_onclick, theme_title) = match action {
+                    Actions::LightMode => (
+                        Box::new(move || new_clone.reduce_state(Actions::LightMode))
+                            as rust_fel::ClosureProp,
+                        "Light Mode".to_owned(),
+                    ),
 
-        let theme_onclick = Some(
-            Box::new(move || clone.reduce_state(toggle_theme_state.clone()))
-                as rust_fel::ClosureProp,
-        );
+                    Actions::DarkMode => (
+                        Box::new(move || new_clone.reduce_state(Actions::DarkMode))
+                            as rust_fel::ClosureProp,
+                        "Dark Mode".to_owned(),
+                    ),
+                };
+                theme_switcher(theme_onclick, theme_title)
+            })
+            .collect();
+
+        items.push(child_content_component);
 
         let main = rust_fel::Element::new(
             "div".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("main {}", theme_class)),
-                children: Some(vec![theme_switcher(theme_onclick), child_content_component]),
+                children: Some(items),
                 ..Default::default()
             },
         );

@@ -1,18 +1,19 @@
 use rust_fel;
 
-pub fn theme_switcher(on_click: Option<rust_fel::ClosureProp>) -> rust_fel::Element {
-    let theme_switcher_text = rust_fel::html(format!(
-        "<span |class=theme-switcher-text|>Switch Themes!</span>"
+pub fn theme_switcher(on_click: rust_fel::ClosureProp, title: String) -> rust_fel::Element {
+    let text = rust_fel::html(format!(
+        "<span |class=theme-switcher-text|>{}</span>",
+        title
     ));
-    let theme_switcher = rust_fel::Element::new(
-        "div".to_owned(),
+    let theme = rust_fel::Element::new(
+        "span".to_owned(),
         rust_fel::Props {
-            on_click,
+            on_click: Some(on_click),
             class_name: Some(format!("theme-switcher")),
-            children: Some(vec![theme_switcher_text]),
+            children: Some(vec![text]),
             ..Default::default()
         },
     );
 
-    theme_switcher
+    theme
 }

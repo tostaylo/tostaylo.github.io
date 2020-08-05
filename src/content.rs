@@ -53,7 +53,7 @@ impl Content {
             id: "content".to_owned(),
             state: ContentState {
                 content: ContentType::Home,
-                is_nav: true,
+                is_nav: false,
             },
             ..Default::default()
         };
@@ -72,7 +72,10 @@ impl rust_fel::Component for handle::Handle<Content> {
 
     fn reduce_state(&mut self, message: Self::Message) {
         match message {
-            Actions::ContentType(x) => self.0.borrow_mut().state.content = x,
+            Actions::ContentType(x) => {
+                self.0.borrow_mut().state.content = x;
+                self.0.borrow_mut().state.is_nav = false;
+            }
             Actions::ShowNav => self.0.borrow_mut().state.is_nav = true,
             Actions::HideNav => self.0.borrow_mut().state.is_nav = false,
         }
@@ -114,6 +117,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                 let owned_content_type = content_type.to_owned();
                 let on_click = match content_type {
                     ContentType::Github => None,
+                    ContentType::LinkedIn => None,
                     _ => Some(Box::new(move || {
                         clone.reduce_state(Actions::ContentType(owned_content_type.clone()))
                     }) as rust_fel::ClosureProp),
@@ -170,24 +174,24 @@ impl rust_fel::Component for handle::Handle<Content> {
 
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![
-                menu_button_mobile,
                 about(),
+                menu_button_mobile,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
             ]),
             ContentType::SiteInfo => Some(vec![
-                menu_button_mobile,
                 site_info(),
+                menu_button_mobile,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
             ]),
             ContentType::Posts => Some(vec![
-                menu_button_mobile,
                 posts(),
+                menu_button_mobile,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
