@@ -4,7 +4,7 @@ pub fn theme_switcher(on_click: Option<rust_fel::ClosureProp>) -> rust_fel::Elem
     let theme_switcher_text = rust_fel::html(format!(
         "<span |class=theme-switcher-text|>Switch Themes!</span>"
     ));
-    let theme_switcher = rust_fel::create_element(
+    let theme_switcher = rust_fel::Element::new(
         "div".to_owned(),
         rust_fel::Props {
             on_click,

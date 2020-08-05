@@ -130,7 +130,7 @@ impl rust_fel::Component for handle::Handle<Content> {
             _ => Some(vec![list(nav_items, "side-list".to_owned())]),
         };
 
-        let content = rust_fel::create_element(
+        let content = rust_fel::Element::new(
             "div".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),

@@ -73,7 +73,7 @@ impl rust_fel::Component for handle::Handle<Main> {
                 as rust_fel::ClosureProp,
         );
 
-        let main = rust_fel::create_element(
+        let main = rust_fel::Element::new(
             "div".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
