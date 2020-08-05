@@ -66,7 +66,7 @@ pre {
 	background: hsl(0, 0%, 4%);
 }
 
-.bottom-list {
+.non-home-navigation {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -75,4 +75,18 @@ pre {
 
 .list-item-active {
 	font-weight: bold;
+}
+
+.menu-button {
+	height: 50px;
+	width: 50px;
+	background: gray;
+}
+
+.show-nav {
+	display: flex;
+}
+
+.hide-nav {
+	display: none;
 }

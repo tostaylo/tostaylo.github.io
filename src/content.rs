@@ -22,9 +22,23 @@ impl Default for ContentType {
     }
 }
 
+#[derive(Debug, Clone, PartialEq)]
+pub enum Actions {
+    ContentType(ContentType),
+    ShowNav,
+    HideNav,
+}
+
+impl Default for Actions {
+    fn default() -> Self {
+        Actions::ContentType(ContentType::Home)
+    }
+}
+
 #[derive(Debug, Default, Clone, PartialEq)]
 pub struct ContentState {
     content: ContentType,
+    is_nav: bool,
 }
 
 #[derive(Debug, Default, Clone)]
@@ -37,6 +51,10 @@ impl Content {
     pub fn create() -> handle::Handle<Self> {
         let content = Content {
             id: "content".to_owned(),
+            state: ContentState {
+                content: ContentType::Home,
+                is_nav: true,
+            },
             ..Default::default()
         };
         handle::Handle(Rc::new(RefCell::new(content)))
@@ -45,7 +63,7 @@ impl Content {
 
 impl rust_fel::Component for handle::Handle<Content> {
     type Properties = Option<String>;
-    type Message = ContentType;
+    type Message = Actions;
     type State = ContentState;
 
     fn add_props(&mut self, _props: Self::Properties) {
@@ -54,7 +72,9 @@ impl rust_fel::Component for handle::Handle<Content> {
 
     fn reduce_state(&mut self, message: Self::Message) {
         match message {
-            _ => self.0.borrow_mut().state.content = message,
+            Actions::ContentType(x) => self.0.borrow_mut().state.content = x,
+            Actions::ShowNav => self.0.borrow_mut().state.is_nav = true,
+            Actions::HideNav => self.0.borrow_mut().state.is_nav = false,
         }
         rust_fel::re_render(self.render(), Some(self.0.borrow().id.clone()));
     }
@@ -62,55 +82,62 @@ impl rust_fel::Component for handle::Handle<Content> {
     fn render(&self) -> rust_fel::Element {
         let borrow = self.0.borrow_mut();
         let state = borrow.state.clone();
-        let content_vec = vec![
-            ContentType::Home,
+        let mut content_type_vec = vec![
             ContentType::About,
             ContentType::SiteInfo,
             ContentType::Posts,
             ContentType::Github,
             ContentType::LinkedIn,
         ];
-        let mut nav_items: Vec<rust_fel::Element> = vec![];
-
-        for content in content_vec.iter() {
-            let mut clone = self.clone();
-
-            let (label, html_type) = match content {
-                ContentType::Home => ("<span>Home</span>", "li"),
-                ContentType::Posts => ("<span>Posts</span>", "li"),
-                ContentType::SiteInfo => ("<span>Site Info</span>", "li"),
-                ContentType::About => ("<span>About</span>", "li"),
-                ContentType::Github => ("<a | href=https://github.com/tostaylo |>Github</a>", "li"),
-                ContentType::LinkedIn => (
-                    "<a | href=https://www.linkedin.com/in/taylortorre |>LinkedIn</a>",
-                    "li",
-                ),
-            };
-            let new_content = content.to_owned();
-            let on_click = match content {
-                ContentType::Github => None,
-                _ => Some(Box::new(move || clone.reduce_state(new_content.clone()))
-                    as rust_fel::ClosureProp),
-            };
-
-            let class_name = if content == &state.content.clone() {
-                Some(format!("list-item list-item-active"))
-            } else {
-                Some("list-item".to_owned())
-            };
-
-            let nav_item = rust_fel::wrapper(
-                html_type.to_owned(),
-                None,
-                on_click,
-                class_name,
-                Some(rust_fel::html(label.to_owned())),
-            );
-            nav_items.push(nav_item);
+        if state.content != ContentType::Home {
+            content_type_vec.push(ContentType::Home)
         }
 
-        fn list(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
-            let list = rust_fel::Element::new(
+        let nav_items: Vec<rust_fel::Element> = content_type_vec
+            .iter()
+            .map(|content_type| {
+                let mut clone = self.clone();
+
+                let (label, html_type) = match content_type {
+                    ContentType::Home => ("<span>Home</span>", "li"),
+                    ContentType::Posts => ("<span>Posts</span>", "li"),
+                    ContentType::SiteInfo => ("<span>Site Info</span>", "li"),
+                    ContentType::About => ("<span>About</span>", "li"),
+                    ContentType::Github => {
+                        ("<a | href=https://github.com/tostaylo |>Github</a>", "li")
+                    }
+                    ContentType::LinkedIn => (
+                        "<a | href=https://www.linkedin.com/in/taylortorre |>LinkedIn</a>",
+                        "li",
+                    ),
+                };
+                let owned_content_type = content_type.to_owned();
+                let on_click = match content_type {
+                    ContentType::Github => None,
+                    _ => Some(Box::new(move || {
+                        clone.reduce_state(Actions::ContentType(owned_content_type.clone()))
+                    }) as rust_fel::ClosureProp),
+                };
+
+                let nav_item_class_name = if content_type == &state.content.clone() {
+                    Some(format!("list-item list-item-active"))
+                } else {
+                    Some("list-item".to_owned())
+                };
+
+                let nav_item = rust_fel::wrapper(
+                    html_type.to_owned(),
+                    None,
+                    on_click,
+                    nav_item_class_name,
+                    Some(rust_fel::html(label.to_owned())),
+                );
+                nav_item
+            })
+            .collect();
+
+        fn navigation(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
+            let nav = rust_fel::Element::new(
                 "ul".to_owned(),
                 rust_fel::Props {
                     children: Some(list_items),
@@ -118,16 +145,55 @@ impl rust_fel::Component for handle::Handle<Content> {
                     ..Default::default()
                 },
             );
-            list
+            nav
         }
 
+        let (menu_button_action, nav_toggle_classname) = match state.is_nav {
+            true => (Actions::HideNav, "show-nav"),
+            false => (Actions::ShowNav, "hide-nav"),
+        };
+        let mut clone_for_menu_button = self.clone();
+        let menu_button_onclick =
+            Some(
+                Box::new(move || clone_for_menu_button.reduce_state(menu_button_action.clone()))
+                    as rust_fel::ClosureProp,
+            );
+
+        let menu_button_mobile = rust_fel::Element::new(
+            "span".to_owned(),
+            rust_fel::Props {
+                class_name: Some("menu-button".to_owned()),
+                on_click: menu_button_onclick,
+                ..Default::default()
+            },
+        );
+
         let content_children = match borrow.state.content {
-            ContentType::About => Some(vec![about(), list(nav_items, "bottom-list".to_owned())]),
-            ContentType::SiteInfo => {
-                Some(vec![site_info(), list(nav_items, "bottom-list".to_owned())])
-            }
-            ContentType::Posts => Some(vec![posts(), list(nav_items, "bottom-list".to_owned())]),
-            _ => Some(vec![list(nav_items, "side-list".to_owned())]),
+            ContentType::About => Some(vec![
+                menu_button_mobile,
+                about(),
+                navigation(
+                    nav_items,
+                    format!("non-home-navigation {}", nav_toggle_classname),
+                ),
+            ]),
+            ContentType::SiteInfo => Some(vec![
+                menu_button_mobile,
+                site_info(),
+                navigation(
+                    nav_items,
+                    format!("non-home-navigation {}", nav_toggle_classname),
+                ),
+            ]),
+            ContentType::Posts => Some(vec![
+                menu_button_mobile,
+                posts(),
+                navigation(
+                    nav_items,
+                    format!("non-home-navigation {}", nav_toggle_classname),
+                ),
+            ]),
+            _ => Some(vec![navigation(nav_items, "home-navigation".to_owned())]),
         };
 
         let content = rust_fel::Element::new(
