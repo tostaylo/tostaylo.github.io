@@ -1,0 +1,15 @@
+{
+  "name": "rust-fel-portfolio",
+  "collaborators": [
+    "Torre Taylor"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "rust_fel_portfolio_bg.wasm",
+    "rust_fel_portfolio.js",
+    "rust_fel_portfolio.d.ts"
+  ],
+  "module": "rust_fel_portfolio.js",
+  "types": "rust_fel_portfolio.d.ts",
+  "sideEffects": "false"
+}
