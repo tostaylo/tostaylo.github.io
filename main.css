@@ -7,11 +7,15 @@
 .dark {
 	--bg-color: hsl(0, 0%, 0%);
 	--text-color: hsl(0, 0%, 95%);
+	--code-block-bg: #1d1f21;
+	--code-block-color: #c5c8c6;
 }
 
 .light {
 	--bg-color: hsl(0, 0%, 80%);
 	--text-color: hsl(0, 0%, 0%);
+	--code-block-color: #1d1f21;
+	--code-block-bg: #c5c8c6;
 }
 
 html,
@@ -158,12 +162,12 @@ code {
 }
 
 code {
-	background: hsl(220, 8%, 42%);
 }
 
 pre {
 	white-space: pre-wrap;
-	background: hsl(220, 8%, 42%);
+	background: var(--code-block-bg);
+	color: var(--code-block-color);
 }
 
 .home-navigation {

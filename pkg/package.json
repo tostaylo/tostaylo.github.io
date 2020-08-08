@@ -5,11 +5,11 @@
   ],
   "version": "0.1.0",
   "files": [
-    "rust_fel_portfolio_bg.wasm",
-    "rust_fel_portfolio.js",
-    "rust_fel_portfolio.d.ts"
+    "rust-fel-portfolio_bg.wasm",
+    "rust-fel-portfolio.js",
+    "rust-fel-portfolio.d.ts"
   ],
-  "module": "rust_fel_portfolio.js",
-  "types": "rust_fel_portfolio.d.ts",
+  "module": "rust-fel-portfolio.js",
+  "types": "rust-fel-portfolio.d.ts",
   "sideEffects": "false"
 }
