@@ -163,14 +163,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                     as rust_fel::ClosureProp,
             );
 
-        let menu = rust_fel::Element::new(
-            "span".to_owned(),
-            rust_fel::Props {
-                class_name: Some("menu".to_owned()),
-                ..Default::default()
-            },
-        );
-
+        let menu = rust_fel::html(format!("<span |class=menu|></span>"));
         let menu_button_mobile = rust_fel::Element::new(
             "span".to_owned(),
             rust_fel::Props {
@@ -180,27 +173,32 @@ impl rust_fel::Component for handle::Handle<Content> {
                 ..Default::default()
             },
         );
-
+        let content_footer = rust_fel::html(format!(
+            "<div |class=content-footer|><span |class=content-footer-underline|></span></div>"
+        ));
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![
-                about(),
                 menu_button_mobile,
+                about(),
+                content_footer,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
             ]),
             ContentType::SiteInfo => Some(vec![
-                site_info(),
                 menu_button_mobile,
+                site_info(),
+                content_footer,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
             ]),
             ContentType::Posts => Some(vec![
-                posts(),
                 menu_button_mobile,
+                posts(),
+                content_footer,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),

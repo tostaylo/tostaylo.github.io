@@ -118,12 +118,15 @@ impl rust_fel::Component for handle::Handle<Main> {
             Box::new(move || clone_for_theme_toggle.reduce_state(theme_toggle_action.clone()))
                 as rust_fel::ClosureProp;
 
+        let theme_icon = rust_fel::html(format!("<span |class=theme-icon|></span>"));
+
         let theme_toggle = rust_fel::Element::new(
             "span".to_owned(),
             rust_fel::Props {
                 role: Some("button".to_owned()),
                 class_name: Some(format!("theme-toggle")),
                 on_click: Some(theme_toggle_onclick),
+                children: Some(vec![theme_icon]),
                 ..Default::default()
             },
         );
