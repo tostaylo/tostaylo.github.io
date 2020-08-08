@@ -2,20 +2,27 @@
 	--full-opacity: 1;
 	--mid-opacity: 0.9;
 	--low-opacity: 0.3;
+	--desktop-width: 900px;
 }
 
 .dark {
 	--bg-color: hsl(0, 0%, 0%);
 	--text-color: hsl(0, 0%, 95%);
+	--bg-color-mod: #1d1f21;
+	--text-color-mod: #c5c8c6;
 	--code-block-bg: #1d1f21;
 	--code-block-color: #c5c8c6;
+	--border-color: hsl(0, 0%, 20%);
 }
 
 .light {
 	--bg-color: hsl(0, 0%, 80%);
 	--text-color: hsl(0, 0%, 0%);
+	--bg-color-mod: #c5c8c6;
+	--text-color-mod: #1d1f21;
 	--code-block-color: #1d1f21;
 	--code-block-bg: #c5c8c6;
+	--border-color: hsl(0, 0%, 60%);
 }
 
 html,
@@ -54,16 +61,44 @@ a {
 	top: 40;
 	left: 80;
 	position: absolute;
-	width: 100px;
+	width: 200px;
 	height: auto;
 	display: flex;
 	flex-direction: column;
+	cursor: pointer;
 }
 
-.theme-switcher-item {
+.theme-switcher-button {
+	display: inline-block;
+	border-width: 1px;
+	border-style: solid;
+	border-color: var(--border-color);
+	padding: 1rem 2rem;
+	margin: 0;
+	text-decoration: none;
+	background: var(--bg-color-mod);
+	color: var(--text-color-mod);
+	font-size: 1rem;
 	cursor: pointer;
-	height: 40px;
-	width: 100%;
+	text-align: center;
+	transition: background 250ms ease-in-out, transform 150ms ease;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+	background: var(--text-color-mod);
+	color: var(--bg-color-mod);
+}
+
+button:focus {
+	outline: 1px solid #fff;
+	outline-offset: -4px;
+}
+
+button:active {
+	transform: scale(0.99);
 }
 
 .theme-toggle {
@@ -75,6 +110,8 @@ a {
 	display: flex;
 	align-items: center;
 	position: absolute;
+	opacity: 1;
+	cursor: pointer;
 }
 
 .theme-icon {
@@ -156,12 +193,15 @@ a {
 	width: 100%;
 }
 
+@media screen and (min-width: 900px) {
+	.profile-img {
+		width: 50%;
+	}
+}
+
 pre,
 code {
 	width: 100%;
-}
-
-code {
 }
 
 pre {
@@ -184,6 +224,7 @@ pre {
 	justify-content: space-evenly;
 	align-items: center;
 	position: fixed;
+	overflow-y: auto;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -230,6 +271,11 @@ pre {
 	text-underline-position: under;
 	transition: all 0.3s;
 	margin-bottom: 15px;
+}
+
+.non-home-navigation .nav-item {
+	font-size: 2rem;
+	margin-bottom: 0;
 }
 
 @media screen and (min-width: 900px) {

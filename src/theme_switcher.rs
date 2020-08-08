@@ -10,7 +10,7 @@ pub fn theme_switcher(on_click: rust_fel::ClosureProp, title: String) -> rust_fe
         rust_fel::Props {
             on_click: Some(on_click),
             type_attr: Some("button".to_owned()),
-            class_name: Some(format!("theme-switcher-item")),
+            class_name: Some(format!("theme-switcher-button")),
             children: Some(vec![text]),
             ..Default::default()
         },
