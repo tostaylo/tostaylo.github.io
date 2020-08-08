@@ -9,6 +9,8 @@ use std::rc::Rc;
 pub enum Actions {
     DarkMode,
     LightMode,
+    ShowThemes,
+    HideThemes,
 }
 
 impl Default for Actions {
@@ -20,6 +22,7 @@ impl Default for Actions {
 #[derive(Debug, Default, Clone)]
 pub struct MainState {
     theme: Theme,
+    show_themes: bool,
 }
 
 #[derive(Debug, Default, Clone)]
@@ -53,6 +56,8 @@ impl rust_fel::Component for handle::Handle<Main> {
         match message {
             Actions::LightMode => self.0.borrow_mut().state.theme = Theme::Light,
             Actions::DarkMode => self.0.borrow_mut().state.theme = Theme::Dark,
+            Actions::ShowThemes => self.0.borrow_mut().state.show_themes = true,
+            Actions::HideThemes => self.0.borrow_mut().state.show_themes = false,
         }
 
         rust_fel::re_render(self.render(), Some(self.0.borrow().id.clone()));
@@ -67,7 +72,7 @@ impl rust_fel::Component for handle::Handle<Main> {
             Theme::Light => "light".to_owned(),
         };
         let actions_vec = vec![Actions::DarkMode, Actions::LightMode];
-        let mut items: Vec<rust_fel::Element> = actions_vec
+        let theme_items: Vec<rust_fel::Element> = actions_vec
             .iter()
             .map(|action| {
                 let mut new_clone = self.clone();
@@ -83,19 +88,52 @@ impl rust_fel::Component for handle::Handle<Main> {
                             as rust_fel::ClosureProp,
                         "Dark Mode".to_owned(),
                     ),
+                    _ => (Box::new(|| ()) as rust_fel::ClosureProp, "".to_owned()),
                 };
                 theme_switcher(theme_onclick, theme_title)
             })
             .collect();
 
-        items.push(child_content_component);
+        let theme_toggle_action = match state.show_themes {
+            true => Actions::HideThemes,
+            false => Actions::ShowThemes,
+        };
+
+        let theme_switcher_wrapper = rust_fel::Element::new(
+            "span".to_owned(),
+            rust_fel::Props {
+                class_name: Some(format!("theme-switcher-wrapper")),
+                children: Some(theme_items),
+                ..Default::default()
+            },
+        );
+        let mut clone_for_theme_toggle = self.clone();
+        let theme_toggle_onclick =
+            Box::new(move || clone_for_theme_toggle.reduce_state(theme_toggle_action.clone()))
+                as rust_fel::ClosureProp;
+
+        let theme_toggle = rust_fel::Element::new(
+            "span".to_owned(),
+            rust_fel::Props {
+                role: Some("button".to_owned()),
+                class_name: Some(format!("theme-toggle")),
+                on_click: Some(theme_toggle_onclick),
+                ..Default::default()
+            },
+        );
+
+        let mut children = vec![theme_toggle, child_content_component];
+
+        if state.show_themes {
+            children.push(theme_switcher_wrapper);
+        }
 
         let main = rust_fel::Element::new(
             "div".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("main {}", theme_class)),
-                children: Some(items),
+                children: Some(children),
                 ..Default::default()
             },
         );

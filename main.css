@@ -28,8 +28,19 @@ li {
 	flex-direction: column;
 }
 
-.theme-switcher {
+.theme-switcher-wrapper {
+	top: 50;
+	left: 50;
+	position: absolute;
+	width: 100px;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+}
+.theme-switcher-item {
 	cursor: pointer;
+	height: 40px;
+	width: 100%;
 }
 
 .dark {
@@ -51,6 +62,17 @@ a {
 
 .light a {
 	color: var(--dark-text-color);
+}
+
+.theme-toggle {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: yellowgreen;
+	position: absolute;
+	left: 50;
 }
 
 .content {
