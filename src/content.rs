@@ -124,9 +124,9 @@ impl rust_fel::Component for handle::Handle<Content> {
                 };
 
                 let nav_item_class_name = if content_type == &state.content.clone() {
-                    Some(format!("list-item list-item-active"))
+                    Some(format!("nav-item nav-item-active"))
                 } else {
-                    Some("list-item".to_owned())
+                    Some("nav-item".to_owned())
                 };
 
                 let nav_item = rust_fel::wrapper(
@@ -163,11 +163,20 @@ impl rust_fel::Component for handle::Handle<Content> {
                     as rust_fel::ClosureProp,
             );
 
+        let menu = rust_fel::Element::new(
+            "span".to_owned(),
+            rust_fel::Props {
+                class_name: Some("menu".to_owned()),
+                ..Default::default()
+            },
+        );
+
         let menu_button_mobile = rust_fel::Element::new(
             "span".to_owned(),
             rust_fel::Props {
                 class_name: Some("menu-button".to_owned()),
                 on_click: menu_button_onclick,
+                children: Some(vec![menu]),
                 ..Default::default()
             },
         );

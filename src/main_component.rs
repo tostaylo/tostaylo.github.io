@@ -54,8 +54,14 @@ impl rust_fel::Component for handle::Handle<Main> {
 
     fn reduce_state(&mut self, message: Self::Message) {
         match message {
-            Actions::LightMode => self.0.borrow_mut().state.theme = Theme::Light,
-            Actions::DarkMode => self.0.borrow_mut().state.theme = Theme::Dark,
+            Actions::LightMode => {
+                self.0.borrow_mut().state.theme = Theme::Light;
+                self.0.borrow_mut().state.show_themes = false
+            }
+            Actions::DarkMode => {
+                self.0.borrow_mut().state.theme = Theme::Dark;
+                self.0.borrow_mut().state.show_themes = false
+            }
             Actions::ShowThemes => self.0.borrow_mut().state.show_themes = true,
             Actions::HideThemes => self.0.borrow_mut().state.show_themes = false,
         }
@@ -100,7 +106,7 @@ impl rust_fel::Component for handle::Handle<Main> {
         };
 
         let theme_switcher_wrapper = rust_fel::Element::new(
-            "span".to_owned(),
+            "ul".to_owned(),
             rust_fel::Props {
                 class_name: Some(format!("theme-switcher-wrapper")),
                 children: Some(theme_items),
