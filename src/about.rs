@@ -4,11 +4,14 @@ pub fn about() -> rust_fel::Element {
     let about_text = rust_fel::html(format!(
         "<div>
           <h2>About</h2>
-          <p>I am currently a Senior Software Developer at CoStar Group in Austin, TX where I write and mantain web applications.</p>
-          <p> Outside of work I</p>
-          <p> Am taking courses to attain a computer science master's degree from Harvard Extension.</p>
-          <p> Founded and co-organize the Austin Web Performance Meetup</p>
-          <p>Build things in Rust, Typescript, React, and C#.</p>
+          <p> I am a Senior Software Developer at CoStar Group in Austin, TX where I write and mantain web applications.</p>
+          <p> Outside of work I </p>
+          <ul>
+            <li> Am pursuing a Masters of Liberal Arts Computer Science from Harvard Extension College.</li>
+            <li> Founded and co-organize the Austin Web Performance Meetup.</li>
+            <li> Build things in Rust, Typescript, React, and C#.</li>
+          </ul>
+          <img | class=profile-img src=assets/torre_bw_2018.jpg |></img>
         </div>"
     ));
 

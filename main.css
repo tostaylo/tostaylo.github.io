@@ -6,7 +6,7 @@
 
 .dark {
 	--bg-color: hsl(0, 0%, 0%);
-	--text-color: hsl(0, 0%, 80%);
+	--text-color: hsl(0, 0%, 95%);
 }
 
 .light {
@@ -28,12 +28,13 @@ ul {
 li {
 	cursor: pointer;
 }
+
 .main {
 	width: 100vw;
 	min-height: 100vh;
 	box-sizing: border-box;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	flex-direction: column;
 	color: var(--text-color);
@@ -47,7 +48,7 @@ a {
 
 .theme-switcher-wrapper {
 	top: 40;
-	left: 40;
+	left: 80;
 	position: absolute;
 	width: 100px;
 	height: auto;
@@ -124,7 +125,7 @@ a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20px;
+	margin: 20px 0;
 }
 
 .content-footer-underline {
@@ -138,6 +139,17 @@ a {
 .site-info {
 	width: 100%;
 	flex: 1;
+	padding-top: 10vh;
+}
+
+.about ul {
+	margin: 15px 0;
+	list-style-type: disc;
+	padding-left: 40px;
+}
+
+.profile-img {
+	width: 100%;
 }
 
 pre,
@@ -159,6 +171,7 @@ pre {
 	justify-content: space-evenly;
 	display: flex;
 	flex-direction: column;
+	padding-top: 10vh;
 }
 
 .non-home-navigation {
@@ -166,15 +179,17 @@ pre {
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+	height: 100vh;
 	z-index: 1;
 	opacity: var(--mid-opacity);
 	color: var(--text-color);
 	background: var(--bg-color);
+	margin-bottom: 100px;
 }
 
 @media screen and (min-width: 900px) {
@@ -204,18 +219,25 @@ pre {
 }
 
 .nav-item {
-	opacity: var(--low-opacity);
+	opacity: var(--mid-opacity);
 	font-size: 3rem;
 	font-weight: 300;
 	text-decoration: underline;
 	text-underline-position: under;
 	transition: all 0.3s;
+	margin-bottom: 15px;
 }
 
 @media screen and (min-width: 900px) {
 	.non-home-navigation .nav-item {
 		font-size: 1rem;
 		text-underline-position: auto;
+		margin-bottom: 0;
+		min-width: 75px;
+		height: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
 
