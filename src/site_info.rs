@@ -1,17 +1,24 @@
 use rust_fel;
 
 pub fn site_info() -> rust_fel::Element {
-    let beginning = rust_fel::html(format!(
-        "<div> 
-          <h2>Site Info</h2>
-         <p> 
-             You are viewing a site built with Rust and Web Assembly.
-             Here are the reasons I chose Rust and Web Assembly.
-             Additonally, I have invented my own front-end-framework ( Yes the world needed another one ).
-             It's not very good. But it got the job done.
-        </p>
-        </div>"
-    ));
+    let intro_text = format!(
+        "
+<div |classname=site-info-intro|> 
+  <h2>Site Info</h2>
+  <p>  
+    You are viewing a site built with Rust and Web Assembly.
+    Here are the reasons I chose Rust and Web Assembly.
+    Additonally, I have invented my own front-end-framework ( Yes the world needed another one ).
+    It's not very good. But it got the job done.
+  </p>
+</div>"
+    );
+    let rust_fel_html_text = format!(
+        "let html = 
+rust_fel::html({});",
+        intro_text.clone()
+    );
+    let intro_el = rust_fel::html(intro_text);
 
     let rust_fel_fc_text = format!(
         "
@@ -44,14 +51,14 @@ use std::rc::Rc;
 
 #[derive(Debug, Default, Clone)]
 pub struct ChildProps {{
-pub string_props: String,
+  pub string_props: String,
 }}
 
 #[derive(Debug, Default, Clone)]
 pub struct MainSibling {{
-state: i32,
-props: ChildProps,
-id: String,
+  state: i32,
+  props: ChildProps,
+  id: String,
 }}
 
 impl MainSibling {{
@@ -65,6 +72,7 @@ pub fn create() -> handle::Handle<Self> {{
 }}
 
 impl rust_fel::Component for handle::Handle<MainSibling> {{
+
 type Properties = ChildProps;
 type Message = Action;
 type State = i32;
@@ -127,14 +135,18 @@ fn render(&self) -> rust_fel::Element {{
         "Here is a rust_fel struct component.",
     );
 
+    let rust_fel_rsx_code_block =
+        code_pre_block(rust_fel_html_text, "Here is a rust_fel rsx element.");
+
     let site_info = rust_fel::Element::new(
         "div".to_owned(),
         rust_fel::Props {
             class_name: Some(format!("site-info")),
             children: Some(vec![
-                beginning,
+                intro_el,
                 rust_fel_struct_code_block,
                 rust_fel_fc_code_block,
+                rust_fel_rsx_code_block,
             ]),
             ..Default::default()
         },
