@@ -243,7 +243,7 @@ pre {
 }
 
 code {
-	font-size: 0.75em;
+	font-size: 8px !important;
 	font-family: Menlo, monospace, sans-serif;
 }
 
