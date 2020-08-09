@@ -9,7 +9,7 @@ pub fn site_info() -> rust_fel::Element {
     You are viewing a site built with Rust and Web Assembly.
     Here are the reasons I chose Rust and Web Assembly.
     Additonally, I have invented my own front-end-framework ( Yes the world needed another one ).
-    It's not very good. But it got the job done.
+    It's not very good. 
   </p>
 </div>"
     );

@@ -210,14 +210,19 @@ button:active {
 .about li {
 	margin-bottom: 10px;
 }
-
+.profile-img-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+}
 .profile-img {
 	width: 100%;
 }
 
 @media screen and (min-width: 900px) {
 	.profile-img {
-		width: 50%;
+		width: 70%;
 	}
 }
 
@@ -237,18 +242,18 @@ pre {
 }
 
 .home-navigation {
+	max-width: 190px;
+}
+
+.home-navigation ul {
 	flex: 1;
 	justify-content: space-evenly;
 	display: flex;
 	flex-direction: column;
 	padding-top: 10vh;
-	max-width: 175px;
 }
 
 .non-home-navigation {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	position: fixed;
 	overflow-y: auto;
 	top: 0;
@@ -262,16 +267,25 @@ pre {
 	background: var(--bg-color);
 	margin-bottom: 100px;
 	padding: 50px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.non-home-navigation ul {
 }
 
 @media screen and (min-width: 900px) {
 	.non-home-navigation {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
 		width: 100%;
 		position: relative;
 		flex: 0;
+	}
+
+	.non-home-navigation ul {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
 		opacity: var(--full-opacity);
 		flex-wrap: wrap;
 	}

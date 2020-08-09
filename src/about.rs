@@ -11,7 +11,9 @@ pub fn about() -> rust_fel::Element {
             <li> Founded and co-organize the Austin Web Performance Meetup.</li>
             <li> Build things in Rust, Typescript, React, and C#.</li>
           </ul>
-          <img | class=profile-img src=assets/torre_bw_2018.jpg |></img>
+          <div | class=profile-img-container |>
+            <img | class=profile-img src=assets/torre-bw-2018.jpg |></img>
+          </div>
         </div>"
     ));
 

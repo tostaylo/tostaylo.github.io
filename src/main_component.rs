@@ -138,7 +138,7 @@ impl rust_fel::Component for handle::Handle<Main> {
         }
 
         let main = rust_fel::Element::new(
-            "div".to_owned(),
+            "main".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("main {}", theme_class)),

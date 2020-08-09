@@ -141,14 +141,22 @@ impl rust_fel::Component for handle::Handle<Content> {
             .collect();
 
         fn navigation(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
-            let nav = rust_fel::Element::new(
+            let ul = rust_fel::Element::new(
                 "ul".to_owned(),
                 rust_fel::Props {
                     children: Some(list_items),
+                    ..Default::default()
+                },
+            );
+            let nav = rust_fel::Element::new(
+                "nav".to_owned(),
+                rust_fel::Props {
+                    children: Some(vec![ul]),
                     class_name: Some(class_name),
                     ..Default::default()
                 },
             );
+
             nav
         }
 
@@ -221,7 +229,7 @@ impl rust_fel::Component for handle::Handle<Content> {
         };
 
         let content = rust_fel::Element::new(
-            "div".to_owned(),
+            "section".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
                 class_name: Some(format!("content")),
