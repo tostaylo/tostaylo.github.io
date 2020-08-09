@@ -28,7 +28,7 @@
 html,
 body {
 	margin: 0;
-	font-family: Helvetica Neue, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 	box-sizing: border-box;
 	text-size-adjust: none;
 }
@@ -240,13 +240,11 @@ pre {
 	background: var(--code-block-bg);
 	color: var(--code-block-color);
 	padding: 10px;
-	font-size: 0.875em !important;
-	font-family: monospace !important;
 }
 
 code {
-	font-size: 0.875em !important;
-	font-family: monospace !important;
+	font-size: 0.75em;
+	font-family: Menlo, monospace, sans-serif;
 }
 
 .home-navigation {
@@ -278,9 +276,6 @@ code {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}
-
-.non-home-navigation ul {
 }
 
 @media screen and (min-width: 900px) {
@@ -316,8 +311,7 @@ code {
 	opacity: var(--mid-opacity);
 	font-size: 3rem;
 	font-weight: 300;
-	text-decoration: underline;
-	text-underline-position: under;
+
 	transition: all 0.3s;
 	margin-bottom: 15px;
 }
@@ -329,7 +323,6 @@ code {
 @media screen and (min-width: 900px) {
 	.non-home-navigation .nav-item {
 		font-size: 1rem;
-		text-underline-position: auto;
 		margin-bottom: 0;
 		min-width: 75px;
 		height: 40px;
@@ -343,6 +336,8 @@ code {
 .nav-item-active {
 	font-weight: 400;
 	opacity: var(--mid-opacity);
+	text-decoration: underline;
+	text-underline-position: under;
 }
 
 .menu,
