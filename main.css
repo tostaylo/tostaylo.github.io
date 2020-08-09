@@ -240,11 +240,13 @@ pre {
 	background: var(--code-block-bg);
 	color: var(--code-block-color);
 	padding: 10px;
+	font-size: 0.875em !important;
+	font-family: monospace !important;
 }
 
 code {
-	font-family: Helvetica Neue, Arial, sans-serif;
-	font-size: 0.875em;
+	font-size: 0.875em !important;
+	font-family: monospace !important;
 }
 
 .home-navigation {
