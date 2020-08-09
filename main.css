@@ -201,6 +201,10 @@ button:active {
 	padding-left: 40px;
 }
 
+.about li {
+	margin-bottom: 10px;
+}
+
 .profile-img {
 	width: 100%;
 }
@@ -216,7 +220,7 @@ code {
 	justify-content: flex-start;
 	align-items: center;
 	display: flex;
-	max-width: 400px;
+	max-width: 100%;
 }
 
 pre {
@@ -232,7 +236,7 @@ pre {
 	display: flex;
 	flex-direction: column;
 	padding-top: 10vh;
-	max-width: 275px;
+	max-width: 175px;
 }
 
 .non-home-navigation {
