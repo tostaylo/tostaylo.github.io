@@ -83,15 +83,21 @@ button:active {
 	cursor: pointer;
 }
 
-.theme-switcher-wrapper:nth-child(2n + 1) button {
+.theme-switcher-wrapper li {
+	border-width: 1px;
+	border-style: solid;
+	border-color: var(--border-color);
+}
+
+.theme-switcher-wrapper li:nth-child(2n + 1) {
 	border-bottom: none;
 }
 
 .theme-switcher-button {
+	width: 100%;
+	border: none;
+	outline: none;
 	display: inline-block;
-	border-width: 1px;
-	border-style: solid;
-	border-color: var(--border-color);
 	padding: 1rem 2rem;
 	margin: 0;
 	text-decoration: none;
