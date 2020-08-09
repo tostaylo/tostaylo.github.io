@@ -74,8 +74,8 @@ button:active {
 	transform: scale(0.99);
 }
 .theme-switcher-wrapper {
-	top: 40;
-	right: 15;
+	top: 40px;
+	right: 15px;
 	position: absolute;
 	height: auto;
 	display: flex;
@@ -112,7 +112,7 @@ button:active {
 }
 
 .theme-toggle {
-	right: 15;
+	right: 15px;
 	top: 0;
 	height: 40px;
 	width: 40px;
@@ -347,13 +347,13 @@ pre {
 }
 
 .menu {
-	top: 20;
+	top: 20px;
 }
 
 .menu-button {
 	position: absolute;
 	top: 0;
-	left: 15;
+	left: 15px;
 	display: flex;
 	justify-content: flex-start;
 	height: 40px;
