@@ -30,6 +30,7 @@ body {
 	margin: 0;
 	font-family: Helvetica Neue, Arial, sans-serif;
 	box-sizing: border-box;
+	text-size-adjust: none;
 }
 
 ul {
@@ -239,6 +240,11 @@ pre {
 	background: var(--code-block-bg);
 	color: var(--code-block-color);
 	padding: 10px;
+}
+
+code {
+	font-family: Helvetica Neue, Arial, sans-serif;
+	font-size: 0.875em;
 }
 
 .home-navigation {

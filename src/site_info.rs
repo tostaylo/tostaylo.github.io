@@ -27,7 +27,7 @@ use rust_fel;
 pub fn site_info() -> rust_fel::Element {{
   let site_info = rust_fel::Element::new(
     \"div\".to_owned(),
-    rust_fel::Props {{}}
+    rust_fel::Props {{
         class_name: Some(format!(\"site-info\")),
         ..Default::default()
     }},
