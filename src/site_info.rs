@@ -13,23 +13,22 @@ pub fn site_info() -> rust_fel::Element {
         <p>
             Here is a simple rust_fel functional component!
         </p>
-          <pre>
-            <code>
-                use rust_fel;
+<pre>
+<code>
+use rust_fel;
 
-                pub fn site_info() -> rust_fel::Element {{
-                let site_info = rust_fel::Element::new(
-                        \"div\".to_owned(),
-                        rust_fel::Props {{}}
-                            class_name: Some(format!(\"site-info\")),
-                            children: Some(vec![site_info_text]),
-                            ..Default::default()
-                        }},
-                    );
-                    site_info
-                }}
-            </code>
-         </pre>
+pub fn site_info() -> rust_fel::Element {{
+  let site_info = rust_fel::Element::new(
+    \"div\".to_owned(),
+    rust_fel::Props {{}}
+        class_name: Some(format!(\"site-info\")),
+        ..Default::default()
+    }},
+  );
+site_info
+}}
+</code>
+</pre>
         </div>"
     ));
 

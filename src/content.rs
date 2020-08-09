@@ -152,9 +152,18 @@ impl rust_fel::Component for handle::Handle<Content> {
             nav
         }
 
-        let (menu_button_action, nav_toggle_classname) = match state.is_nav {
-            true => (Actions::HideNav, "show-nav"),
-            false => (Actions::ShowNav, "hide-nav"),
+        let (menu_button_action, nav_toggle_classname, body_lock) = match state.is_nav {
+            true => {
+                let body_lock = rust_fel::html(format!(
+            "<style>@media screen and (max-width: 900px){{body{{position:fixed; overflow:hidden;}}}}</style>"
+        ));
+                (Actions::HideNav, "show-nav", body_lock)
+            }
+            false => (
+                Actions::ShowNav,
+                "hide-nav",
+                rust_fel::html(format!("<style></style")),
+            ),
         };
         let mut clone_for_menu_button = self.clone();
         let menu_button_onclick =
@@ -176,6 +185,7 @@ impl rust_fel::Component for handle::Handle<Content> {
         let content_footer = rust_fel::html(format!(
             "<div |class=content-footer|><span |class=content-footer-underline|></span></div>"
         ));
+
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![
                 menu_button_mobile,
@@ -185,6 +195,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
+                body_lock,
             ]),
             ContentType::SiteInfo => Some(vec![
                 menu_button_mobile,
@@ -194,6 +205,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
+                body_lock,
             ]),
             ContentType::Posts => Some(vec![
                 menu_button_mobile,
@@ -203,6 +215,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
+                body_lock,
             ]),
             _ => Some(vec![navigation(nav_items, "home-navigation".to_owned())]),
         };

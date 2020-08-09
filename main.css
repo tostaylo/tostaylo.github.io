@@ -29,7 +29,9 @@ html,
 body {
 	margin: 0;
 	font-family: Helvetica Neue, Arial, sans-serif;
+	box-sizing: border-box;
 }
+
 ul {
 	padding: 0;
 	margin: 0;
@@ -57,15 +59,32 @@ a {
 	color: var(--text-color);
 }
 
+button:hover,
+button:focus {
+	background: var(--text-color-mod);
+	color: var(--bg-color-mod);
+}
+
+button:focus {
+	outline: 1px solid #fff;
+	outline-offset: -4px;
+}
+
+button:active {
+	transform: scale(0.99);
+}
 .theme-switcher-wrapper {
 	top: 40;
-	left: 80;
+	right: 15;
 	position: absolute;
-	width: 200px;
 	height: auto;
 	display: flex;
 	flex-direction: column;
 	cursor: pointer;
+}
+
+.theme-switcher-wrapper:nth-child(2n + 1) button {
+	border-bottom: none;
 }
 
 .theme-switcher-button {
@@ -86,27 +105,12 @@ a {
 	-moz-appearance: none;
 }
 
-button:hover,
-button:focus {
-	background: var(--text-color-mod);
-	color: var(--bg-color-mod);
-}
-
-button:focus {
-	outline: 1px solid #fff;
-	outline-offset: -4px;
-}
-
-button:active {
-	transform: scale(0.99);
-}
-
 .theme-toggle {
-	left: 60;
+	right: 15;
 	top: 0;
 	height: 40px;
 	width: 40px;
-	justify-content: center;
+	justify-content: flex-end;
 	display: flex;
 	align-items: center;
 	position: absolute;
@@ -156,10 +160,18 @@ button:active {
 }
 
 .content {
-	width: 80%;
+	box-sizing: border-box;
+	width: 100%;
 	min-height: 400px;
 	display: flex;
 	flex-direction: column;
+	padding: 0 15px;
+}
+
+@media screen and (min-width: 900px) {
+	.content {
+		width: 80%;
+	}
 }
 
 .content-footer {
@@ -201,13 +213,17 @@ button:active {
 
 pre,
 code {
-	width: 100%;
+	justify-content: flex-start;
+	align-items: center;
+	display: flex;
+	max-width: 400px;
 }
 
 pre {
-	white-space: pre-wrap;
+	overflow-x: auto;
 	background: var(--code-block-bg);
 	color: var(--code-block-color);
+	padding: 10px;
 }
 
 .home-navigation {
@@ -216,12 +232,12 @@ pre {
 	display: flex;
 	flex-direction: column;
 	padding-top: 10vh;
+	max-width: 275px;
 }
 
 .non-home-navigation {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
 	align-items: center;
 	position: fixed;
 	overflow-y: auto;
@@ -235,6 +251,7 @@ pre {
 	color: var(--text-color);
 	background: var(--bg-color);
 	margin-bottom: 100px;
+	padding: 50px 0;
 }
 
 @media screen and (min-width: 900px) {
@@ -275,7 +292,6 @@ pre {
 
 .non-home-navigation .nav-item {
 	font-size: 2rem;
-	margin-bottom: 0;
 }
 
 @media screen and (min-width: 900px) {
@@ -327,9 +343,9 @@ pre {
 .menu-button {
 	position: absolute;
 	top: 0;
-	left: 10;
+	left: 15;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	height: 40px;
 	width: 40px;
 	z-index: 2;
