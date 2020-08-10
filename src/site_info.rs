@@ -62,13 +62,13 @@ pub struct MainSibling {{
 }}
 
 impl MainSibling {{
-pub fn create() -> handle::Handle<Self> {{
-    let main_child = MainSibling {{
-        id: \"main-sibling\".to_owned(),
-        ..Default::default()
-    }};
-    handle::Handle(Rc::new(RefCell::new(main_child)))
-}}
+  pub fn create() -> handle::Handle<Self> {{
+      let main_child = MainSibling {{
+          id: \"main-sibling\".to_owned(),
+          ..Default::default()
+      }};
+      handle::Handle(Rc::new(RefCell::new(main_child)))
+  }}
 }}
 
 impl rust_fel::Component for handle::Handle<MainSibling> {{

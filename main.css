@@ -30,7 +30,7 @@ body {
 	margin: 0;
 	font-family: Helvetica, Arial, sans-serif;
 	box-sizing: border-box;
-	text-size-adjust: none;
+	-webkit-text-size-adjust: 100%;
 }
 
 ul {
@@ -243,7 +243,7 @@ pre {
 }
 
 code {
-	font-size: 10px !important;
+	font-size: 12px;
 	font-family: Menlo, monospace, sans-serif;
 }
 
