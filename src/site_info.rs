@@ -3,14 +3,15 @@ use rust_fel;
 pub fn site_info() -> rust_fel::Element {
     let intro_text = format!(
         "
-<div |classname=site-info-intro|> 
+<div |class=site-info-intro|> 
   <h2>Site Info</h2>
-  <p>  
-    You are viewing a site built with Rust and Web Assembly.
-    Here are the reasons I chose Rust and Web Assembly.
-    Additonally, I have invented my own front-end-framework ( Yes the world needed another one ).
-    It's not very good. 
+  <p> You are viewing a site built with Rust and Web Assembly. There are a million articles online about why Rust is a good choice but I'll only link to one.
+    <a | href=https://rustwasm.github.io/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
   </p>
+  <p> To assist in building this site, I created another front-end-library the world doesn't need  -- 
+    <a | href=https://github.com/tostaylo/rust-fel |> rust_fel. </a>
+  </p>
+  <p> It's not very good, but I like showing it off!.</p>
 </div>"
     );
     let rust_fel_html_text = format!(
@@ -44,36 +45,38 @@ site_info
         "
 use crate::action::Action;
 use crate::handle;
-use crate::text_wrapper::text_wrapper;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
 
+
 #[derive(Debug, Default, Clone)]
-pub struct ChildProps {{
+pub struct MainProps {{
   pub string_props: String,
 }}
 
 #[derive(Debug, Default, Clone)]
-pub struct MainSibling {{
+pub struct Main {{
   state: i32,
-  props: ChildProps,
+  props: MainProps,
   id: String,
 }}
 
-impl MainSibling {{
+
+impl Main {{
   pub fn create() -> handle::Handle<Self> {{
-      let main_child = MainSibling {{
-          id: \"main-sibling\".to_owned(),
+      let main = Main {{
+          id: \"main\".to_owned(),
           ..Default::default()
       }};
-      handle::Handle(Rc::new(RefCell::new(main_child)))
+      handle::Handle(Rc::new(RefCell::new(main)))
   }}
 }}
 
-impl rust_fel::Component for handle::Handle<MainSibling> {{
 
-type Properties = ChildProps;
+impl rust_fel::Component for handle::Handle<Main> {{
+
+type Properties = MainProps;
 type Message = Action;
 type State = i32;
 
@@ -105,21 +108,22 @@ fn render(&self) -> rust_fel::Element {{
         }},
     );
 
-    let main_el = text_wrapper(
+    let main_el = rust_fel::Element::new(
         \"div\".to_owned(),
-        Some(vec![main_text]),
-        None,
-        Some(\"main-text\".to_owned()),
+        rust_fel::Props {{
+            children: Some(vec![main_text]),
+            ..Default::default()
+        }},
     );
 
-    let closure = move || clone.reduce_state(Action::Decrement);
+    let handle_click = move || clone.reduce_state(Action::Decrement);
 
     let main = rust_fel::Element::new(
         \"div\".to_owned(),
         rust_fel::Props {{
             id: Some(self.0.borrow().id.clone()),
-            on_click: Some(Box::new(closure.clone())),
-            class_name: Some(\"main-child\".to_owned()),
+            on_click: Some(Box::new(handle_click.clone())),
+            class_name: Some(\"main\".to_owned()),
             children: Some(vec![main_el]),
             ..Default::default()
         }},
@@ -136,7 +140,20 @@ fn render(&self) -> rust_fel::Element {{
     );
 
     let rust_fel_rsx_code_block =
-        code_pre_block(rust_fel_html_text, "Here is a rust_fel rsx element.");
+        code_pre_block(rust_fel_html_text, "Here is a rust_fel html function.");
+
+    let outro_text = rust_fel::html(format!(
+        "
+<div |class=site-info-intro|>
+  <p>
+    <span>My influences in creating this library were </span> 
+    <a | href=https://github.com/facebook/react |>React </a> 
+    <span> and </span>
+    <a | href=https://github.com/yewstack/yew |> Yew</a>
+    <span>.</span>
+  </p>
+</div>"
+    ));
 
     let site_info = rust_fel::Element::new(
         "div".to_owned(),
@@ -147,6 +164,7 @@ fn render(&self) -> rust_fel::Element {{
                 rust_fel_struct_code_block,
                 rust_fel_fc_code_block,
                 rust_fel_rsx_code_block,
+                outro_text,
             ]),
             ..Default::default()
         },

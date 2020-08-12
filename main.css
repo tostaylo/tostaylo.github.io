@@ -202,6 +202,15 @@ button:active {
 	padding-top: 10vh;
 }
 
+.site-info p {
+	margin: 8px 0;
+	line-height: 1.3em;
+}
+
+.site-info-intro a {
+	color: rgb(207, 4, 4);
+}
+
 .about ul {
 	margin: 15px 0;
 	list-style-type: disc;
