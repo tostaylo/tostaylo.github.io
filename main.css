@@ -283,6 +283,7 @@ code {
 		width: 100%;
 		position: relative;
 		flex: 0;
+		height: auto;
 	}
 
 	.non-home-navigation ul {

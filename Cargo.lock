@@ -79,6 +79,7 @@ dependencies = [
  "console_error_panic_hook",
  "rust-fel",
  "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]

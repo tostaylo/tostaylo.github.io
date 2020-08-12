@@ -14,5 +14,12 @@ console_error_panic_hook = "0.1.6"
 [dependencies.rust-fel]
 path = "../rust-fel" 
 
+[dependencies.web-sys]
+version = "0.3.44"
+features = [
+  'Window',
+  'ScrollToOptions',
+]
+
 [profile.release]
 lto = true

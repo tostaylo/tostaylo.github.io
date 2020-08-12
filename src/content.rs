@@ -5,7 +5,7 @@ use crate::site_info::site_info;
 use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
-
+use web_sys::ScrollToOptions;
 #[derive(Debug, Clone, PartialEq)]
 pub enum ContentType {
     Home,
@@ -71,6 +71,11 @@ impl rust_fel::Component for handle::Handle<Content> {
     }
 
     fn reduce_state(&mut self, message: Self::Message) {
+        let window = web_sys::window().expect("no global `window` exists");
+        let mut opts = ScrollToOptions::new();
+        opts.top(0.0);
+        window.scroll_with_scroll_to_options(&opts);
+
         match message {
             Actions::ContentType(x) => {
                 self.0.borrow_mut().state.content = x;
