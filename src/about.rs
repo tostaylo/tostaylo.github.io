@@ -7,9 +7,16 @@ pub fn about() -> rust_fel::Element {
           <p> I am a Senior Software Developer at CoStar Group in Austin, TX where I write and mantain web applications.</p>
           <p> Outside of work I </p>
           <ul>
-            <li> Am pursuing a Masters of Liberal Arts Computer Science from Harvard Extension College.</li>
-            <li> Founded and co-organize the Austin Web Performance Meetup.</li>
+            <li>
+             <span>Am pursuing a </span> 
+              <a | href=https://www.extension.harvard.edu/academics/graduate-degrees/software-engineering-degree |>Masters of Liberal Arts Computer Science from Harvard Extension College.</a>
+            </li>
+            <li> 
+              <span>Founded and co-organize the </span> 
+                <a | href=https://www.meetup.com/austin-web-performance |>Austin Web Performance Meetup.</a>
+            </li>
             <li> Build things in Rust, Typescript, React, and C#.</li>
+            <li> Play loud, overly distorted, barely listenable, guitar. </li>
           </ul>
           <div | class=profile-img-container |>
             <img | class=profile-img src=assets/torre-bw-2018.jpg |></img>

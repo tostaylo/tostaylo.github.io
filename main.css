@@ -3,6 +3,7 @@
 	--mid-opacity: 0.9;
 	--low-opacity: 0.3;
 	--desktop-width: 900px;
+	--site-anchor: rgb(207, 4, 4);
 }
 
 .dark {
@@ -202,13 +203,17 @@ button:active {
 	padding-top: 10vh;
 }
 
+.about a {
+	color: var(--site-anchor);
+}
+
 .site-info p {
 	margin: 8px 0;
 	line-height: 1.3em;
 }
 
 .site-info-intro a {
-	color: rgb(207, 4, 4);
+	color: var(--site-anchor);
 }
 
 .about ul {
