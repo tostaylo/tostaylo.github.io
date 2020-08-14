@@ -3,13 +3,13 @@ use rust_fel;
 pub fn site_info() -> rust_fel::Element {
     let intro_text = format!(
         "
-<div |class=site-info-intro|> 
+<div |class=site-info-text-block|> 
   <h2>Site Info</h2>
   <p> You are viewing a site built with Rust and Web Assembly. There are a million articles online about why Rust is a good choice but I'll only link to one.
     <a | href=https://rustwasm.github.io/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
   </p>
   <p> To assist in building this site, I created another front-end-library the world doesn't need  -- 
-    <a | href=https://github.com/tostaylo/rust-fel |> rust_fel. </a>
+    <a | href=https://github.com/tostaylo/rust-fel |><pre><code>rust_fel</code></pre></a>
   </p>
   <p> It's not very good, but I like showing it off!.</p>
 </div>"
@@ -34,7 +34,7 @@ pub fn site_info() -> rust_fel::Element {{
     }},
   );
 
-site_info
+  site_info
 }}"
     );
 
@@ -142,15 +142,59 @@ fn render(&self) -> rust_fel::Element {{
     let rust_fel_rsx_code_block =
         code_pre_block(rust_fel_html_text, "Here is a rust_fel html function.");
 
-    let outro_text = rust_fel::html(format!(
+    let post_component_text = rust_fel::html(format!(
         "
-<div |class=site-info-intro|>
+<div |class=site-info-text-block|>
   <p>
     <span>My influences in creating this library were </span> 
     <a | href=https://github.com/facebook/react |>React </a> 
     <span> and </span>
-    <a | href=https://github.com/yewstack/yew |> Yew</a>
-    <span>.</span>
+    <a | href=https://github.com/yewstack/yew |> Yew</a>s
+    <span>.  </span>
+    <span>In case you were wondering</span>
+    <pre><code>rust_fel</code></pre>  
+    <span> uses a Virtual DOM.  But nothing fancy.  </span>
+    <span>If a </span>
+    <pre><code>rust_fel</code></pre>  
+    <span>component chooses to update itself, a new Virtual DOM is constructed.
+      The DOM Node the component represents and all of it's children are removed from the DOM.
+      Finally, a new DOM tree is constructed from the position of the root DOM Node removed.
+    </span>
+  </p>
+  <p>
+    <pre><code>rust_fel</code></pre> 
+      <span> includes support for state management at the component level.  
+      Data flows one direction, down, from parent to children.
+      A parent can update it's children by updating itself and passing new data to the child. 
+      A child can update it's parent, if the parent gives the child the means to. 
+      Siblings cannot update one another directly. 
+      Any communication between siblings must be done through the parent.
+    </span>
+  </p>
+</div>"
+    ));
+
+    let pre_rsx_text = rust_fel::html(format!(
+        "
+<div |class=site-info-text-block|>
+  <p>
+    <pre><code>rust_fel</code></pre> 
+    <span>includes a small </span>    
+    <a | href=https://github.com/facebook/jsx |>jsx</a>
+    <span>-like library in order to write basic html elements with less syntactic effort.</span>
+  </p>
+</div>"
+    ));
+
+    let outro_text = rust_fel::html(format!(
+        "
+<div |class=site-info-text-block|> 
+  <p> 
+   <span><pre><code>rust_fel</code></pre></span>
+    <span> has one major dependency</span>
+    <a | href=https://github.com/rustwasm/wasm-bindgen |>
+      <pre><code>rustwasm/wasm-bindgen</code></pre>
+    </a>
   </p>
 </div>"
     ));
@@ -162,7 +206,9 @@ fn render(&self) -> rust_fel::Element {{
             children: Some(vec![
                 intro_el,
                 rust_fel_struct_code_block,
+                post_component_text,
                 rust_fel_fc_code_block,
+                pre_rsx_text,
                 rust_fel_rsx_code_block,
                 outro_text,
             ]),

@@ -18,7 +18,7 @@ pub fn main() -> Result<(), JsValue> {
     console_error_panic_hook::set_once();
     let main = Main::create();
     let app = rust_fel::App::new(main);
-    app.mount();
+    app.mount("root");
 
     Ok(())
 }

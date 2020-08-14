@@ -3,7 +3,6 @@
 	--mid-opacity: 0.9;
 	--low-opacity: 0.3;
 	--desktop-width: 900px;
-	--site-anchor: rgb(207, 4, 4);
 }
 
 .dark {
@@ -14,6 +13,7 @@
 	--code-block-bg: #1d1f21;
 	--code-block-color: #c5c8c6;
 	--border-color: hsl(0, 0%, 20%);
+	--site-anchor: #2b79a2;
 }
 
 .light {
@@ -24,6 +24,7 @@
 	--code-block-color: #1d1f21;
 	--code-block-bg: #c5c8c6;
 	--border-color: hsl(0, 0%, 60%);
+	--site-anchor: #085d8b;
 }
 
 html,
@@ -34,6 +35,27 @@ body {
 	-webkit-text-size-adjust: 100%;
 }
 
+pre,
+code {
+	justify-content: flex-start;
+	align-items: center;
+	display: flex;
+	max-width: 100%;
+}
+
+pre {
+	overflow-x: auto;
+	background: var(--code-block-bg);
+	color: var(--code-block-color);
+	padding: 10px;
+	border-radius: 3px;
+}
+
+code {
+	font-size: 12px;
+	font-family: Menlo, monospace, sans-serif;
+}
+
 ul {
 	padding: 0;
 	margin: 0;
@@ -42,18 +64,6 @@ ul {
 
 li {
 	cursor: pointer;
-}
-
-.main {
-	width: 100vw;
-	min-height: 100vh;
-	box-sizing: border-box;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	flex-direction: column;
-	color: var(--text-color);
-	background: var(--bg-color);
 }
 
 a {
@@ -74,6 +84,18 @@ button:focus {
 
 button:active {
 	transform: scale(0.99);
+}
+
+.main {
+	width: 100vw;
+	min-height: 100vh;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+	color: var(--text-color);
+	background: var(--bg-color);
 }
 .theme-switcher-wrapper {
 	top: 40px;
@@ -207,13 +229,34 @@ button:active {
 	color: var(--site-anchor);
 }
 
-.site-info p {
-	margin: 8px 0;
-	line-height: 1.3em;
+.site-info-text-block a {
+	display: inline-flex;
 }
 
-.site-info-intro a {
+.site-info-text-block p {
+	margin: 8px 0;
+	line-height: 1.5em;
+}
+
+.site-info-text-block code,
+.site-info-text-block pre {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	vertical-align: bottom;
+}
+
+.site-info-text-block code {
+	padding: 0 5px;
 	color: var(--site-anchor);
+}
+
+.site-info-text-block a {
+	color: var(--site-anchor);
+}
+
+.site-info-text-block {
+	margin: 30px 0;
 }
 
 .about ul {
@@ -239,26 +282,6 @@ button:active {
 	.profile-img {
 		width: 70%;
 	}
-}
-
-pre,
-code {
-	justify-content: flex-start;
-	align-items: center;
-	display: flex;
-	max-width: 100%;
-}
-
-pre {
-	overflow-x: auto;
-	background: var(--code-block-bg);
-	color: var(--code-block-color);
-	padding: 10px;
-}
-
-code {
-	font-size: 12px;
-	font-family: Menlo, monospace, sans-serif;
 }
 
 .home-navigation {
