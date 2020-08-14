@@ -71,6 +71,11 @@ a {
 	color: var(--text-color);
 }
 
+p {
+	margin: 8px 0;
+	line-height: 1.5em;
+}
+
 button:hover,
 button:focus {
 	background: var(--text-color-mod);
@@ -232,12 +237,6 @@ button:active {
 .site-info-text-block a {
 	display: inline-flex;
 }
-
-.site-info-text-block p {
-	margin: 8px 0;
-	line-height: 1.5em;
-}
-
 .site-info-text-block code,
 .site-info-text-block pre {
 	display: inline-block;

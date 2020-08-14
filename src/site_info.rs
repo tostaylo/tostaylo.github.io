@@ -6,9 +6,9 @@ pub fn site_info() -> rust_fel::Element {
 <div |class=site-info-text-block|> 
   <h2>Site Info</h2>
   <p> You are viewing a site built with Rust and Web Assembly. There are a million articles online about why Rust is a good choice but I'll only link to one.
-    <a | href=https://rustwasm.github.io/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
+    <a | href=https://rustwasm.github.io/docs/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
   </p>
-  <p> To assist in building this site, I created another front-end-library the world doesn't need  -- 
+  <p> To assist in building this site, I created another front-end-library the world does not need  -- 
     <a | href=https://github.com/tostaylo/rust-fel |><pre><code>rust_fel</code></pre></a>
   </p>
   <p> It's not very good, but I like showing it off!.</p>
@@ -151,7 +151,7 @@ fn render(&self) -> rust_fel::Element {{
     <span> and </span>
     <a | href=https://github.com/yewstack/yew |> Yew</a>s
     <span>.  </span>
-    <span>In case you were wondering</span>
+    <span>In case you were wondering, </span>
     <pre><code>rust_fel</code></pre>  
     <span> uses a Virtual DOM.  But nothing fancy.  </span>
     <span>If a </span>
