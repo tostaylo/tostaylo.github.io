@@ -122,7 +122,7 @@ fn render(&self) -> rust_fel::Element {{
         \"div\".to_owned(),
         rust_fel::Props {{
             id: Some(self.0.borrow().id.clone()),
-            on_click: Some(Box::new(handle_click.clone())),
+            on_click: Some(Box::new(handle_click)),
             class_name: Some(\"main\".to_owned()),
             children: Some(vec![main_el]),
             ..Default::default()
