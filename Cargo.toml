@@ -12,7 +12,7 @@ wasm-bindgen = "0.2.62"
 console_error_panic_hook = "0.1.6"
 
 [dependencies.rust-fel]
-path = "../rust-fel" 
+git = "https://github.com/tostaylo/rust-fel"
 
 [dependencies.web-sys]
 version = "0.3.44"
