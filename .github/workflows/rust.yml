@@ -62,3 +62,16 @@ jobs:
         with:
           command: clippy
           args: -- -D warnings
+  cypress:
+    name: End-to-end tests
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run node-server
+          wait-on: 'http://localhost:8000'
