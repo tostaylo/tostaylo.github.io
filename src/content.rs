@@ -104,11 +104,11 @@ impl rust_fel::Component for handle::Handle<Content> {
 
                 let (label, html_type) = match content_type {
                     ContentType::Home => ("<span>Home</span>", "li"),
-                    ContentType::Posts => ("<span>Posts</span>", "li"),
+                    ContentType::Posts => ("<span | data-cy=nav-posts |>Posts</span>", "li"),
                     ContentType::SiteInfo => {
                         ("<span | data-cy=nav-site-info |>Site Info</span>", "li")
                     }
-                    ContentType::About => ("<span>About</span>", "li"),
+                    ContentType::About => ("<span | data-cy=nav-about |>About</span>", "li"),
                     ContentType::Github => {
                         ("<a | href=https://github.com/tostaylo |>Github</a>", "li")
                     }
@@ -190,6 +190,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                 class_name: Some("menu-button".to_owned()),
                 on_click: menu_button_onclick,
                 children: Some(vec![menu]),
+                data_cy: Some("menu-button".to_owned()),
                 ..Default::default()
             },
         );

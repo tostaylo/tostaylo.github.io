@@ -16,4 +16,13 @@ describe('It Renders ', () => {
 		cy.get('[data-cy="Light Mode"]').click();
 		cy.get('#main').should('have.class', 'light');
 	});
+
+	it('Should have a working mobile menu', () => {
+		cy.visit('http://localhost:8000/');
+		cy.viewport(320, 480);
+		cy.get('[data-cy=nav-posts]').click();
+		cy.get('[data-cy=menu-button]').click();
+		cy.get('[data-cy=nav-about]').click();
+		cy.get('[data-cy=about]').should('be.visible');
+	});
 });

@@ -27,6 +27,7 @@ pub fn about() -> rust_fel::Element {
         rust_fel::Props {
             class_name: Some("about".to_owned()),
             children: Some(vec![about_text]),
+            data_cy: Some("about".to_owned()),
             ..Default::default()
         },
     )
