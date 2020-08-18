@@ -1,7 +1,5 @@
-use rust_fel;
-
 pub fn about() -> rust_fel::Element {
-    let about_text = rust_fel::html(format!(
+    let about_text = rust_fel::html(
         "<div>
           <h2>About</h2>
           <p> I am a Senior Software Developer at CoStar Group in Austin, TX where I write and mantain web applications.</p>
@@ -21,16 +19,15 @@ pub fn about() -> rust_fel::Element {
           <div | class=profile-img-container |>
             <img | class=profile-img src=assets/torre-bw-2018.jpg |></img>
           </div>
-        </div>"
-    ));
+        </div>".to_owned()
+    );
 
-    let about = rust_fel::Element::new(
+    rust_fel::Element::new(
         "div".to_owned(),
         rust_fel::Props {
-            class_name: Some(format!("about")),
+            class_name: Some("about".to_owned()),
             children: Some(vec![about_text]),
             ..Default::default()
         },
-    );
-    about
+    )
 }

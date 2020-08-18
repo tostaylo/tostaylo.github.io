@@ -1,8 +1,5 @@
-use rust_fel;
-
 pub fn site_info() -> rust_fel::Element {
-    let intro_text = format!(
-        "
+    let intro_text = "
 <div |class=site-info-text-block|> 
   <h2>Site Info</h2>
   <p> You are viewing a site built with Rust and Web Assembly. There are a million articles online about why Rust is a good choice but I'll only link to one.
@@ -12,17 +9,16 @@ pub fn site_info() -> rust_fel::Element {
     <a | href=https://github.com/tostaylo/rust-fel |><pre><code>rust_fel</code></pre></a>
   </p>
   <p> It's not very good, but I like showing it off!.</p>
-</div>"
-    );
+</div>".to_owned()
+    ;
     let rust_fel_html_text = format!(
         "let html = 
 rust_fel::html({});",
-        intro_text.clone()
+        intro_text
     );
     let intro_el = rust_fel::html(intro_text);
 
-    let rust_fel_fc_text = format!(
-        "
+    let rust_fel_fc_text = "
 use rust_fel;
 
 pub fn site_info() -> rust_fel::Element {{
@@ -36,13 +32,12 @@ pub fn site_info() -> rust_fel::Element {{
 
   site_info
 }}"
-    );
+    .to_owned();
 
     let rust_fel_fc_code_block =
         code_pre_block(rust_fel_fc_text, "Here is a rust_fel functional component.");
 
-    let rust_fel_component_text = format!(
-        "
+    let rust_fel_component_text = "
 use crate::action::Action;
 use crate::handle;
 use rust_fel;
@@ -132,7 +127,7 @@ fn render(&self) -> rust_fel::Element {{
     main
   }}
 }}"
-    );
+    .to_owned();
 
     let rust_fel_struct_code_block = code_pre_block(
         rust_fel_component_text,
@@ -142,7 +137,7 @@ fn render(&self) -> rust_fel::Element {{
     let rust_fel_rsx_code_block =
         code_pre_block(rust_fel_html_text, "Here is a rust_fel html function.");
 
-    let post_component_text = rust_fel::html(format!(
+    let post_component_text = rust_fel::html(
         "
 <div |class=site-info-text-block|>
   <p>
@@ -172,9 +167,10 @@ fn render(&self) -> rust_fel::Element {{
     </span>
   </p>
 </div>"
-    ));
+            .to_owned(),
+    );
 
-    let pre_rsx_text = rust_fel::html(format!(
+    let pre_rsx_text = rust_fel::html(
         "
 <div |class=site-info-text-block|>
   <p>
@@ -184,9 +180,10 @@ fn render(&self) -> rust_fel::Element {{
     <span>-like library in order to write basic html elements with less syntactic effort.</span>
   </p>
 </div>"
-    ));
+            .to_owned(),
+    );
 
-    let outro_text = rust_fel::html(format!(
+    let outro_text = rust_fel::html(
         "
 <div |class=site-info-text-block|> 
   <p> 
@@ -197,12 +194,13 @@ fn render(&self) -> rust_fel::Element {{
     </a>
   </p>
 </div>"
-    ));
+            .to_owned(),
+    );
 
-    let site_info = rust_fel::Element::new(
+    rust_fel::Element::new(
         "div".to_owned(),
         rust_fel::Props {
-            class_name: Some(format!("site-info")),
+            class_name: Some("site-info".to_owned()),
             children: Some(vec![
                 intro_el,
                 rust_fel_struct_code_block,
@@ -214,8 +212,7 @@ fn render(&self) -> rust_fel::Element {{
             ]),
             ..Default::default()
         },
-    );
-    site_info
+    )
 }
 
 fn code_pre_block(code_text: String, heading_text: &str) -> rust_fel::Element {
@@ -244,12 +241,11 @@ fn code_pre_block(code_text: String, heading_text: &str) -> rust_fel::Element {
         },
     );
 
-    let container = rust_fel::Element::new(
+    rust_fel::Element::new(
         "div".to_owned(),
         rust_fel::Props {
             children: Some(vec![heading_el, pre_el]),
             ..Default::default()
         },
-    );
-    container
+    )
 }

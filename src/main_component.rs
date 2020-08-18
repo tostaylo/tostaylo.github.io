@@ -2,7 +2,6 @@ use crate::content::Content;
 use crate::handle;
 use crate::theme::Theme;
 use crate::theme_switcher::theme_switcher;
-use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
 #[derive(Debug, Clone)]
@@ -48,9 +47,7 @@ impl rust_fel::Component for handle::Handle<Main> {
     type Message = Actions;
     type State = MainState;
 
-    fn add_props(&mut self, _props: Self::Properties) {
-        ()
-    }
+    fn add_props(&mut self, _props: Self::Properties) {}
 
     fn reduce_state(&mut self, message: Self::Message) {
         match message {
@@ -108,7 +105,7 @@ impl rust_fel::Component for handle::Handle<Main> {
         let theme_switcher_wrapper = rust_fel::Element::new(
             "ul".to_owned(),
             rust_fel::Props {
-                class_name: Some(format!("theme-switcher-wrapper")),
+                class_name: Some("theme-switcher-wrapper".to_owned()),
                 children: Some(theme_items),
                 ..Default::default()
             },
@@ -118,13 +115,13 @@ impl rust_fel::Component for handle::Handle<Main> {
             Box::new(move || clone_for_theme_toggle.reduce_state(theme_toggle_action.clone()))
                 as rust_fel::ClosureProp;
 
-        let theme_icon = rust_fel::html(format!("<span |class=theme-icon|></span>"));
+        let theme_icon = rust_fel::html("<span |class=theme-icon|></span>".to_owned());
 
         let theme_toggle = rust_fel::Element::new(
             "span".to_owned(),
             rust_fel::Props {
                 role: Some("button".to_owned()),
-                class_name: Some(format!("theme-toggle")),
+                class_name: Some("theme-toggle".to_owned()),
                 on_click: Some(theme_toggle_onclick),
                 children: Some(vec![theme_icon]),
                 ..Default::default()
@@ -137,7 +134,7 @@ impl rust_fel::Component for handle::Handle<Main> {
             children.push(theme_switcher_wrapper);
         }
 
-        let main = rust_fel::Element::new(
+        rust_fel::Element::new(
             "main".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
@@ -145,8 +142,6 @@ impl rust_fel::Component for handle::Handle<Main> {
                 children: Some(children),
                 ..Default::default()
             },
-        );
-
-        main
+        )
     }
 }

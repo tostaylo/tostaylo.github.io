@@ -2,7 +2,6 @@ use crate::about::about;
 use crate::handle;
 use crate::posts::posts;
 use crate::site_info::site_info;
-use rust_fel;
 use std::cell::RefCell;
 use std::rc::Rc;
 use web_sys::ScrollToOptions;
@@ -55,7 +54,6 @@ impl Content {
                 content: ContentType::Home,
                 is_nav: false,
             },
-            ..Default::default()
         };
         handle::Handle(Rc::new(RefCell::new(content)))
     }
@@ -66,9 +64,7 @@ impl rust_fel::Component for handle::Handle<Content> {
     type Message = Actions;
     type State = ContentState;
 
-    fn add_props(&mut self, _props: Self::Properties) {
-        ()
-    }
+    fn add_props(&mut self, _props: Self::Properties) {}
 
     fn reduce_state(&mut self, message: Self::Message) {
         let window = web_sys::window().expect("no global `window` exists");
@@ -129,19 +125,20 @@ impl rust_fel::Component for handle::Handle<Content> {
                 };
 
                 let nav_item_class_name = if content_type == &state.content.clone() {
-                    Some(format!("nav-item nav-item-active"))
+                    Some("nav-item nav-item-active".to_owned())
                 } else {
                     Some("nav-item".to_owned())
                 };
 
-                let nav_item = rust_fel::wrapper(
+                rust_fel::Element::new(
                     html_type.to_owned(),
-                    None,
-                    on_click,
-                    nav_item_class_name,
-                    Some(rust_fel::html(label.to_owned())),
-                );
-                nav_item
+                    rust_fel::Props {
+                        on_click,
+                        children: Some(vec![rust_fel::html(label.to_owned())]),
+                        class_name: nav_item_class_name,
+                        ..Default::default()
+                    },
+                )
             })
             .collect();
 
@@ -153,29 +150,28 @@ impl rust_fel::Component for handle::Handle<Content> {
                     ..Default::default()
                 },
             );
-            let nav = rust_fel::Element::new(
+
+            rust_fel::Element::new(
                 "nav".to_owned(),
                 rust_fel::Props {
                     children: Some(vec![ul]),
                     class_name: Some(class_name),
                     ..Default::default()
                 },
-            );
-
-            nav
+            )
         }
 
         let (menu_button_action, nav_toggle_classname, body_lock) = match state.is_nav {
             true => {
-                let body_lock = rust_fel::html(format!(
-            "<style>@media screen and (max-width: 900px){{body{{position:fixed; overflow:hidden;}}}}</style>"
-        ));
+                let body_lock = rust_fel::html(
+            "<style>@media screen and (max-width: 900px){{body{{position:fixed; overflow:hidden;}}}}</style>".to_owned()
+        );
                 (Actions::HideNav, "show-nav", body_lock)
             }
             false => (
                 Actions::ShowNav,
                 "hide-nav",
-                rust_fel::html(format!("<style></style")),
+                rust_fel::html("<style></style".to_owned()),
             ),
         };
         let mut clone_for_menu_button = self.clone();
@@ -185,7 +181,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                     as rust_fel::ClosureProp,
             );
 
-        let menu = rust_fel::html(format!("<span |class=menu|></span>"));
+        let menu = rust_fel::html("<span |class=menu|></span>".to_owned());
         let menu_button_mobile = rust_fel::Element::new(
             "span".to_owned(),
             rust_fel::Props {
@@ -195,9 +191,10 @@ impl rust_fel::Component for handle::Handle<Content> {
                 ..Default::default()
             },
         );
-        let content_footer = rust_fel::html(format!(
+        let content_footer = rust_fel::html(
             "<div |class=content-footer|><span |class=content-footer-underline|></span></div>"
-        ));
+                .to_owned(),
+        );
 
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![
@@ -233,16 +230,14 @@ impl rust_fel::Component for handle::Handle<Content> {
             _ => Some(vec![navigation(nav_items, "home-navigation".to_owned())]),
         };
 
-        let content = rust_fel::Element::new(
+        rust_fel::Element::new(
             "section".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
-                class_name: Some(format!("content")),
+                class_name: Some("content".to_owned()),
                 children: content_children,
                 ..Default::default()
             },
-        );
-
-        content
+        )
     }
 }
