@@ -105,7 +105,9 @@ impl rust_fel::Component for handle::Handle<Content> {
                 let (label, html_type) = match content_type {
                     ContentType::Home => ("<span>Home</span>", "li"),
                     ContentType::Posts => ("<span>Posts</span>", "li"),
-                    ContentType::SiteInfo => ("<span>Site Info</span>", "li"),
+                    ContentType::SiteInfo => {
+                        ("<span | data-cy=nav-site-info |>Site Info</span>", "li")
+                    }
                     ContentType::About => ("<span>About</span>", "li"),
                     ContentType::Github => {
                         ("<a | href=https://github.com/tostaylo |>Github</a>", "li")

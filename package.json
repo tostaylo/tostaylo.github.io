@@ -11,7 +11,7 @@
 		"cypress:run": "cypress run --browser chrome --headless --config video=false",
 		"node-server": "http-server --port 8000"
 	},
-	"author": "",
+	"author": "Torre Taylor",
 	"license": "ISC",
 	"devDependencies": {
 		"cypress": "^4.12.1",

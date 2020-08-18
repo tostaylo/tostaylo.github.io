@@ -210,6 +210,7 @@ fn render(&self) -> rust_fel::Element {{
                 rust_fel_rsx_code_block,
                 outro_text,
             ]),
+            data_cy: Some("site-info".to_owned()),
             ..Default::default()
         },
     )

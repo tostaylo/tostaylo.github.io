@@ -124,6 +124,7 @@ impl rust_fel::Component for handle::Handle<Main> {
                 class_name: Some("theme-toggle".to_owned()),
                 on_click: Some(theme_toggle_onclick),
                 children: Some(vec![theme_icon]),
+                data_cy: Some("theme-toggle".to_owned()),
                 ..Default::default()
             },
         );
