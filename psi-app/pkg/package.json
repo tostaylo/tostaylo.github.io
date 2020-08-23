@@ -1,0 +1,15 @@
+{
+  "name": "psi-app",
+  "collaborators": [
+    "Torre Taylor"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "psi-app_bg.wasm",
+    "psi-app.js",
+    "psi-app.d.ts"
+  ],
+  "module": "psi-app.js",
+  "types": "psi-app.d.ts",
+  "sideEffects": "false"
+}
