@@ -197,6 +197,15 @@ fn render(&self) -> rust_fel::Element {{
             .to_owned(),
     );
 
+    let script_and_root_el = rust_fel::html(
+        "
+<div>
+  <div |id=psi-app-root|></div>
+  <script |src=./psi-app/index.js  type=module |></script>
+</div>"
+            .to_owned(),
+    );
+
     rust_fel::Element::new(
         "div".to_owned(),
         rust_fel::Props {
@@ -209,6 +218,7 @@ fn render(&self) -> rust_fel::Element {{
                 pre_rsx_text,
                 rust_fel_rsx_code_block,
                 outro_text,
+                script_and_root_el,
             ]),
             data_cy: Some("site-info".to_owned()),
             ..Default::default()
