@@ -5,7 +5,7 @@
 // will "boot" the module and make it ready to use. Currently browsers
 // don't support natively imported WebAssembly as an ES module, but
 // eventually the manual initialization won't be required!
-import init from './pkg/psi_app.js';
+import init from './pkg/psi-app.js';
 
 async function run() {
 	// First up we need to actually load the wasm file, so we use the
