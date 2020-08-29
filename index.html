@@ -21,7 +21,10 @@
 			async function run() {
 				await init();
 			}
+      const startWasm = performance.now();
 			run();
+      const endWasm = performance.now();
+      console.log(`It took ${endWasm - startWasm} to initialize the WebAssembly Module`);
 		</script>
 	</body>
 </html>

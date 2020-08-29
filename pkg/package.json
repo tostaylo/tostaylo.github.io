@@ -3,11 +3,18 @@
   "collaborators": [
     "Torre Taylor"
   ],
+  "description": "My portfolio site built with rust-wasm and rust-fel",
   "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tostaylo/tostaylo.github.io"
+  },
   "files": [
     "rust-fel-portfolio_bg.wasm",
     "rust-fel-portfolio.js",
-    "rust-fel-portfolio.d.ts"
+    "rust-fel-portfolio.d.ts",
+    "LICENSE.txt"
   ],
   "module": "rust-fel-portfolio.js",
   "types": "rust-fel-portfolio.d.ts",
