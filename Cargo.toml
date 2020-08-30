@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Torre Taylor"]
 edition = "2018"
 repository = "https://github.com/tostaylo/tostaylo.github.io"
-description = "My portfolio site built with rust-wasm and rust-fel"
+description = "Torre Taylor's portfolio site built with rust-wasm and rust-fel"
 license = "MIT"
 
 [lib]
