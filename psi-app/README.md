@@ -1,6 +1,6 @@
 # psi-app
 
-A website utilizing the rust_fel front end library for rust-wasm.
+App which will interact with the PageSpeedInsights API.
 
 Bootstrapped with
 wasm-bindgen/example/without-a-bundler
