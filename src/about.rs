@@ -6,8 +6,8 @@ pub fn about() -> rust_fel::Element {
           <p> Outside of work I </p>
           <ul>
             <li>
-             <span>Am pursuing a </span> 
-              <a | href=https://www.extension.harvard.edu/academics/graduate-degrees/software-engineering-degree |>Masters of Liberal Arts Computer Science from Harvard Extension College.</a>
+             <span>Am a degree candidate for the </span> 
+              <a | href=https://www.extension.harvard.edu/academics/graduate-degrees/software-engineering-degree |>Masters of Liberal Arts, Software Engineering, from Harvard Extension College.</a>
             </li>
             <li> 
               <span>Founded and co-organize the </span> 
