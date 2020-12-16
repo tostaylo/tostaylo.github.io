@@ -197,11 +197,10 @@ fn render(&self) -> rust_fel::Element {{
             .to_owned(),
     );
 
-    let script_and_root_el = rust_fel::html(
+    let comparison = rust_fel::html(
         "
-<div>
-  <div |id=psi-app-root|></div>
-  <script |src=./psi-app/main.js |></script>
+<div |class=site-info-text-block|> 
+ <a | href=https://e28p3.torretaylor.me/comparison |>Performance comparison with other front-end frameworks</a>
 </div>"
             .to_owned(),
     );
@@ -218,7 +217,7 @@ fn render(&self) -> rust_fel::Element {{
                 pre_rsx_text,
                 rust_fel_rsx_code_block,
                 outro_text,
-                script_and_root_el,
+                comparison,
             ]),
             data_cy: Some("site-info".to_owned()),
             ..Default::default()
