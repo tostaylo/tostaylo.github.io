@@ -201,7 +201,7 @@ fn render(&self) -> rust_fel::Element {{
         "
 <div>
   <div |id=psi-app-root|></div>
-  <script |src=./psi-app/index.js  type=module |></script>
+  <script |src=./psi-app/main.js |></script>
 </div>"
             .to_owned(),
     );
