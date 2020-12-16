@@ -5,7 +5,7 @@ mod js;
 mod main_component;
 mod posts;
 mod site_info;
-mod theme;
+mod theme_component;
 mod theme_switcher;
 use crate::main_component::Main;
 use wasm_bindgen::prelude::*;
