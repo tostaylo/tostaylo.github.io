@@ -8,7 +8,7 @@ describe('It Renders ', () => {
 		cy.visit('http://localhost:8000/');
 		cy.get('[data-cy=nav-site-info]').click();
 		cy.get('[data-cy=site-info]').should('be.visible');
-		cy.get('[data-cy=psi-main-text]').should('be.visible');
+		cy.get('[data-cy=comparison-main-text]').should('be.visible');
 	});
 
 	it('Should switch themes', () => {

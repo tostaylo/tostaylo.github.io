@@ -200,7 +200,9 @@ fn render(&self) -> rust_fel::Element {{
     let comparison = rust_fel::html(
         "
 <div |class=site-info-text-block|> 
- <a | href=https://e28p3.torretaylor.me/comparison |>Performance comparison with other front-end frameworks</a>
+  <a | data-cy=comparison-main-text href=https://e28p3.torretaylor.me/comparison |>
+    Performance comparison with other front-end frameworks
+  </a>
 </div>"
             .to_owned(),
     );
