@@ -142,7 +142,7 @@ impl rust_fel::Component for handle::Handle<ThemeComponent> {
             "div".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
-                class_name: Some(format!("theme-component")),
+                class_name: Some("theme-component".to_owned()),
                 children: Some(children),
                 ..Default::default()
             },
