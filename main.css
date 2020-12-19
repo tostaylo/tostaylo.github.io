@@ -348,7 +348,6 @@ button:active {
 	opacity: var(--mid-opacity);
 	font-size: 3rem;
 	font-weight: 300;
-
 	transition: all 0.3s;
 	margin-bottom: 15px;
 }

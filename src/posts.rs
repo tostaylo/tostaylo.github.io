@@ -2,7 +2,8 @@ pub fn posts() -> rust_fel::Element {
     let post_text = rust_fel::html(
         "<div>
           <h2>Posts</h2>
-          <p>Posts Go Here</p>
+          <ul |id=post-titles|></ul>
+          <script |src=./posts.js|></script>
         </div>"
             .to_owned(),
     );
