@@ -1,43 +1,49 @@
-<script>
-	import Comment from "./Comment.svelte";
+<script lang="ts">
+  import type { CommentType } from "./types/types";
+  import Comment from "./Comment.svelte";
 
-	export let item;
-	export let returnTo;
+  export let item: {
+    comments: CommentType[];
+    domain: string;
+    title: string;
+    url: string;
+    user: string;
+    time_ago: string;
+  };
+  export let returnTo;
 
-	$: url = !item.domain ? `https://news.ycombinator.com/${item.url}` : item.url;
+  $: url = !item.domain ? `https://news.ycombinator.com/${item.url}` : item.url;
 </script>
 
 <style>
-	article {
-		margin: 0 0 1em 0;
-	}
+  article {
+    margin: 0 0 1em 0;
+  }
 
-	a {
-		display: block;
-		margin: 0 0 1em 0;
-	}
+  a {
+    display: block;
+    margin: 0 0 1em 0;
+  }
 
-	h1 {
-		font-size: 1.4em;
-		margin: 0;
-	}
+  h1 {
+    font-size: 1.4em;
+    margin: 0;
+  }
 </style>
 
 <a href={returnTo}>&laquo; back</a>
 
 <article>
-	<a href="{url}">
-		<h1>{item.title}</h1>
-		{#if item.domain}
-			<small>{item.domain}</small>
-		{/if}
-	</a>
+  <a href={url}>
+    <h1>{item.title}</h1>
+    {#if item.domain}<small>{item.domain}</small>{/if}
+  </a>
 
-	<p class="meta">submitted by {item.user} {item.time_ago}
+  <p class="meta">submitted by {item.user} {item.time_ago}</p>
 </article>
 
 <div class="comments">
-	{#each item.comments as comment}
-		<Comment {comment}/>
-	{/each}
+  {#each item.comments as comment}
+    <Comment {comment} />
+  {/each}
 </div>
