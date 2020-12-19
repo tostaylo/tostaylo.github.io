@@ -8,7 +8,7 @@
 		"cargo": "sh build.sh",
 		"build-ts": "tsc",
 		"cypress:open": "cypress open",
-		"cypress:run": "cypress run --browser chrome --headless --config video=false",
+		"cypress:run": "cypress run --browser chrome --headless --config video=false,screenshotOnRunFailure=false",
 		"node-server": "http-server --port 8000"
 	},
 	"author": "Torre Taylor",
