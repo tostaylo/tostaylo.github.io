@@ -8,7 +8,7 @@
 
   let postSummaries: PostSummary[];
   let isListPage: boolean = true;
-  let post: PostType;
+  let post: PostType = {} as PostType;
 
   async function getPosts() {
     fetch(`${apiPre}posts/posts.json`)
@@ -37,7 +37,7 @@
 
       window.scrollTo(0, 0);
     } else if (path.startsWith("/posts")) {
-      post = null;
+      post = {} as PostType;
       isListPage = true;
     } else {
       window.location.hash = "/posts";
@@ -70,7 +70,7 @@
 <svelte:window on:hashchange={hashchange} />
 
 <main>
-  {#if post}
+  {#if post.id}
     <Post {post} returnTo="#/posts" />
   {:else if isListPage}
     <List {postSummaries} />

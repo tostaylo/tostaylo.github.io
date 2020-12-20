@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PostType } from "./types/types";
   export let post: PostType;
-  export let returnTo;
+  export let returnTo: string;
 </script>
 
 <style>
@@ -9,7 +9,7 @@
     margin: 0 0 1em 0;
   }
 
-  a {
+  .a {
     display: block;
     margin: 0 0 1em 0;
   }
@@ -20,7 +20,7 @@
   }
 </style>
 
-<a href={returnTo}>&laquo; back</a>
+<a class="a" href={returnTo}>&laquo; back</a>
 
 <article>
   <h1>{post.title}</h1>

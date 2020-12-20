@@ -5,11 +5,6 @@
 </script>
 
 <style>
-  a {
-    padding: 2em;
-    display: block;
-  }
-
   .loading {
     opacity: 0;
     animation: 0.4s 0.8s forwards fade-in;
