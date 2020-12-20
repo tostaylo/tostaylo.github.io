@@ -43,6 +43,7 @@ export default {
 		replace({
 			__buildEnv__: production ? "'prod'" : "'dev'",
 			__buildDate__: () => new Date(),
+			__apiPre__: production ? " '/svelte-app/public/'" : "'./'",
 		}),
 		svelte({
 			preprocess: sveltePreprocess(),
@@ -67,7 +68,7 @@ export default {
 		commonjs(),
 		typescript({
 			sourceMap: !production,
-			inlineSources: !production
+			inlineSources: !production,
 		}),
 
 		// In dev mode, call `npm run start` once

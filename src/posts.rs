@@ -4,7 +4,7 @@ pub fn posts() -> rust_fel::Element {
         "<div>
           <h2>Posts</h2>
           <div |id=svelte-app|></div>
-         
+         <script |src=./svelte-app/public/build/bundle.js|></script>
         </div>"
             .to_owned(),
     );

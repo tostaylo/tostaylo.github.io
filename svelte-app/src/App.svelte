@@ -4,12 +4,14 @@
   import Post from "./Post.svelte";
   import type { PostSummary, PostType } from "./types/types";
 
+  export let apiPre: string;
+
   let postSummaries: PostSummary[];
   let isListPage: boolean = true;
   let post: PostType;
 
   async function getPosts() {
-    fetch("/posts.json")
+    fetch(`${apiPre}posts/posts.json`)
       .then((r) => r.json())
       .then((data) => {
         postSummaries = data;
@@ -23,12 +25,13 @@
     if (path.startsWith("/item")) {
       const id = path.slice(6);
       const idInt = +id;
-      const data = await fetch(`./post${id}.html`).then((r) => r.text());
+      const data = await fetch(`${apiPre}posts/post.${id}.html`).then((r) =>
+        r.text()
+      );
       isListPage = false;
 
       post = {
         ...postSummaries[idInt - 1],
-        url: `/${idInt}`,
         html_content: data,
       };
 

@@ -23,9 +23,7 @@
 <a href={returnTo}>&laquo; back</a>
 
 <article>
-  <a href={post.url}>
-    <h1>{post.title}</h1>
-  </a>
+  <h1>{post.title}</h1>
 
   <p class="meta">submitted by {post.user} {post.time_ago}</p>
   <p>

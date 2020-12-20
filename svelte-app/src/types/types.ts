@@ -7,5 +7,4 @@ export interface PostSummary {
 
 export interface PostType extends PostSummary {
 	html_content: string;
-	url: string;
 }
