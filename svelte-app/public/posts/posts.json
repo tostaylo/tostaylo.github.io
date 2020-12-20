@@ -2,7 +2,13 @@
 	{
 		"title": "Automating User Experience Performance Testing with Puppeteer and the Chrome Dev Tools Performance Timeline",
 		"id": 1,
-		"user": "Torre Taylor"
+		"user": "Torre Taylor",
+		"date": "12/20/2020"
 	},
-	{ "title": "Thoughts After Building a Front-End Library with Rust", "id": 2, "user": "Torre Taylor" }
+	{
+		"title": "Thoughts After Building a Front-End Library with Rust",
+		"id": 2,
+		"user": "Torre Taylor",
+		"date": "12/20/2020"
+	}
 ]

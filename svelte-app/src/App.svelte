@@ -56,7 +56,6 @@
     position: relative;
     max-width: 800px;
     margin: 0 auto;
-    min-height: 101vh;
     padding: 1em;
   }
 

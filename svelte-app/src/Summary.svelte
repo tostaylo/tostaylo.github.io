@@ -19,18 +19,12 @@
     position: absolute;
     left: 0;
   }
-
-  a {
-    color: #333;
-  }
 </style>
 
-<article>
-  <span>{postSummary.id}</span>
-  <h2><a href="#/item/{postSummary.id}">{postSummary.title}</a></h2>
-  <p class="meta">
-    <a href="#/item/{postSummary.id}">Post</a>
-    by
-    {postSummary.user}
-  </p>
-</article>
+<a href="#/item/{postSummary.id}">
+  <article>
+    <span>{postSummary.id}</span>
+    <h2>{postSummary.title}</h2>
+    <p class="meta">Post By {postSummary.user}</p>
+  </article>
+</a>

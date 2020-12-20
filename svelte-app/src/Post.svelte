@@ -25,7 +25,7 @@
 <article>
   <h1>{post.title}</h1>
 
-  <p class="meta">submitted by {post.user} {post.time_ago}</p>
+  <p class="meta">by {post.user} {post.date}</p>
   <p>
     {@html post.html_content}
   </p>
