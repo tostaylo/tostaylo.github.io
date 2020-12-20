@@ -25,9 +25,9 @@
     if (path.startsWith("/item")) {
       const id = path.slice(6);
       const idInt = +id;
-      const data = await fetch(`${apiPre}posts/post.${id}.html`).then((r) =>
-        r.text()
-      );
+      const data = await fetch(
+        `${apiPre}posts/html/post.${id}.html`
+      ).then((r) => r.text());
       isListPage = false;
 
       post = {

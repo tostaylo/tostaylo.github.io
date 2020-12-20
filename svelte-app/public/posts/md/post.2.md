@@ -1,3 +1,1 @@
-# This is the Start
-
-And this is more
+So I tried to build a front-end library with Rust. I'll tell you more soon.
