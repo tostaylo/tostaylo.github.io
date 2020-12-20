@@ -1,14 +1,7 @@
 <script lang="ts">
   import Summary from "./Summary.svelte";
   import type { PostSummary } from "./types/types";
-
-  let postSummaries: PostSummary[];
-
-  $: fetch("/posts.json")
-    .then((r) => r.json())
-    .then((data) => {
-      postSummaries = data;
-    });
+  export let postSummaries: PostSummary[];
 </script>
 
 <style>

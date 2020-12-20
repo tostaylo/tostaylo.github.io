@@ -1,10 +1,20 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import List from "./List.svelte";
-  import Item from "./Item.svelte";
+  import Post from "./Post.svelte";
+  import type { PostSummary, PostType } from "./types/types";
 
-  let item;
-  let page;
+  let postSummaries: PostSummary[];
+  let isListPage: boolean = true;
+  let post: PostType;
+
+  async function getPosts() {
+    fetch("/posts.json")
+      .then((r) => r.json())
+      .then((data) => {
+        postSummaries = data;
+      });
+  }
 
   async function hashchange() {
     // the poor man's router!
@@ -12,20 +22,30 @@
 
     if (path.startsWith("/item")) {
       const id = path.slice(6);
-      item = await fetch(
-        `https://node-hnapi.herokuapp.com/item/${id}`
-      ).then((r) => r.json());
+      const idInt = +id;
+      const data = await fetch(`./post${id}.html`).then((r) => r.text());
+      isListPage = false;
+
+      post = {
+        ...postSummaries[idInt - 1],
+        url: `/${idInt}`,
+        html_content: data,
+      };
 
       window.scrollTo(0, 0);
-    } else if (path.startsWith("/top")) {
-      page = +path.slice(5);
-      item = null;
+    } else if (path.startsWith("/posts")) {
+      post = null;
+      isListPage = true;
     } else {
-      window.location.hash = "/top/1";
+      window.location.hash = "/posts";
+      isListPage = true;
     }
   }
 
-  onMount(hashchange);
+  onMount(async () => {
+    getPosts();
+    hashchange();
+  });
 </script>
 
 <style>
@@ -42,18 +62,14 @@
     font-size: 12px;
     margin: 0 0 1em 0;
   }
-
-  main :global(a) {
-    color: rgb(0, 0, 150);
-  }
 </style>
 
 <svelte:window on:hashchange={hashchange} />
 
 <main>
-  {#if item}
-    <Item {item} returnTo="#/top/{page}" />
-  {:else if page}
-    <List />
+  {#if post}
+    <Post {post} returnTo="#/posts" />
+  {:else if isListPage}
+    <List {postSummaries} />
   {/if}
 </main>
