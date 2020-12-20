@@ -25,6 +25,6 @@
   <article>
     <span>{postSummary.id}</span>
     <h2>{postSummary.title}</h2>
-    <p class="meta">Post By {postSummary.user}</p>
+    <p class="meta">By {postSummary.user}</p>
   </article>
 </a>

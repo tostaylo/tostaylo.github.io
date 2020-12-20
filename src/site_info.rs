@@ -2,7 +2,11 @@ pub fn site_info() -> rust_fel::Element {
     let intro_text = "
 <div |class=site-info-text-block|> 
   <h2>Site Info</h2>
-  <p> You are viewing a site built with Rust and Web Assembly. There are a million articles online about why Rust is a good choice but I'll only link to one.
+  <p> You are viewing a site built with
+     <a | href=https://www.rust-lang.org/ |>Rust</a> <span>,
+     </span> <a | href=https://webassembly.org/ |>Web Assembly</a><span>, </span> 
+      <span>and </span> <a | href=https://svelte.dev/ |>Svelte</a><span>.</span></p>
+   <p>There are a million articles online about why Rust is a good choice but I'll only link to one.
     <a | href=https://rustwasm.github.io/docs/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
   </p>
   <p> To assist in building this site, I created another front-end-library the world does not need  -- 
