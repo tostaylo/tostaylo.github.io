@@ -54,6 +54,6 @@
   {#if item}
     <Item {item} returnTo="#/top/{page}" />
   {:else if page}
-    <List {page} />
+    <List />
   {/if}
 </main>

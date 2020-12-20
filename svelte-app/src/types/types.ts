@@ -1,6 +1,5 @@
-export interface CommentType {
-	user: any;
-	time_ago: any;
-	content: any;
-	comments: ArrayLike<unknown>;
+export interface PostSummary {
+	title: string;
+	id: number;
+	user: string;
 }

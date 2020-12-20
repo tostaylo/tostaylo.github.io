@@ -1,9 +1,5 @@
 <script lang="ts">
-  import type { CommentType } from "./types/types";
-  import Comment from "./Comment.svelte";
-
   export let item: {
-    comments: CommentType[];
     domain: string;
     title: string;
     url: string;
@@ -41,9 +37,3 @@
 
   <p class="meta">submitted by {item.user} {item.time_ago}</p>
 </article>
-
-<div class="comments">
-  {#each item.comments as comment}
-    <Comment {comment} />
-  {/each}
-</div>

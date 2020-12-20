@@ -1,20 +1,13 @@
 <script lang="ts">
-  import { beforeUpdate } from "svelte";
   import Summary from "./Summary.svelte";
+  import type { PostSummary } from "./types/types";
 
-  const PAGE_SIZE = 20;
+  let postSummaries: PostSummary[];
 
-  export let page;
-
-  let items;
-  let offset;
-
-  $: fetch(`https://node-hnapi.herokuapp.com/news?page=${page}`)
+  $: fetch("/posts.json")
     .then((r) => r.json())
     .then((data) => {
-      items = data;
-      offset = PAGE_SIZE * (page - 1);
-      window.scrollTo(0, 0);
+      postSummaries = data;
     });
 </script>
 
@@ -39,12 +32,10 @@
   }
 </style>
 
-{#if items}
-  {#each items as item, i}
-    <Summary {item} {i} {offset} />
+{#if postSummaries}
+  {#each postSummaries as postSummary}
+    <Summary {postSummary} />
   {/each}
-
-  <a href="#/top/{page + 1}">page {page + 1}</a>
 {:else}
   <p class="loading">loading...</p>
 {/if}

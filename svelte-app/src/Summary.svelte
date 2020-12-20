@@ -1,15 +1,6 @@
 <script lang="ts">
-  export let item;
-  export let i;
-  export let offset;
-
-  function comment_text() {
-    const c = item.comments_count;
-    return `${c} ${c === 1 ? "comment" : "comments"}`;
-  }
-
-  $: url =
-    item.type === "ask" ? `https://news.ycombinator.com/${item.url}` : item.url;
+  import type { PostSummary } from "./types/types";
+  export let postSummary: PostSummary;
 </script>
 
 <style>
@@ -35,12 +26,11 @@
 </style>
 
 <article>
-  <span>{i + offset + 1}</span>
-  <h2><a target="_blank" href={url}>{item.title}</a></h2>
+  <span>{postSummary.id}</span>
+  <h2><a href="#/item/{postSummary.id}">{postSummary.title}</a></h2>
   <p class="meta">
-    <a href="#/item/{item.id}">{comment_text()}</a>
+    <a href="#/item/{postSummary.id}">Post</a>
     by
-    {item.user}
-    {item.time_ago}
+    {postSummary.user}
   </p>
 </article>
