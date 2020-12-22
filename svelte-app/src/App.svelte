@@ -14,6 +14,14 @@
     fetch(`${apiPre}posts/posts.json`)
       .then((r) => r.json())
       .then((data) => {
+        const loadingPlaceholder = document.getElementById(
+          "loading-placeholder"
+        );
+
+        if (loadingPlaceholder) {
+          loadingPlaceholder.remove();
+        }
+
         postSummaries = data;
       });
   }
@@ -23,6 +31,7 @@
     const data = await fetch(`${apiPre}posts/html/post.${id}.html`).then((r) =>
       r.text()
     );
+
     post = {
       ...postSummaries[id - 1],
       html_content: data,
@@ -58,7 +67,7 @@
 <main>
   {#if !isListPage}
     <Post {post} on:returnToList={returnToList} />
-  {:else}
+  {:else if postSummaries && isListPage}
     <List on:getPost={getPost} {postSummaries} />
   {/if}
 </main>

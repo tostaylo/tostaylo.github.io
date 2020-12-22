@@ -5,11 +5,6 @@
 </script>
 
 <style>
-  .loading {
-    opacity: 0;
-    animation: 0.4s 0.8s forwards fade-in;
-  }
-
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -24,6 +19,4 @@
   {#each postSummaries as postSummary}
     <Summary on:getPost {postSummary} />
   {/each}
-{:else}
-  <p class="loading">loading...</p>
 {/if}
