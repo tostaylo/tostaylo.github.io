@@ -18,36 +18,25 @@
       });
   }
 
-  async function hashchange() {
-    // the poor man's router!
-    const path = window.location.hash.slice(1);
+  async function getPost(event: any) {
+    const { id } = event.detail;
+    const data = await fetch(`${apiPre}posts/html/post.${id}.html`).then((r) =>
+      r.text()
+    );
+    post = {
+      ...postSummaries[id - 1],
+      html_content: data,
+    };
 
-    if (path.startsWith("/item")) {
-      const id = path.slice(6);
-      const idInt = +id;
-      const data = await fetch(
-        `${apiPre}posts/html/post.${id}.html`
-      ).then((r) => r.text());
-      isListPage = false;
+    isListPage = false;
+  }
 
-      post = {
-        ...postSummaries[idInt - 1],
-        html_content: data,
-      };
-
-      window.scrollTo(0, 0);
-    } else if (path.startsWith("/posts")) {
-      post = {} as PostType;
-      isListPage = true;
-    } else {
-      window.location.hash = "/posts";
-      isListPage = true;
-    }
+  function returnToList() {
+    isListPage = true;
   }
 
   onMount(async () => {
     getPosts();
-    hashchange();
   });
 </script>
 
@@ -66,12 +55,10 @@
   }
 </style>
 
-<svelte:window on:hashchange={hashchange} />
-
 <main>
-  {#if post.id}
-    <Post {post} returnTo="#/posts" />
-  {:else if isListPage}
-    <List {postSummaries} />
+  {#if !isListPage}
+    <Post {post} on:returnToList={returnToList} />
+  {:else}
+    <List on:getPost={getPost} {postSummaries} />
   {/if}
 </main>

@@ -22,7 +22,7 @@
 
 {#if postSummaries}
   {#each postSummaries as postSummary}
-    <Summary {postSummary} />
+    <Summary on:getPost {postSummary} />
   {/each}
 {:else}
   <p class="loading">loading...</p>
