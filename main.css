@@ -119,6 +119,7 @@ button:active {
 	display: flex;
 	flex-direction: column;
 	cursor: pointer;
+	z-index: 1;
 }
 
 .theme-switcher-wrapper li {
