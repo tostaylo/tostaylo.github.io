@@ -23,3 +23,78 @@ When defining baselines to determine success or failures keep these limits in mi
 [Chrome Developer Tools Performance Timeline](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference)
 
 - Enables recording events occuring in the browser on page load or user interactions.
+
+## Process
+
+Assuming you've already installed Node and Puppeteer, let's look at a starting point for your Node.js script taken from [this great blog post](https://addyosmani.com/blog/puppeteer-recipes/) by Addy Osmani .
+
+```javascript
+const puppeteer = require('puppeteer');
+
+(async () => {
+	const browser = await puppeteer.launch();
+	const page = await browser.newPage();
+	const navigationPromise = page.waitForNavigation();
+	await page.goto('https://pptr.dev/#?product=Puppeteer&version=v2.1.1&show=outline');
+	await page.setViewport({ width: 1440, height: 714 });
+
+	await navigationPromise;
+	const selector = 'body > sidebar-component > sidebar-item:nth-child(3) > .pptr-sidebar-item';
+	await page.waitForSelector(selector);
+	await page.tracing.start({ path: 'trace.json', screenshots: true });
+	await page.click(selector);
+	await page.tracing.stop();
+
+	await browser.close();
+})();
+```
+
+What you see above is the basic idea.
+
+1. Start a new browser instance
+
+2. Navigate to a url
+
+3. Start a trace
+
+4. Select an element on the page and click it
+
+5. Stop the trace
+
+The output of the trace file generated will look something like this:
+
+```json
+{
+	"traceEvents": [
+		{
+			"args": { "data": { "type": "click" } },
+			"cat": "devtools.timeline",
+			"dur": 7761,
+			"name": "EventDispatch",
+			"ph": "X",
+			"pid": 61589,
+			"tdur": 7706,
+			"tid": 775,
+			"ts": 161565081204,
+			"tts": 119022
+		},
+		{
+			"args": {
+				"cat": "devtools.timeline,rail",
+				"dur": 18,
+				"name": "Paint",
+				"ph": "X",
+				"pid": 61589,
+				"tdur": 18,
+				"tid": 775,
+				"ts": 161565160795,
+				"tts": 196604
+			}
+		}
+	]
+}
+```
+
+Here is the [documentation](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit) on the trace file and what the key value pairs represent.
+
+More coming soon.....
