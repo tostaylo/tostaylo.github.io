@@ -260,7 +260,8 @@ button:active {
 	color: var(--site-anchor);
 }
 
-.site-info-text-block a {
+.site-info-text-block a,
+.svelte-app p a {
 	color: var(--site-anchor);
 }
 
@@ -427,4 +428,8 @@ button:active {
 	.menu-button {
 		display: none;
 	}
+}
+
+.svelte-app ul {
+	list-style-type: disc;
 }

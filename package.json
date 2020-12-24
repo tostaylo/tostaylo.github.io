@@ -5,7 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "tsc --watch",
-		"cargo": "sh build.sh",
+		"build": "npm run build-ts && npm run convert && npm run svelte-app && sh build.sh",
+		"convert": "cd converter && node index.js",
+		"svelte-app": "cd svelte-app && npm run build && cd ..",
 		"build-ts": "tsc",
 		"cypress:open": "cypress open",
 		"cypress:run": "cypress run --browser chrome --headless --config video=false,screenshotOnRunFailure=false",
