@@ -24,6 +24,8 @@ When defining baselines to determine success or failures keep these limits in mi
 
 - Enables recording events occuring in the browser on page load or user interactions.
 
+![Perf Timeline View](/assets/images/chrome-perf-click.webp)
+
 ## Process
 
 Assuming you've already installed Node and Puppeteer, let's look at a starting point for your Node.js script taken from [this great blog post](https://addyosmani.com/blog/puppeteer-recipes/) by Addy Osmani .
@@ -95,6 +97,19 @@ The output of the trace file generated will look something like this:
 }
 ```
 
-Here is the [documentation](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit) on the trace file and what the key value pairs represent.
+<figcaption>Here is the [documentation](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit) on the trace file and what the key value pairs represent.</figcaption>
+
+In order to accurately measure how long the user interaction has taken we need to look at the trace file and identify the browser rendering events. [This article](https://developers.google.com/web/fundamentals/performance/rendering) by Paul Irish explains it as the "Pixel Pipeline."
+
+- User Interaction Event
+- Style
+- Layout
+- Paint
+- Composite
+
+ts: The tracing clock timestamp of the event. The timestamps are provided at microsecond granularity.
+There is an extra parameter dur to specify the tracing clock duration of complete events in microseconds. All other parameters are the same as in duration events. The ts parameter indicate the time of the start of the complete event. Unlike duration events, the timestamps of complete events can be in any order. An optional parameter tdur specifies the thread clock duration of complete events in microseconds.
+
+![Perf Timeline View](/assets/images/chrome-perf-full.webp)
 
 More coming soon.....

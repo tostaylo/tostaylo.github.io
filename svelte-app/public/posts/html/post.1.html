@@ -19,6 +19,7 @@
 <ul>
 <li>Enables recording events occuring in the browser on page load or user interactions.</li>
 </ul>
+<p><img src="/assets/images/chrome-perf-click.webp" alt="Perf Timeline View" /></p>
 <h2 id="process">Process</h2>
 <p>Assuming you've already installed Node and Puppeteer, let's look at a starting point for your Node.js script taken from <a href="https://addyosmani.com/blog/puppeteer-recipes/">this great blog post</a> by Addy Osmani .</p>
 <pre><code class="javascript language-javascript">const puppeteer = require('puppeteer');
@@ -79,5 +80,16 @@
     ]
 }
 </code></pre>
-<p>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key value pairs represent.</p>
+<p><figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key value pairs represent.</figcaption></p>
+<p>In order to accurately measure how long the user interaction has taken we need to look at the trace file and identify the browser rendering events. <a href="https://developers.google.com/web/fundamentals/performance/rendering">This article</a> by Paul Irish explains it as the "Pixel Pipeline."</p>
+<ul>
+<li>User Interaction Event</li>
+<li>Style</li>
+<li>Layout</li>
+<li>Paint</li>
+<li>Composite</li>
+</ul>
+<p>ts: The tracing clock timestamp of the event. The timestamps are provided at microsecond granularity.
+There is an extra parameter dur to specify the tracing clock duration of complete events in microseconds. All other parameters are the same as in duration events. The ts parameter indicate the time of the start of the complete event. Unlike duration events, the timestamps of complete events can be in any order. An optional parameter tdur specifies the thread clock duration of complete events in microseconds.</p>
+<p><img src="/assets/images/chrome-perf-full.webp" alt="Perf Timeline View" /></p>
 <p>More coming soon…..</p>

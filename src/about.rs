@@ -17,7 +17,7 @@ pub fn about() -> rust_fel::Element {
             <li> Play loud, overly distorted, barely listenable, guitar. </li>
           </ul>
           <div | class=profile-img-container |>
-            <img | class=profile-img src=assets/torre-bw-2018.jpg |></img>
+            <img | class=profile-img src=assets/images/torre-bw-2018.webp |></img>
           </div>
         </div>".to_owned()
     );
