@@ -1,5 +1,11 @@
 <p>Is your website fast? Fast can mean many things in the context of a website. Metrics. Website speed is often measured on page load. During page load, when does a user see a page element? Does that element move? When the user clicks a button does it function? These things matter not only on page load but also for the duration a user is interacting with your site.</p>
 <p>There are many tools out there to help us measure user-centric metrics which occur on page load. Lighthouse, PageSpeedInsights, and WebpageSpeedTest to name a few. We see less of tooling which allows us to universally measure all user interactions on our site. This is due to how each site has its own unique requirements and user interactions. It is up to us to tailor post-load, user-centric performance testing based on what our site requirements are.</p>
+<h2 id="whattotest">What to Test</h2>
+<ul>
+<li>Changing routes in a SPA</li>
+<li>Common User Flows</li>
+<li>Priority Interactions</li>
+</ul>
 <h2 id="definebaselines">Define Baselines</h2>
 <p>After reading the article <a href="https://blog.uptrends.com/web-performance/the-psychology-of-web-performance/">The Psychology of Web Performance</a> and it's excerpt from <a href="https://www.nngroup.com/books/usability-engineering/">Usability Engineering</a> there are " <a href="https://www.nngroup.com/articles/response-times-3-important-limits/">3 important limits</a> to keep in mind when optimizing web and application performance."</p>
 <ul>
@@ -30,7 +36,6 @@
     const navigationPromise = page.waitForNavigation();
     await page.goto('https://pptr.dev/#?product=Puppeteer&amp;version=v2.1.1&amp;show=outline');
     await page.setViewport({ width: 1440, height: 714 });
-
     await navigationPromise;
     const selector = 'body &gt; sidebar-component &gt; sidebar-item:nth-child(3) &gt; .pptr-sidebar-item';
     await page.waitForSelector(selector);
@@ -81,15 +86,19 @@
 }
 </code></pre>
 <p><figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key value pairs represent.</figcaption></p>
+<p>The trace file contains a traceEvents array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", "CompositeLayers". Each event has the values of</p>
+<pre>ts = time start; dur = duration</pre>
+<pre>ts: The tracing clock timestamp of the event. The timestamps are provided at microsecond granularity.
+There is an extra parameter dur to specify the tracing clock duration of complete events in microseconds. All other parameters are the same as in duration events. The ts parameter indicate the time of the start of the complete event. Unlike duration events, the timestamps of complete events can be in any order. An optional parameter tdur specifies the thread clock duration of complete events in microseconds.</pre>
 <p>In order to accurately measure how long the user interaction has taken we need to look at the trace file and identify the browser rendering events. <a href="https://developers.google.com/web/fundamentals/performance/rendering">This article</a> by Paul Irish explains it as the "Pixel Pipeline."</p>
 <ul>
-<li>User Interaction Event</li>
+<li>User Interaction Event (often JavaScript or CSS Animations)</li>
 <li>Style</li>
 <li>Layout</li>
 <li>Paint</li>
 <li>Composite</li>
 </ul>
-<p>ts: The tracing clock timestamp of the event. The timestamps are provided at microsecond granularity.
-There is an extra parameter dur to specify the tracing clock duration of complete events in microseconds. All other parameters are the same as in duration events. The ts parameter indicate the time of the start of the complete event. Unlike duration events, the timestamps of complete events can be in any order. An optional parameter tdur specifies the thread clock duration of complete events in microseconds.</p>
+<p>If we follow the order of events of the "pixel pipeline" we should be able to determine the total duration of the rendering process initiated from the user interaction by subtracting the "User Interaction" event start time (click in our case) from the sum of the start time and the duration of the final "Composite" event.</p>
 <p><img src="/assets/images/chrome-perf-full.webp" alt="Perf Timeline View" /></p>
+<p><figcaption>If we upload the trace event file into the Chrome Developer Tools Performance Timeline tool we can view the events graphically.</figcaption></p>
 <p>More coming soon…..</p>
