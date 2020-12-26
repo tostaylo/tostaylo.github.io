@@ -1,12 +1,16 @@
-Is your website fast? Fast can mean many things in the context of a website. Metrics. Website speed is often measured on page load. During page load, when does a user see a page element? Does that element move? When the user clicks a button does it function? These things matter not only on page load but also for the duration a user is interacting with your site.
+Is your website fast? Fast can mean many things in the context of a website. During page load, when does a user see a page element? Does that element move? When the user clicks a button does it function? These things matter not only on page load but also for the duration a user is interacting with your site.
 
-There are many tools out there to help us measure user-centric metrics which occur on page load. Lighthouse, PageSpeedInsights, and WebpageSpeedTest to name a few. We see less of tooling which allows us to universally measure all user interactions on our site. This is due to how each site has its own unique requirements and user interactions. It is up to us to tailor post-load, user-centric performance testing based on what our site requirements are.
+There are many tools out there to help us measure user-centric metrics which occur on page load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [PageSpeedInsights](https://developers.google.com/speed/pagespeed/insights/), and [WebPageTest](https://www.webpagetest.org/) to name a few. We see less tooling which allows us to universally measure all user interactions on our site. This is due to how each site has its own unique requirements and unique user interactions. It is up to us to tailor post page-load, user-centric performance testing suite, based on what our site requirements are.
 
 ## What to Test
 
-- Changing routes in a SPA
-- Common User Flows
-- Priority Interactions
+### Changing routes in a SPA
+
+Navigating from a landing page to the page the user will likely visit next
+
+### Priority Interactions
+
+Account registration, view cart, show data visualizations, etc...
 
 ## Define Baselines
 
@@ -22,7 +26,7 @@ When defining baselines to determine success or failures keep these limits in mi
 
 [Puppeteer](https://github.com/puppeteer/puppeteer) - Headless browser Node.js library.
 
-- Navigates to pages
+- Navigates to web pages
 - Enables interaction with Chrome Developer Tools Protocol
 - Interacts with our pages as a user would
 
@@ -125,4 +129,6 @@ If we follow the order of events of the "pixel pipeline" we should be able to de
 
 <figcaption>If we upload the trace event file into the Chrome Developer Tools Performance Timeline tool we can view the events graphically.</figcaption>
 
-More coming soon.....
+That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings of interactions.
+
+Coming soon, part 2 of this series will be an example project I've created which follows this process.

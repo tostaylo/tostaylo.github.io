@@ -15,7 +15,7 @@
   article {
     position: relative;
     padding: 0 0 0 2em;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--text-color-mod);
     cursor: pointer;
   }
   h2 {
