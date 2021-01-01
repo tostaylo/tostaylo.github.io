@@ -1,16 +1,23 @@
-Is your website fast? Fast can mean many things in the context of a website. During page load, when does a user see a page element? Does that element move? When the user clicks a button does it function? These things matter not only on page load but also for the duration a user is interacting with your site.
+Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? This criteria matters not only on page-load but also for the duration a user is interacting with your site.
 
-There are many tools out there to help us measure user-centric metrics which occur on page load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [PageSpeedInsights](https://developers.google.com/speed/pagespeed/insights/), and [WebPageTest](https://www.webpagetest.org/) to name a few. We see less tooling which allows us to universally measure all user interactions on our site. This is due to how each site has its own unique requirements and unique user interactions. It is up to us to tailor post page-load, user-centric performance testing suite, based on what our site requirements are.
+There are many tools out there to help us measure user-centric metrics which occur on page-load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [Pingdom](https://www.pingdom.com/), and [WebPageTest](https://www.webpagetest.org/) to name a few (many use [Lighthouse](https://developers.google.com/web/tools/lighthouse) under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load, probably due to how each site has its own unique requirements and unique user interactions. Therefore, the developer (you!) must tailor post page-load, user-centric performance testing, based on what our individual site requirements are.
+
+I've been dabbling with building a testing framework which can automate measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.
 
 ## What to Test
 
-### Changing routes in a SPA
+Possible areas to prioritize testing focus.
 
-Navigating from a landing page to the page the user will likely visit next
+**Changing routes in a SPA**
 
-### Priority Interactions
+- Navigating from a landing page to the page the user will likely visit next
 
-Account registration, view cart, show data visualizations, etc...
+**Priority Interactions**
+
+- Login
+- View Cart
+- Open Navigation Menu
+- Add a Like or Favorite
 
 ## Define Baselines
 
@@ -20,21 +27,19 @@ After reading the article [The Psychology of Web Performance](https://blog.uptre
 - A user experiences uninterrupted flow with 1 second response times.
 - Once response times exceed 10 seconds, user attention suffers breaking flow and frustration rises.
 
-When defining baselines to determine success or failures keep these limits in mind.
+When defining baselines to determine success or failure of a test keep these limits in mind.
 
 ## What Tools Will We Use?
 
-[Puppeteer](https://github.com/puppeteer/puppeteer) - Headless browser Node.js library.
+[Puppeteer](https://github.com/puppeteer/puppeteer) - A headless browser Node.js library.
 
 - Navigates to web pages
-- Enables interaction with Chrome Developer Tools Protocol
+- Enables communication with Chrome Developer Tools Protocol
 - Interacts with our pages as a user would
 
 [Chrome Developer Tools Performance Timeline](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference)
 
-- Enables recording events occuring in the browser on page load or user interactions.
-
-![Perf Timeline View](/assets/images/chrome-perf-click.webp)
+- Enables recording of events occuring in the browser on page load or user interactions.
 
 ## Process
 
@@ -72,6 +77,8 @@ What you see above is the basic idea.
 
 5. Stop the trace
 
+6. Close the browser
+
 The output of the trace file generated will look something like this:
 
 ```json
@@ -108,7 +115,7 @@ The output of the trace file generated will look something like this:
 
 <figcaption>Here is the [documentation](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit) on the trace file and what the key value pairs represent.</figcaption>
 
-The trace file contains a traceEvents array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", "CompositeLayers". Each event has the values of
+The trace file contains a `traceEvents` array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", "CompositeLayers". Each event has the values of
 
 <pre>ts = time start; dur = duration</pre>
 
@@ -123,12 +130,42 @@ In order to accurately measure how long the user interaction has taken we need t
 - Paint
 - Composite
 
-If we follow the order of events of the "pixel pipeline" we should be able to determine the total duration of the rendering process initiated from the user interaction by subtracting the "User Interaction" event start time (click in our case) from the sum of the start time and the duration of the final "Composite" event.
+If we follow the order of events of the "pixel pipeline" we should be able to determine the total duration of the rendering process initiated from the user interaction by subtracting the "User Interaction" event start time ("click" event in my example) from the sum of the start time and the duration of the final "Composite" event.
 
-![Perf Timeline View](/assets/images/chrome-perf-full.webp)
+```typescript
+const totalDuration = finalCompositeStartTime + finalCompositeDuration - clickStartTime;
+```
+
+<figcaption>What your calculation may look like.</figcaption>
+
+![Perf Timeline View](/assets/images/perf-timeline-full.webp)
 
 <figcaption>If we upload the trace event file into the Chrome Developer Tools Performance Timeline tool we can view the events graphically.</figcaption>
 
+![Perf Timeline View](/assets/images/composite-layers.webp)
+
+<figcaption>Zoom in at the end of the timeline trace to find the "Composite Layers" event</figcaption>
+
+Of course there are other modifications you can make to simulate users more realistically. Notably, simulating users on poor performing networks and CPU's. Puppeteer allows configuration of network and cpu throttling during the perfomance timeline traces.
+
+```typescript
+// Connect to Chrome DevTools
+const client = await page.target().createCDPSession();
+
+//Set Network Throttling property
+await client.send('Network.emulateNetworkConditions', {
+	offline: false,
+	downloadThroughput: (200 * 1024) / 8,
+	uploadThroughput: (200 * 1024) / 8,
+	latency: 20,
+});
+
+// Set  CPU Throttling property
+await client.send('Emulation.setCPUThrottlingRate', { rate: this.config.throttleSetting });
+```
+
+<figcaption>Credit to [this blog post](https://michaljanaszek.com/blog/test-website-performance-with-puppeteer/#emulateSlowNetworkAndCPU) for the code snippet</figcaption>
+
 That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings of interactions.
 
-Coming soon, part 2 of this series will be an example project I've created which follows this process.
+Part 2 of this series will be an example project I've created which follows the methodology in this post.
