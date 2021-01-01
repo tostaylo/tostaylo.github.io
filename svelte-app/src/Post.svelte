@@ -31,7 +31,12 @@
 <article>
   <h1>{post.title}</h1>
 
-  <p class="meta">by {post.user} {post.date}</p>
+  <p class="meta">
+    by
+    {post.user}
+    {post.date}
+    <a href={post.url}>View on Dev.to</a>
+  </p>
   <p>
     {@html post.html_content}
   </p>

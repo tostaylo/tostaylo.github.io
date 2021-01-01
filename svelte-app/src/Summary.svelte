@@ -28,8 +28,14 @@
   }
 </style>
 
-<article on:click={() => getPost(postSummary.id)}>
+<article>
   <span>{postSummary.id}</span>
-  <h2>{postSummary.title}</h2>
-  <p class="meta">By {postSummary.user} on {postSummary.date}</p>
+  <h2 on:click={() => getPost(postSummary.id)}>{postSummary.title}</h2>
+  <p class="meta">
+    By
+    {postSummary.user}
+    on
+    {postSummary.date}
+    <a href={postSummary.url}>View on Dev.to</a>
+  </p>
 </article>

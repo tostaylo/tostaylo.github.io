@@ -1,8 +1,8 @@
-Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? This criteria matters not only on page-load but also for the duration a user is interacting with your site.
+Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? This criterion matters not only on page-load but also for the duration a user is interacting with your site.
 
-There are many tools out there to help us measure user-centric metrics which occur on page-load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [Pingdom](https://www.pingdom.com/), and [WebPageTest](https://www.webpagetest.org/) to name a few (many use [Lighthouse](https://developers.google.com/web/tools/lighthouse) under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load, probably due to how each site has its own unique requirements and unique user interactions. Therefore, the developer (you!) must tailor post page-load, user-centric performance testing, based on what our individual site requirements are.
+There are many tools out there to help us measure user-centric metrics occurring on page-load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [Pingdom](https://www.pingdom.com/), and [WebPageTest](https://www.webpagetest.org/) to name a few (many use [Lighthouse](https://developers.google.com/web/tools/lighthouse) under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load, probably due to how each site has its own unique requirements and unique user interactions. Therefore, the developer (you!) must tailor post-page-load, user-centric performance testing, based on what our individual site requirements are.
 
-I've been dabbling with building a testing framework which can automate measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.
+I've been dabbling with building a testing framework that automates measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.
 
 ## What to Test
 
@@ -25,9 +25,9 @@ After reading the article [The Psychology of Web Performance](https://blog.uptre
 
 - A user feels a response is instantaneous at a .01 second.
 - A user experiences uninterrupted flow with 1 second response times.
-- Once response times exceed 10 seconds, user attention suffers breaking flow and frustration rises.
+- Once response times exceed 10 seconds, user attention suffers breaking flow, and frustration rises.
 
-When defining baselines to determine success or failure of a test keep these limits in mind.
+When defining baselines to determine the success or failure of a test keeps these limits in mind.
 
 ## What Tools Will We Use?
 
@@ -39,7 +39,7 @@ When defining baselines to determine success or failure of a test keep these lim
 
 [Chrome Developer Tools Performance Timeline](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference)
 
-- Enables recording of events occuring in the browser on page load or user interactions.
+- Enables recording of events occurring in the browser on page load or user interactions.
 
 ## Process
 
@@ -69,7 +69,7 @@ What you see above is the basic idea.
 
 1. Start a new browser instance
 
-2. Navigate to a url
+2. Navigate to a URL
 
 3. Start a trace
 
@@ -113,7 +113,7 @@ The output of the trace file generated will look something like this:
 }
 ```
 
-<figcaption>Here is the [documentation](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit) on the trace file and what the key value pairs represent.</figcaption>
+<figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key value pairs represent.</figcaption>
 
 The trace file contains a `traceEvents` array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", "CompositeLayers". Each event has the values of
 
@@ -146,7 +146,7 @@ const totalDuration = finalCompositeStartTime + finalCompositeDuration - clickSt
 
 <figcaption>Zoom in at the end of the timeline trace to find the "Composite Layers" event</figcaption>
 
-Of course there are other modifications you can make to simulate users more realistically. Notably, simulating users on poor performing networks and CPU's. Puppeteer allows configuration of network and cpu throttling during the perfomance timeline traces.
+Of course, there are other modifications you can make to simulate users more realistically. Notably, simulating users on poor performing networks and CPU's. Puppeteer allows configuration of network and CPU throttling during the performance timeline traces.
 
 ```typescript
 // Connect to Chrome DevTools
@@ -164,8 +164,8 @@ await client.send('Network.emulateNetworkConditions', {
 await client.send('Emulation.setCPUThrottlingRate', { rate: this.config.throttleSetting });
 ```
 
-<figcaption>Credit to [this blog post](https://michaljanaszek.com/blog/test-website-performance-with-puppeteer/#emulateSlowNetworkAndCPU) for the code snippet</figcaption>
+<figcaption>Credit to <a href="https://michaljanaszek.com/blog/test-website-performance-with-puppeteer/#emulateSlowNetworkAndCPU" >this blog post</a> for the code snippet</figcaption>
 
-That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings of interactions.
+That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings of user interactions.
 
 Part 2 of this series will be an example project I've created which follows the methodology in this post.

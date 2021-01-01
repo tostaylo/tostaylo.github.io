@@ -3,6 +3,7 @@ export interface PostSummary {
 	id: number;
 	user: string;
 	date: string;
+	url: string;
 }
 
 export interface PostType extends PostSummary {
