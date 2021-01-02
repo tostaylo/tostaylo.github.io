@@ -1,6 +1,8 @@
-Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? When a user scrolls the page is it a smooth experience without [jank](https://developer.mozilla.org/en-US/docs/Glossary/Jank)? This criteria matters not only on page-load but also for the duration a user is interacting with your site.
+Try saying that &#8593; 3 times fast.
 
-There are many tools out there to help us measure user-centric metrics occurring on page-load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [Pingdom](https://www.pingdom.com/), and [WebPageTest](https://www.webpagetest.org/) to name a few (many use [Lighthouse](https://developers.google.com/web/tools/lighthouse) under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load, probably due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!) must tailor post-page-load, user-centric performance testing, based on what your individual site requirements are.
+Here's a question: Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? When a user scrolls the page is it a smooth experience without [jank](https://developer.mozilla.org/en-US/docs/Glossary/Jank)? This criteria matters not only on page-load but also for the duration a user is interacting with your site.
+
+There are many tools out there to help us measure user-centric metrics occurring on page-load. [Lighthouse](https://developers.google.com/web/tools/lighthouse), [Pingdom](https://www.pingdom.com/), and [WebPageTest](https://www.webpagetest.org/) to name a few (many use [Lighthouse](https://developers.google.com/web/tools/lighthouse) under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load. The lack of tools may be due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!), must tailor post-page-load, user-centric performance testing based on what your individual site requirements are.
 
 I've been dabbling with building a testing framework that automates measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.
 
@@ -79,9 +81,10 @@ What you see above is the basic idea.
 
 6. Close the browser
 
-The output of the trace file generated will look something like this:
+The output of the trace file generated (trace.json) will look something like the following only with many more entries.
 
 ```json
+// trace.json
 {
 	"traceEvents": [
 		{
@@ -115,7 +118,7 @@ The output of the trace file generated will look something like this:
 
 <figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key-value pairs represent.</figcaption>
 
-The trace file contains a `traceEvents` array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", and "CompositeLayers". Each event has the values of
+The trace file contains a `traceEvents` array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", and "CompositeLayers". Each event object contains the values of
 
 ```
 ts = time start;
@@ -130,7 +133,7 @@ Unlike duration events, the timestamps of complete events can be in any order.
 An optional parameter tdur specifies the thread clock duration of complete events in microseconds.
 ```
 
-In order to accurately measure how long the user interaction has taken we need to look at the trace file and identify the browser rendering events. [This article](https://developers.google.com/web/fundamentals/performance/rendering) by Paul Irish explains the browser's rendering process as the "Pixel Pipeline."
+In order to accurately measure how long the user interaction has taken we need to analyze the trace file and identify the browser rendering events. [This article](https://developers.google.com/web/fundamentals/performance/rendering) by Paul Irish explains the browser's rendering process as the "Pixel Pipeline."
 
 - User Interaction Event (often JavaScript or CSS Animations)
 - Style

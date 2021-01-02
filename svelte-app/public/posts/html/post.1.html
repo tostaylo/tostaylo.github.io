@@ -1,5 +1,6 @@
-<p>Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? When a user scrolls the page is it a smooth experience without <a href="https://developer.mozilla.org/en-US/docs/Glossary/Jank">jank</a>? This criteria matters not only on page-load but also for the duration a user is interacting with your site.</p>
-<p>There are many tools out there to help us measure user-centric metrics occurring on page-load. <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a>, <a href="https://www.pingdom.com/">Pingdom</a>, and <a href="https://www.webpagetest.org/">WebPageTest</a> to name a few (many use <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a> under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load, probably due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!) must tailor post-page-load, user-centric performance testing, based on what your individual site requirements are.</p>
+<p>Try saying that &#8593; 3 times fast.</p>
+<p>Here's a question: Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? When a user scrolls the page is it a smooth experience without <a href="https://developer.mozilla.org/en-US/docs/Glossary/Jank">jank</a>? This criteria matters not only on page-load but also for the duration a user is interacting with your site.</p>
+<p>There are many tools out there to help us measure user-centric metrics occurring on page-load. <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a>, <a href="https://www.pingdom.com/">Pingdom</a>, and <a href="https://www.webpagetest.org/">WebPageTest</a> to name a few (many use <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a> under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load. The lack of tools may be due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!), must tailor post-page-load, user-centric performance testing based on what your individual site requirements are.</p>
 <p>I've been dabbling with building a testing framework that automates measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.</p>
 <h2 id="whattotest">What to Test</h2>
 <p>Possible areas to prioritize testing focus.</p>
@@ -62,8 +63,9 @@
 <li><p>Stop the trace</p></li>
 <li><p>Close the browser</p></li>
 </ol>
-<p>The output of the trace file generated will look something like this:</p>
-<pre><code class="json language-json">{
+<p>The output of the trace file generated (trace.json) will look something like the following only with many more entries.</p>
+<pre><code class="json language-json">// trace.json
+{
     "traceEvents": [
         {
             "args": { "data": { "type": "click" } },
@@ -94,7 +96,7 @@
 }
 </code></pre>
 <p><figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key-value pairs represent.</figcaption></p>
-<p>The trace file contains a <code>traceEvents</code> array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", and "CompositeLayers". Each event has the values of</p>
+<p>The trace file contains a <code>traceEvents</code> array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", and "CompositeLayers". Each event object contains the values of</p>
 <pre><code>ts = time start;
 dur = duration;
 </code></pre>
@@ -104,7 +106,7 @@ All other parameters are the same as in duration events. The ts parameter indica
 Unlike duration events, the timestamps of complete events can be in any order.
 An optional parameter tdur specifies the thread clock duration of complete events in microseconds.
 </code></pre>
-<p>In order to accurately measure how long the user interaction has taken we need to look at the trace file and identify the browser rendering events. <a href="https://developers.google.com/web/fundamentals/performance/rendering">This article</a> by Paul Irish explains the browser's rendering process as the "Pixel Pipeline."</p>
+<p>In order to accurately measure how long the user interaction has taken we need to analyze the trace file and identify the browser rendering events. <a href="https://developers.google.com/web/fundamentals/performance/rendering">This article</a> by Paul Irish explains the browser's rendering process as the "Pixel Pipeline."</p>
 <ul>
 <li>User Interaction Event (often JavaScript or CSS Animations)</li>
 <li>Style</li>
