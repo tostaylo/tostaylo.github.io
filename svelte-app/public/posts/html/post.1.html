@@ -1,6 +1,4 @@
-<p>Try saying that &#8593; 3 times fast.</p>
-<p>Here's a question: Is your website fast? Fast can mean many things in the context of a website. When does a user first see a page element appear on page-load? Do elements move around on the page during the browser's render? When a user clicks a button does it function immediately and as intended? When a user scrolls the page is it a smooth experience without <a href="https://developer.mozilla.org/en-US/docs/Glossary/Jank">jank</a>? This criteria matters not only on page-load but also for the duration a user is interacting with your site.</p>
-<p>There are many tools out there to help us measure user-centric metrics occurring on page-load. <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a>, <a href="https://www.pingdom.com/">Pingdom</a>, and <a href="https://www.webpagetest.org/">WebPageTest</a> to name a few (many use <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a> under the hood). We see less tooling allowing us to universally measure the performance of user interactions on our site after page-load. The lack of tools may be due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!), must tailor post-page-load, user-centric performance testing based on what your individual site requirements are.</p>
+<p>There are many tools out there to help us measure performance metrics occurring on page-load. <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a>, <a href="https://tools.pingdom.com/">Pingdom</a>, and <a href="https://www.webpagetest.org/">WebPageTest</a> to name a few (many tools use <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a> under the hood). Tooling targeted at measuring the performance of user interactions on websites after page-load is harder to find. The lack of tools may be due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!), must tailor post-page-load, user-centric performance testing based on what your individual site requirements are.</p>
 <p>I've been dabbling with building a testing framework that automates measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.</p>
 <h2 id="whattotest">What to Test</h2>
 <p>Possible areas to prioritize testing focus.</p>
@@ -14,6 +12,7 @@
 <li>View Cart</li>
 <li>Open Navigation Menu</li>
 <li>Add a Like or Favorite</li>
+<li>Get Search Results</li>
 </ul>
 <h2 id="definebaselines">Define Baselines</h2>
 <p>After reading the article <a href="https://blog.uptrends.com/web-performance/the-psychology-of-web-performance/">The Psychology of Web Performance</a> and it's excerpt from <a href="https://www.nngroup.com/books/usability-engineering/">Usability Engineering</a> there are "<a href="https://www.nngroup.com/articles/response-times-3-important-limits/">3 important limits</a> to keep in mind when optimizing web and application performance."</p>
@@ -32,7 +31,7 @@
 </ul>
 <p><a href="https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference">Chrome Developer Tools Performance Timeline</a> - included with the <a href="https://www.google.com/chrome/">Chrome</a> web browser</p>
 <ul>
-<li>Enables recording of events occurring in the browser on page load or user interactions</li>
+<li>Enables recording of events occurring in the browser during page load or during user interactions</li>
 </ul>
 <h2 id="process">Process</h2>
 <p>Assuming you've already installed Node and Puppeteer, let's look at a starting point for your Node.js script taken from <a href="https://addyosmani.com/blog/puppeteer-recipes/">this blog post</a> by Addy Osmani.</p>
@@ -63,7 +62,7 @@
 <li><p>Stop the trace</p></li>
 <li><p>Close the browser</p></li>
 </ol>
-<p>The output of the trace file generated (trace.json) will look something like the following only with many more entries.</p>
+<p>The output of the trace file generated (trace.json) will look similar to the following only with many more entries.</p>
 <pre><code class="json language-json">// trace.json
 {
     "traceEvents": [
@@ -96,7 +95,7 @@
 }
 </code></pre>
 <p><figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key-value pairs represent.</figcaption></p>
-<p>The trace file contains a <code>traceEvents</code> array. If we analyze these events we can identify the browser rendering events of "click", "Layout", "UpdateLayoutTree", "Paint", and "CompositeLayers". Each event object contains the values of</p>
+<p>The trace file contains a <code>traceEvents</code> array. Each event object contains the values of</p>
 <pre><code>ts = time start;
 dur = duration;
 </code></pre>
@@ -114,7 +113,7 @@ An optional parameter tdur specifies the thread clock duration of complete event
 <li>Paint</li>
 <li>Composite</li>
 </ul>
-<p>If we follow the order of events of the "Pixel Pipeline" we should be able to determine the total duration of the rendering process initiated from the user interaction by subtracting the "User Interaction" event start time ("click" event in my example) from the sum of the start time and the duration of the final "Composite" event.</p>
+<p>We can find all of these events in the trace file generated by Puppeteer. If we follow the order of events of the "Pixel Pipeline" we should be able to determine the total duration of the rendering process initiated from the user interaction. Subtract the "User Interaction" event start time ("click" event in my example) from the sum of the start time of the final "Composite" event and the duration of the final "Composite" event.</p>
 <pre><code class="typescript language-typescript">const totalDuration = finalCompositeStartTime + finalCompositeDuration - clickStartTime;
 </code></pre>
 <p><figcaption>What your calculation may look like.</figcaption></p>
@@ -122,7 +121,8 @@ An optional parameter tdur specifies the thread clock duration of complete event
 <p><figcaption>If we upload the trace event file into the Chrome Developer Tools Performance Timeline tool we can view the events graphically.</figcaption></p>
 <p><img src="https://dev-to-uploads.s3.amazonaws.com/i/4n38r31xg6cdae4rtpqu.png" alt="Alt Text" /></p>
 <p><figcaption>Zoom in at the end of the timeline trace to find the "Composite Layers" event.</figcaption></p>
-<p>Of course, there are other modifications you can make to simulate users more realistically. Notably, simulating users on poor performing networks and CPU's. Puppeteer allows configuration of network and CPU throttling during the performance timeline traces.</p>
+<h2 id="refinement">Refinement</h2>
+<p>There are other modifications you can make to simulate users more realistically. Notably, simulating users on poor performing networks and CPU's. Puppeteer allows configuration of network and CPU throttling during the performance timeline traces.</p>
 <pre><code class="typescript language-typescript">// Connect to Chrome DevTools
 const client = await page.target().createCDPSession();
 
@@ -138,5 +138,5 @@ await client.send('Network.emulateNetworkConditions', {
 await client.send('Emulation.setCPUThrottlingRate', { rate: 4 });
 </code></pre>
 <p><figcaption>Credit to <a href="https://michaljanaszek.com/blog/test-website-performance-with-puppeteer/#emulateSlowNetworkAndCPU" >this blog post</a> by Michal Janaszek for the code snippet.</figcaption></p>
-<p>That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings of user interactions.</p>
-<p>Part 2 of this series will be an example project I've created which follows the methodology in this post.</p>
+<p>That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings. We now have a starting point to incorporate performance tests into a CI/CD pipeline.</p>
+<p>Part 2 of this series we will look at an example project which follows the methodology in this post.</p>
