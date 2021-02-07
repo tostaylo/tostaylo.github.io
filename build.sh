@@ -3,5 +3,5 @@
 set -ex
 
 wasm-pack build --release --target web --out-name rust-fel-portfolio
-http-server --port 8000
+
 
