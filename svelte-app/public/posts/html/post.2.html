@@ -20,7 +20,7 @@
 <li>HTML-like syntax for binding state with HTML elements</li>
 </ul>
 <h2 id="wheretostartbuildingthedom">Where to start? Building the DOM</h2>
-<p>I wasn't sure where to start. Reusable components? State management? At the most fundamental level my framework needed to be able to create a DOM tree. Not only create a DOM tree, but do so declaratively rather than imperatively. Let's take a look at the opposing methods.</p>
+<p>I wasn't sure where to start. Reusable components? State management? At the most fundamental level my framework needed to be able to create a DOM tree. My preference was not only create a DOM tree, but do so declaratively rather than imperatively. Let's take a look at the opposing methods.</p>
 <pre><code class="typescript language-typescript">const body = document.getElementByTagName('body');
 const header = document.createElement('header');
 const h1 = document.createElement('h1');
@@ -33,11 +33,14 @@ body.appendChild(header);
 <p>vs.</p>
 <pre><code class="typescript language-typescript">App.render(
     &lt;Header&gt;
-        &lt;H1 id="anH1" content="I am an h1!" /&gt;
+        &lt;HeadingOne id="anH1" content="I am an h1!" /&gt;
     &lt;/Header&gt;,
     document.getElementByTagName('body')
 );
 </code></pre>
 <p><figcaption>Declarative DOM composition</figcaption></p>
-<p>The latter is an abstraction which hides the details of the work being done to render elements to the DOM.</p>
+<p>Do you see the difference? The former contains all the implementation details of creating the DOM line by line. The latter is an abstraction which hides the details of the work being done to create the DOM.</p>
+<p>Let's talk about the DOM. It's a tree data structure.</p>
+<p><img src="assets/images/tree.svg" alt="Image of tree data structure" /></p>
+<p>The DOM starts with a root and then creates branches and leaves.</p>
 <p>More coming soon…</p>

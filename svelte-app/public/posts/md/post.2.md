@@ -25,7 +25,7 @@ I looked to the greats like React and Vue for inspiration.
 
 ## Where to start? Building the DOM
 
-I wasn't sure where to start. Reusable components? State management? At the most fundamental level my framework needed to be able to create a DOM tree. Not only create a DOM tree, but do so declaratively rather than imperatively. Let's take a look at the opposing methods.
+I wasn't sure where to start. Reusable components? State management? At the most fundamental level my framework needed to be able to create a DOM tree. My preference was not only create a DOM tree, but do so declaratively rather than imperatively. Let's take a look at the opposing methods.
 
 ```typescript
 const body = document.getElementByTagName('body');
@@ -44,7 +44,7 @@ vs.
 ```typescript
 App.render(
 	<Header>
-		<H1 id="anH1" content="I am an h1!" />
+		<HeadingOne id="anH1" content="I am an h1!" />
 	</Header>,
 	document.getElementByTagName('body')
 );
@@ -52,6 +52,12 @@ App.render(
 
 <figcaption>Declarative DOM composition</figcaption>
 
-The latter is an abstraction which hides the details of the work being done to render elements to the DOM.
+Do you see the difference? The former contains all the implementation details of creating the DOM line by line. The latter is an abstraction which hides the details of the work being done to create the DOM.
+
+Let's talk about the DOM. It's a tree data structure.
+
+![Image of tree data structure](assets/images/tree.svg)
+
+The DOM starts with a root and then creates branches and leaves.
 
 More coming soon...
