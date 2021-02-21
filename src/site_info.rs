@@ -12,7 +12,7 @@ pub fn site_info() -> rust_fel::Element {
   <p> To assist in building this site, I created another front-end-library the world does not need  -- 
     <a | href=https://github.com/tostaylo/rust-fel |><pre><code>rust_fel</code></pre></a>
   </p>
-  <p> It's not very good, but I like showing it off!.</p>
+  <p> It's not very good, but I like showing it off!</p>
 </div>".to_owned()
     ;
     let rust_fel_html_text = format!(
