@@ -11,5 +11,11 @@
 		"id": 2,
 		"user": "Torre Taylor",
 		"date": "2/01/2021"
+	},
+	{
+		"title": "Designing Data-Intensive Applications: Notes: Chapter 1",
+		"id": 3,
+		"user": "Torre Taylor",
+		"date": "2/18/2021"
 	}
 ]
