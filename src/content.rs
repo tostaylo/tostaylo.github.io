@@ -201,33 +201,33 @@ impl rust_fel::Component for handle::Handle<Content> {
 
         let content_children = match borrow.state.content {
             ContentType::About => Some(vec![
+                navigation(
+                    nav_items,
+                    format!("non-home-navigation {}", nav_toggle_classname),
+                ),
                 menu_button_mobile,
                 about(),
                 content_footer,
-                navigation(
-                    nav_items,
-                    format!("non-home-navigation {}", nav_toggle_classname),
-                ),
                 body_lock,
             ]),
             ContentType::SiteInfo => Some(vec![
+                navigation(
+                    nav_items,
+                    format!("non-home-navigation {}", nav_toggle_classname),
+                ),
                 menu_button_mobile,
                 site_info(),
                 content_footer,
-                navigation(
-                    nav_items,
-                    format!("non-home-navigation {}", nav_toggle_classname),
-                ),
                 body_lock,
             ]),
             ContentType::Posts => Some(vec![
-                menu_button_mobile,
-                posts(),
-                content_footer,
                 navigation(
                     nav_items,
                     format!("non-home-navigation {}", nav_toggle_classname),
                 ),
+                menu_button_mobile,
+                posts(),
+                content_footer,
                 body_lock,
             ]),
             _ => Some(vec![navigation(nav_items, "home-navigation".to_owned())]),
