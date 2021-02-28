@@ -54,10 +54,58 @@ App.render(
 
 Do you see the difference? The former contains all the implementation details of creating the DOM line by line. The latter is an abstraction which hides the details of the work being done to create the DOM.
 
-Let's talk about the DOM. It's a tree data structure.
+Let's talk about the DocumentObjectModel. It can be represented with a tree data structure.
 
 ![Image of tree data structure](assets/images/tree.svg)
 
-The DOM starts with a root and then creates branches and leaves.
+A tree is a data structure made of nodes connected by edges. The root node is the parent node at the top. Each level down the tree are children nodes. At the bottom of the tree are the leaves where no node has a descendant node.
+
+The DOM is described well with a tree data structure. It has a root "html" node and then descendant nodes some of which have sibling nodes.
+
+![Image of html tree](assets/images/html_tree.svg)
+
+I needed to be able to create an in-memory representation of the DOM and then have a procedure which builds the DOM in the browser based off this representation. I came up with this for the in-memory DOM representation.
+
+```rust
+pub struct Element {
+    pub html_type: String,
+    pub props: Props,
+}
+
+pub struct Props {
+    pub children: Option<Vec<Element>>,
+    pub text: Option<String>,
+}
+
+let div = rust_fel::Element::new(
+    "div".to_owned(),
+    rust_fel::Props {
+      children: None,
+    }
+  );
+
+let head = rust_fel::Element::new(
+    "head".to_owned(),
+    rust_fel::Props {
+      children: None,
+    }
+  );
+
+let body = rust_fel::Element::new(
+    "body".to_owned(),
+    rust_fel::Props {
+      children: Some(vec![div]),
+    }
+  );
+
+let html = rust_fel::Element::new(
+  "html".to_owned(),
+  rust_fel::Props {
+    children: Some(vec![head, body]),
+    },
+  );
+```
+
+A rust_fel::Element has an html type (it's html tag name) and a children vector. Observe how "html" is the root node of the tree. On level 1 the two descendants of "html", "head" and "body", are siblings. "body" has a descendant called "div" which is on level 2 of the tree and is a leaf node.
 
 More coming soon...
