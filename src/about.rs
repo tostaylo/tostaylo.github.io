@@ -7,7 +7,7 @@ pub fn about() -> rust_fel::Element {
           <ul>
             <li>
              <span>Instruct full-stack web development for </span> 
-              <a | href=https://techbootcamps.utexas.edu/coding/ >The Coding Boot Camp at UT Austin</a>
+              <a | href=https://techbootcamps.utexas.edu/coding/ >The Coding Boot Camp at UT Austin.</a>
             </li>
             <li>
              <span>Am a degree candidate for the </span> 
@@ -18,7 +18,7 @@ pub fn about() -> rust_fel::Element {
                 <a | href=https://www.meetup.com/austin-web-performance |>Austin Web Performance Meetup.</a>
             </li>
             <li> Build things in Rust, Typescript, React, and C#.</li>
-            <li> Play loud, overly distorted, barely listenable, guitar. </li>
+            <li> <span>Write, play, and record perfectly normal songs about my furniture.  Here is a link to my </span>  <a | href=https://soundcloud.com/known-sound |> SoundCloud song playground </a> <span>where I try out ideas.</span> </li>
           </ul>
           <div | class=profile-img-container |>
             <img | class=profile-img src=assets/images/torre-bw-2018.webp |></img>
