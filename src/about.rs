@@ -17,7 +17,23 @@ pub fn about() -> rust_fel::Element {
               <span>Founded and co-organize the </span> 
                 <a | href=https://www.meetup.com/austin-web-performance |>Austin Web Performance Meetup.</a>
             </li>
-            <li> Build things in Rust, Typescript, React, and C#.</li>
+            <li> 
+              <span>Build things in Rust, Typescript, React, and C# like </span>
+              <ul>
+                <li>
+                  <a | href=https://front-end-framework-bench.torretaylor.me |>front-end-framework-bench</a>
+                </li> 
+                <li>
+                  <a | href=https://crates.io/crates/rust-fel |>rust-fel</a>
+                </li> 
+                <li>
+                  <a | href=https://www.npmjs.com/package/chrome-measure-user-perf |>chrome-measure-user-perf</a>
+                </li> 
+                <li>
+                  <a | href=https://www.npmjs.com/package/lighthouse-plugin-has-captcha-on-page-load |>lighthouse-plugin-has-captcha-on-page-load</a>
+                </li> 
+              </ul>
+            </li>
             <li> <span>Write, play, and record perfectly normal songs about my furniture.  Here is a link to my </span>  <a | href=https://soundcloud.com/known-sound |> SoundCloud song playground </a> <span>where I try out ideas.</span> </li>
           </ul>
           <div | class=profile-img-container |>
