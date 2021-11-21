@@ -18,5 +18,5 @@
   ],
   "module": "rust-fel-portfolio.js",
   "types": "rust-fel-portfolio.d.ts",
-  "sideEffects": "false"
+  "sideEffects": false
 }
