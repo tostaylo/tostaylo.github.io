@@ -7,5 +7,3 @@ My [portfolio website](https://tostaylo.github.io), built with [rust-fel](https:
 3. `npm run build` builds the rust app, translates markdown files to html, runs a local node server.
 
 The site is being build from a Rust Package that is transpiled to WASM/JS. The index.html requests the JS. The Posts page requests a React App which attaches itself to a DOM Node on the page.
-
-Will probably need to figure out a way to produce a dist directory in the root with all necessary files.

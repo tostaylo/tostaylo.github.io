@@ -452,5 +452,14 @@
         `It took ${endWasm - startWasm} to initialize the WebAssembly Module`
       );
     </script>
+    <script>
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          // This page was restored from bfcache
+          console.log("Page restored from bfcache. Reload only root pages");
+          location.reload(); // Force reload if needed
+        }
+      });
+    </script>
   </body>
 </html>
