@@ -2,19 +2,15 @@ use crate::handle;
 use crate::theme_switcher::theme_switcher;
 use std::cell::RefCell;
 use std::rc::Rc;
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub enum Actions {
-    DarkMode,
+    #[default] DarkMode,
     LightMode,
     ShowThemes,
     HideThemes,
 }
 
-impl Default for Actions {
-    fn default() -> Self {
-        Actions::DarkMode
-    }
-}
+
 
 #[derive(Debug, Default, Clone)]
 pub struct ThemeComponentState {

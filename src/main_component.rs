@@ -20,7 +20,6 @@ impl Main {
             id: "main".to_owned(),
             child_content_component: Content::create(),
             child_theme_component: ThemeComponent::create(),
-            ..Default::default()
         };
         handle::Handle(Rc::new(RefCell::new(main)))
     }
