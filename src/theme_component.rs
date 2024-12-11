@@ -4,13 +4,12 @@ use std::cell::RefCell;
 use std::rc::Rc;
 #[derive(Debug, Clone, Default)]
 pub enum Actions {
-    #[default] DarkMode,
+    #[default]
+    DarkMode,
     LightMode,
     ShowThemes,
     HideThemes,
 }
-
-
 
 #[derive(Debug, Default, Clone)]
 pub struct ThemeComponentState {

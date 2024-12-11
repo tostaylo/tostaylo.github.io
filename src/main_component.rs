@@ -5,9 +5,6 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 #[derive(Debug, Default, Clone)]
-
-
-
 pub struct Main {
     id: String,
     child_content_component: handle::Handle<Content>,

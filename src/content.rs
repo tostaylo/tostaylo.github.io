@@ -7,15 +7,14 @@ use std::rc::Rc;
 use web_sys::ScrollToOptions;
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ContentType {
-    #[default] Home,
+    #[default]
+    Home,
     About,
     Posts,
     SiteInfo,
     Github,
     LinkedIn,
 }
-
-
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Actions {
