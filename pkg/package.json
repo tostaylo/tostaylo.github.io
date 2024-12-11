@@ -1,5 +1,6 @@
 {
   "name": "rust-fel-portfolio",
+  "type": "module",
   "collaborators": [
     "Torre Taylor"
   ],
@@ -16,7 +17,9 @@
     "rust-fel-portfolio.d.ts",
     "LICENSE.txt"
   ],
-  "module": "rust-fel-portfolio.js",
+  "main": "rust-fel-portfolio.js",
   "types": "rust-fel-portfolio.d.ts",
-  "sideEffects": false
+  "sideEffects": [
+    "./snippets/*"
+  ]
 }
