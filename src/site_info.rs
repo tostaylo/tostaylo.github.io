@@ -4,8 +4,7 @@ pub fn site_info() -> rust_fel::Element {
   <h2>Site Info</h2>
   <p> You are viewing a site built with
      <a | href=https://www.rust-lang.org/ |>Rust</a> <span>,
-     </span> <a | href=https://webassembly.org/ |>Web Assembly</a><span>, </span> 
-      <span>and </span> <a | href=https://svelte.dev/ |>Svelte</a><span>.</span></p>
+     </span> <a | href=https://webassembly.org/ |>Web Assembly</a>
    <p>There are a million articles online about why Rust is a good choice but I'll only link to one.
     <a | href=https://rustwasm.github.io/docs/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
   </p>
