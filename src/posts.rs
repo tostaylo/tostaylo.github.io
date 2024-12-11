@@ -3,8 +3,8 @@ pub fn posts() -> rust_fel::Element {
     let post_text = rust_fel::html(
         "<div>
           <h2>Posts</h2>
-          <div |id=svelte-app class=svelte-app |><span |id=loading-placeholder| >Loading...</span</div>
-         <script |src=./svelte-app/public/build/bundle.js|></script>
+          <div |id=injected-app class=injected-app |><span |id=loading-placeholder| >Loading...</span</div>
+         <script |src=./injected-app/dist/assets/index-DMBE2hB0.js|></script>
         </div>"
             .to_owned(),
     );

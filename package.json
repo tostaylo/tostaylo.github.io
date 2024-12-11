@@ -1,13 +1,12 @@
 {
   "name": "rust-fel-portfolio",
   "version": "1.0.0",
-  "description": "[View documentation for this example online][dox]",
+  "description": "A portfolio site built with RustFEL",
   "main": "index.js",
   "scripts": {
     "start": "tsc --watch",
     "build": "npm run build-ts && npm run convert && sh build.sh && npm run node-server",
     "convert": "cd converter && node index.js",
-    "svelte-app": "cd svelte-app && npm run build && cd ..",
     "build-ts": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome --headless --config video=false,screenshotOnRunFailure=false",
