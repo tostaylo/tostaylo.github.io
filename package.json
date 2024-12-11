@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc --watch",
-    "build": "npm run build-ts && npm run convert && sh build.sh && npm run node-server",
-    "convert": "cd converter && node index.js",
+    "build": "npm run build-ts && npm run convert && npm run build-injected && sh build.sh && npm run node-server",
+    "build-injected": "cd injected-app && npm run build && cd ..",
+    "convert": "cd converter && node index.js && cd ..",
     "build-ts": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --browser chrome --headless --config video=false,screenshotOnRunFailure=false",
