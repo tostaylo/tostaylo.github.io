@@ -77,7 +77,7 @@ impl rust_fel::Component for handle::Handle<ThemeComponent> {
         let borrow = self.0.borrow_mut();
         let state = borrow.state.clone();
 
-        let actions_vec = vec![Actions::DarkMode, Actions::LightMode];
+        let actions_vec = [Actions::DarkMode, Actions::LightMode];
         let theme_items: Vec<rust_fel::Element> = actions_vec
             .iter()
             .map(|action| {

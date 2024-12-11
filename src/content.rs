@@ -5,9 +5,9 @@ use crate::site_info::site_info;
 use std::cell::RefCell;
 use std::rc::Rc;
 use web_sys::ScrollToOptions;
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum ContentType {
-    Home,
+    #[default] Home,
     About,
     Posts,
     SiteInfo,
@@ -15,11 +15,7 @@ pub enum ContentType {
     LinkedIn,
 }
 
-impl Default for ContentType {
-    fn default() -> Self {
-        ContentType::Home
-    }
-}
+
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Actions {

@@ -5,14 +5,11 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 #[derive(Debug, Default, Clone)]
-pub struct MainState {
-    show_themes: bool,
-}
 
-#[derive(Debug, Default, Clone)]
+
+
 pub struct Main {
     id: String,
-    state: MainState,
     child_content_component: handle::Handle<Content>,
     child_theme_component: handle::Handle<ThemeComponent>,
 }
@@ -32,7 +29,7 @@ impl Main {
 impl rust_fel::Component for handle::Handle<Main> {
     type Properties = Option<String>;
     type Message = Option<String>;
-    type State = MainState;
+    type State = ();
 
     fn add_props(&mut self, _props: Self::Properties) {}
 
