@@ -12,10 +12,10 @@
     <link
       crossorigin
       rel="preload"
-      href="./pkg/rust-fel-portfolio_bg.wasm"
+      href="/pkg/rust-fel-portfolio_bg.wasm"
       as="fetch"
     />
-    <link crossorigin rel="modulepreload" href="./pkg/rust-fel-portfolio.js" />
+    <link crossorigin rel="modulepreload" href="/pkg/rust-fel-portfolio.js" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -441,7 +441,7 @@
   <body>
     <div id="root"></div>
     <script type="module">
-      import init from "./pkg/rust-fel-portfolio.js";
+      import init from "/pkg/rust-fel-portfolio.js";
       async function run() {
         await init();
       }

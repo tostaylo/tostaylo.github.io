@@ -13,7 +13,7 @@ pub fn about() -> rust_fel::Element {
             <li> <span>Write, play, and record perfectly normal songs about my furniture.  Here is a link to my </span>  <a | href=https://soundcloud.com/known-sound |> SoundCloud song playground </a> <span>where I try out ideas.</span> </li>
           </ul>
           <div | class=profile-img-container |>
-            <img | class=profile-img src=assets/images/torre-bw-2018.webp |></img>
+            <img | class=profile-img src=/assets/images/torre-bw-2018.webp |></img>
           </div>
         </div>".to_owned()
     );

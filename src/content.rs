@@ -1,7 +1,7 @@
 use crate::about::about;
 use crate::handle;
 // TODO: Uncomment when implementing the log function
-// use crate::js::log;
+use crate::js::log;
 use crate::posts::posts;
 use crate::site_info::site_info;
 use std::cell::RefCell;
@@ -46,16 +46,12 @@ pub struct Content {
 impl Content {
     pub fn create() -> handle::Handle<Self> {
         let window = web_sys::window().expect("no global `window` exists");
-      
         let href = window.get("location").unwrap().to_string();
+        let url = href.split("/").iter().nth(3).unwrap().as_string().unwrap();
+        
+        log(&format!("url segment: {:?}", url));
 
-        // TODO: Handle if there are more segments in the URL than just the last one
-        let last_segment = href.split("/").pop().as_string().unwrap();
-
-        // TODO: Will need this log message wnen tackling the above TODO
-        // log(&format!("last_segment: {:?}", last_segment));
-
-        let component = match last_segment.as_str() {
+        let component = match url.as_str() {
             "posts" => ContentType::Posts,
             "site-info" => ContentType::SiteInfo,
             "about" => ContentType::About,
