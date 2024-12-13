@@ -101,7 +101,7 @@ impl rust_fel::Component for handle::Handle<ThemeComponent> {
         };
 
         let theme_switcher_wrapper = rust_fel::Element::new(
-            "ul".to_owned(),
+            "div".to_owned(),
             rust_fel::Props {
                 class_name: Some("theme-switcher-wrapper".to_owned()),
                 children: Some(theme_items),

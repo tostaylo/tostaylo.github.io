@@ -1,33 +1,68 @@
-.injected-app {
-  img {
-    margin-top: 30px;
-  }
-  ul {
-    list-style-type: disc;
-    padding-left: 30px;
-  }
-  ol {
-    padding-left: 30px;
-  }
-  ol p {
-    margin: 0;
-  }
-  h2 {
-    font-size: 1.2em;
-    opacity: 1;
-    margin: 40px 0 10px 0;
-  }
-  h3 {
-    font-size: 1em;
-    opacity: 1;
-    margin: 10px 0 5px 0;
-  }
-  figcaption {
-    font-size: 0.8em;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  main h2 {
-    border-bottom: 1px solid var(--text-color-mod);
-  }
+/* General Body Styles */
+
+h1 {
+  margin: 20px 0;
+  font-size: 2.5em;
+}
+
+h2 {
+  margin: 20px 0;
+  font-size: 2em;
+  border-bottom: 1px solid #f5f5f5; /* Light border under headings */
+}
+
+h3,
+h4,
+h5,
+h6 {
+  margin: 20px 0;
+  font-size: 1.5em;
+}
+
+p {
+  margin: 10px 0;
+  font-size: 1.1em;
+}
+
+p code {
+  display: inline;
+}
+
+p pre {
+  display: inline;
+}
+
+code {
+  margin: 10px;
+}
+
+pre {
+  margin: 10px;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 30px;
+}
+
+ol {
+  margin-left: 30px;
+  list-style-type: decimal; /* Ensure the list uses numbers */
+}
+
+ol::marker {
+  /* Change the color of the numbers */
+  font-size: 1.2em; /* Change the font size of the numbers */
+  font-weight: bold; /* Make the numbers bold */
+}
+
+figcaption {
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--site-anchor);
 }

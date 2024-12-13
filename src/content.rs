@@ -115,18 +115,18 @@ impl rust_fel::Component for handle::Handle<Content> {
                 let mut clone = self.clone();
 
                 let (label, html_type) = match content_type {
-                    ContentType::Home => ("<span>Home</span>", "li"),
-                    ContentType::Posts => ("<a | data-cy=nav-posts href=/posts|>Posts</a>", "li"),
+                    ContentType::Home => ("<span>Home</span>", "div"),
+                    ContentType::Posts => ("<a | data-cy=nav-posts href=/posts|>Posts</a>", "div"),
                     ContentType::SiteInfo => {
-                        ("<a | data-cy=nav-site-info href=/site-info |>Site Info</a>", "li")
+                        ("<a | data-cy=nav-site-info href=/site-info |>Site Info</a>", "div")
                     }
-                    ContentType::About => ("<a | data-cy=nav-about href=/about |>About</a>", "li"),
+                    ContentType::About => ("<a | data-cy=nav-about href=/about |>About</a>", "div"),
                     ContentType::Github => {
-                        ("<a | href=https://github.com/tostaylo |>Github</a>", "li")
+                        ("<a | href=https://github.com/tostaylo |>Github</a>", "div")
                     }
                     ContentType::LinkedIn => (
                         "<a | href=https://www.linkedin.com/in/taylortorre |>LinkedIn</a>",
-                        "li",
+                        "div",
                     ),
                 };
                 let owned_content_type = content_type.to_owned();
@@ -158,7 +158,7 @@ impl rust_fel::Component for handle::Handle<Content> {
 
         fn navigation(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
             let ul = rust_fel::Element::new(
-                "ul".to_owned(),
+                "div".to_owned(),
                 rust_fel::Props {
                     children: Some(list_items),
                     ..Default::default()
