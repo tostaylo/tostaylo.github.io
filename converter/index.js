@@ -1,9 +1,8 @@
 const fs = require("fs");
 const showdown = require("showdown");
 
-const path = "./posts/";
-const mdPath = `${path}md/`;
-const htmlPath = `${path}html/`;
+const mdPath = `./posts/md/`;
+const htmlPath = `../injected-app/public/assets/posts/html/`;
 const converter = new showdown.Converter();
 
 fs.readdir(mdPath, (err, files) => {

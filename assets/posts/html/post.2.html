@@ -21,30 +21,30 @@
 </ul>
 <h2 id="wheretostartbuildingthedom">Where to start? Building the DOM</h2>
 <p>I wasn't sure where to start. Reusable components? State management? At the most fundamental level my framework needed to be able to create a DOM tree. My preference was not only create a DOM tree, but do so declaratively rather than imperatively. Let's take a look at the opposing methods.</p>
-<pre><code class="typescript language-typescript">const body = document.getElementByTagName('body');
-const header = document.createElement('header');
-const h1 = document.createElement('h1');
-h1.innerText = 'I am an h1!';
-h1.id = 'anH1';
+<pre><code class="typescript language-typescript">const body = document.getElementByTagName("body");
+const header = document.createElement("header");
+const h1 = document.createElement("h1");
+h1.innerText = "I am an h1!";
+h1.id = "anH1";
 header.appendChild(h1);
 body.appendChild(header);
 </code></pre>
 <p><figcaption>Imperative DOM manipulation</figcaption></p>
 <p>vs.</p>
 <pre><code class="typescript language-typescript">App.render(
-    &lt;Header&gt;
-        &lt;HeadingOne id="anH1" content="I am an h1!" /&gt;
-    &lt;/Header&gt;,
-    document.getElementByTagName('body')
+  &lt;Header&gt;
+    &lt;HeadingOne id="anH1" content="I am an h1!" /&gt;
+  &lt;/Header&gt;,
+  document.getElementByTagName("body")
 );
 </code></pre>
 <p><figcaption>Declarative DOM composition</figcaption></p>
 <p>Do you see the difference? The former contains all the implementation details of creating the DOM line by line. The latter is an abstraction which hides the details of the work being done to create the DOM.</p>
 <p>Let's talk about the DocumentObjectModel. It can be represented with a tree data structure.</p>
-<p><img src="assets/images/tree.svg" alt="Image of tree data structure" /></p>
+<p><img src="/assets/images/tree.svg" alt="Image of tree data structure" /></p>
 <p>A tree is a data structure made of nodes connected by edges. The root node is the parent node at the top. Each level down the tree are children nodes. At the bottom of the tree are the leaves where no node has a descendant node.</p>
 <p>The DOM is described well with a tree data structure. It has a root "html" node and then descendant nodes some of which have sibling nodes.</p>
-<p><img src="assets/images/html_tree.svg" alt="Image of html tree" /></p>
+<p><img src="/assets/images/html_tree.svg" alt="Image of html tree" /></p>
 <p>I needed to be able to create an in-memory representation of the DOM and then have a procedure which builds the DOM in the browser based off this representation. I came up with this for the in-memory DOM representation.</p>
 <pre><code class="rust language-rust">pub struct Element {
     pub html_type: String,

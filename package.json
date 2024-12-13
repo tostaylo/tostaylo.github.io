@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc --watch",
-    "build": "npm run build-ts && npm run convert && npm run build-injected && sh build.sh && sh html.sh && npm run node-server",
+    "build": "npm run build-ts && npm run convert && npm run build-injected && sh build.sh && sh html.sh && sh bundle.sh && npm run node-server",
     "build-injected": "cd injected-app && npm run build && cd ..",
     "convert": "cd converter && node index.js && cd ..",
     "build-ts": "tsc",

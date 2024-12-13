@@ -28,11 +28,11 @@ I looked to the greats like React and Vue for inspiration.
 I wasn't sure where to start. Reusable components? State management? At the most fundamental level my framework needed to be able to create a DOM tree. My preference was not only create a DOM tree, but do so declaratively rather than imperatively. Let's take a look at the opposing methods.
 
 ```typescript
-const body = document.getElementByTagName('body');
-const header = document.createElement('header');
-const h1 = document.createElement('h1');
-h1.innerText = 'I am an h1!';
-h1.id = 'anH1';
+const body = document.getElementByTagName("body");
+const header = document.createElement("header");
+const h1 = document.createElement("h1");
+h1.innerText = "I am an h1!";
+h1.id = "anH1";
 header.appendChild(h1);
 body.appendChild(header);
 ```
@@ -43,10 +43,10 @@ vs.
 
 ```typescript
 App.render(
-	<Header>
-		<HeadingOne id="anH1" content="I am an h1!" />
-	</Header>,
-	document.getElementByTagName('body')
+  <Header>
+    <HeadingOne id="anH1" content="I am an h1!" />
+  </Header>,
+  document.getElementByTagName("body")
 );
 ```
 
@@ -56,13 +56,13 @@ Do you see the difference? The former contains all the implementation details of
 
 Let's talk about the DocumentObjectModel. It can be represented with a tree data structure.
 
-![Image of tree data structure](assets/images/tree.svg)
+![Image of tree data structure](/assets/images/tree.svg)
 
 A tree is a data structure made of nodes connected by edges. The root node is the parent node at the top. Each level down the tree are children nodes. At the bottom of the tree are the leaves where no node has a descendant node.
 
 The DOM is described well with a tree data structure. It has a root "html" node and then descendant nodes some of which have sibling nodes.
 
-![Image of html tree](assets/images/html_tree.svg)
+![Image of html tree](/assets/images/html_tree.svg)
 
 I needed to be able to create an in-memory representation of the DOM and then have a procedure which builds the DOM in the browser based off this representation. I came up with this for the in-memory DOM representation.
 

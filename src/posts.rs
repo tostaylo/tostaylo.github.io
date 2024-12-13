@@ -3,7 +3,7 @@ pub fn posts() -> rust_fel::Element {
         "<div>
           <h2>Posts</h2>
           <div |id=injected-app class=injected-app |><span |id=loading-placeholder| >Loading...</span</div>
-         <script |src=/injected-app/dist/main.js|></script>
+         <script |src=/assets/main-bundle.js|></script>
         </div>"
             .to_owned(),
     );
