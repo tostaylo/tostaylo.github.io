@@ -9,14 +9,11 @@
     "build-injected": "cd injected-app && npm run build && cd ..",
     "convert": "cd converter && node index.js && cd ..",
     "build-ts": "tsc",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --browser chrome --headless --config video=false,screenshotOnRunFailure=false",
     "node-server": "http-server --port 8000"
   },
   "author": "Torre Taylor",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^4.12.1",
     "http-server": "^0.12.3",
     "typescript": "^4.1.3"
   }
