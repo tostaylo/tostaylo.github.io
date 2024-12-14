@@ -134,13 +134,10 @@ fn render(&self) -> rust_fel::Element {{
 }}"
     .to_owned();
 
-    let rust_fel_struct_code_block = code_pre_block(
-        rust_fel_component_text,
-        "Here is a rust_fel struct component.",
-    );
+    let rust_fel_struct_code_block =
+        code_pre_block(rust_fel_component_text, "A rust_fel struct component");
 
-    let rust_fel_rsx_code_block =
-        code_pre_block(rust_fel_html_text, "Here is a rust_fel html function.");
+    let rust_fel_rsx_code_block = code_pre_block(rust_fel_html_text, "Arust_fel html function");
 
     let post_component_text = rust_fel::html(
         "
