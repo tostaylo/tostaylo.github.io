@@ -12,10 +12,10 @@
     <link
       crossorigin
       rel="preload"
-      href="./pkg/rust-fel-portfolio_bg.wasm"
+      href="/pkg/rust-fel-portfolio_bg.wasm"
       as="fetch"
     />
-    <link crossorigin rel="modulepreload" href="./pkg/rust-fel-portfolio.js" />
+    <link crossorigin rel="modulepreload" href="/pkg/rust-fel-portfolio.js" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -49,19 +49,19 @@
     <style>
       :root {
         --full-opacity: 1;
-        --mid-opacity: 0.9;
+        --mid-opacity: 0.8;
         --low-opacity: 0.3;
         --desktop-width: 900px;
       }
       .dark {
-        --bg-color: hsl(0, 0%, 0%);
+        --bg-color: hsl(235, 44%, 10%);
         --text-color: hsl(0, 0%, 95%);
         --bg-color-mod: #1d1f21;
         --text-color-mod: #c5c8c6;
         --code-block-bg: #1d1f21;
         --code-block-color: #c5c8c6;
         --border-color: hsl(0, 0%, 20%);
-        --site-anchor: #2b79a2;
+        --site-anchor: #acd0e3;
       }
       .light {
         --bg-color: hsl(0, 0%, 80%);
@@ -73,70 +73,7 @@
         --border-color: hsl(0, 0%, 60%);
         --site-anchor: #085d8b;
       }
-      body,
-      html {
-        margin: 0;
-        font-family: Helvetica, Arial, sans-serif;
-        box-sizing: border-box;
-        -webkit-text-size-adjust: 100%;
-      }
-      code,
-      pre {
-        justify-content: flex-start;
-        align-items: center;
-        display: flex;
-        max-width: 100%;
-      }
-      pre {
-        overflow-x: auto;
-        background: var(--code-block-bg);
-        color: var(--code-block-color);
-        padding: 10px;
-        border-radius: 3px;
-      }
-      code {
-        font-size: 12px;
-        font-family: Menlo, monospace, sans-serif;
-      }
-      img {
-        max-width: 100%;
-      }
-      ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-      }
-      li {
-        cursor: pointer;
-      }
-      a {
-        text-decoration: none;
-        color: var(--text-color);
-      }
-      p {
-        margin: 8px 0;
-        line-height: 1.5em;
-      }
-      h2,
-      h3,
-      h4,
-      h5,
-      p,
-      span {
-        opacity: var(--mid-opacity);
-      }
-      button:focus,
-      button:hover {
-        background: var(--text-color-mod);
-        color: var(--bg-color-mod);
-      }
-      button:focus {
-        outline: 1px solid #fff;
-        outline-offset: -4px;
-      }
-      button:active {
-        transform: scale(0.99);
-      }
+
       .main {
         width: 100vw;
         min-height: 100vh;
@@ -182,6 +119,7 @@
         transition: background 250ms ease-in-out, transform 150ms ease;
         -webkit-appearance: none;
         -moz-appearance: none;
+        appearance: none;
       }
       .theme-toggle {
         right: 15px;
@@ -270,38 +208,7 @@
           padding-top: 0;
         }
       }
-      .about a {
-        color: var(--site-anchor);
-      }
-      .site-info-text-block a {
-        display: inline-flex;
-      }
-      .site-info-text-block code,
-      .site-info-text-block pre {
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-        vertical-align: bottom;
-      }
-      .site-info-text-block code {
-        padding: 0 5px;
-        color: var(--site-anchor);
-      }
-      .site-info-text-block a,
-      .svelte-app p a {
-        color: var(--site-anchor);
-      }
-      .site-info-text-block {
-        margin: 30px 0;
-      }
-      .about ul {
-        margin: 15px 0;
-        list-style-type: disc;
-        padding-left: 40px;
-      }
-      .about li {
-        margin-bottom: 10px;
-      }
+
       .profile-img-container {
         display: flex;
         justify-content: center;
@@ -320,7 +227,7 @@
       .home-navigation {
         max-width: 190px;
       }
-      .home-navigation ul {
+      .home-navigation {
         flex: 1;
         justify-content: space-evenly;
         display: flex;
@@ -336,7 +243,7 @@
         bottom: 0;
         height: 100vh;
         z-index: 1;
-        opacity: var(--mid-opacity);
+        opacity: 0.9;
         color: var(--text-color);
         background: var(--bg-color);
         margin-bottom: 0;
@@ -353,7 +260,7 @@
           height: auto;
           z-index: 0;
         }
-        .non-home-navigation ul {
+        .non-home-navigation div {
           display: flex;
           flex-direction: row;
           justify-content: space-evenly;
@@ -438,44 +345,13 @@
           display: none;
         }
       }
-      .svelte-app img {
-        margin-top: 30px;
-      }
-      .svelte-app ul {
-        list-style-type: disc;
-        padding-left: 30px;
-      }
-      .svelte-app ol {
-        padding-left: 30px;
-      }
-      .svelte-app ol p {
-        margin: 0;
-      }
-      .svelte-app h2 {
-        font-size: 1.2em;
-        opacity: 1;
-        margin: 40px 0 10px 0;
-      }
-      .svelte-app h3 {
-        font-size: 1em;
-        opacity: 1;
-        margin: 10px 0 5px 0;
-      }
-      .svelte-app figcaption {
-        font-size: 0.8em;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .svelte-app main h2 {
-        border-bottom: 1px solid var(--text-color-mod);
-      }
     </style>
-    <link rel="stylesheet" href="/svelte-app/public/build/bundle.css" />
+    <link rel="stylesheet" href="/assets/index.css" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module">
-      import init from "./pkg/rust-fel-portfolio.js";
+      import init from "/pkg/rust-fel-portfolio.js";
       async function run() {
         await init();
       }
@@ -485,6 +361,15 @@
       console.log(
         `It took ${endWasm - startWasm} to initialize the WebAssembly Module`
       );
+    </script>
+    <script>
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          // This page was restored from bfcache
+          console.log("Page restored from bfcache. Reload only root pages");
+          location.reload(); // Force reload if needed
+        }
+      });
     </script>
   </body>
 </html>

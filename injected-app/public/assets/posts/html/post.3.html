@@ -1,0 +1,56 @@
+<p>The main concepts of the book stem explore how to create Reliable, Scalable, and Maintainable software.</p>
+<p>Reliability - The ability to tolerate hardware and software faults or failures.</p>
+<p>Scalability - The ability to adapt to system growth under specific load parameters.</p>
+<p>Maintainability - The ability to be operable, simple, and evolvable.</p>
+<h2 id="commonsystemrequirements">Common System Requirements</h2>
+<p>Today's software applications are more data intensive than compute intensive.</p>
+<ul>
+<li>Store Data</li>
+<li>Cache Data</li>
+<li>Search Indexes</li>
+<li>Stream Processing</li>
+<li>Batch Processing</li>
+</ul>
+<h2 id="reliability">Reliability</h2>
+<p>How do you ensure data remains correct and complete when things go wrong internally?</p>
+<h3 id="hardwareerrors">Hardware errors</h3>
+<ul>
+<li>Hardware errors are usually mitigated through redundancy.</li>
+</ul>
+<h3 id="humanerrors">Human errors</h3>
+<ul>
+<li>Decouple places where people make mistakes</li>
+<li>Well designed abstractions prevent bad patterns (must not be too strict or practice will not be followed)</li>
+<li>Test thoroughly at all levels (unit … integration)</li>
+<li>Monitor (telemetry) smartly to give advanced warning of faults of failures to come</li>
+<li>Quick recoveries from errors</li>
+</ul>
+<h3 id="reliabilitytesting">Reliability Testing</h3>
+<ul>
+<li>Isolate services and make them fail. Determine what other unrelated services are impacted from failure.</li>
+<li>System alerts if component is not meeting it's guarantees (messages in &gt; messages out === future fault or failure)</li>
+</ul>
+<h2 id="scalability">Scalability</h2>
+<p>If the system grows in a particular way what are our options for dealing with the growth.</p>
+<h3 id="describingloadavgvspeakvspercentilevsmedian">Describing Load - Avg vs Peak vs Percentile vs Median</h3>
+<ul>
+<li>Active Users</li>
+<li>Cache Hits</li>
+<li>Reads vs Writes</li>
+<li>Server Requests</li>
+<li>Simultaneous Active Users</li>
+</ul>
+<h3 id="latencyvsresponsetimevsthroughput">Latency vs Response Time vs Throughput</h3>
+<h2 id="maintainabilty">Maintainabilty</h2>
+<ul>
+<li>Operability: Ability to operate easily</li>
+<li>Simplicity: Ability for newcomers to understand easily</li>
+<li>Evolvability: Ability to make changes easily</li>
+</ul>
+<h3 id="simplicity">Simplicity</h3>
+<ul>
+<li>Have good defaults</li>
+<li>Predictable</li>
+<li>Documented</li>
+<li>Abstractions</li>
+</ul>

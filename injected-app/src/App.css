@@ -1,0 +1,140 @@
+body,
+html {
+  margin: 0;
+  font-family: system-ui;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
+p {
+  font-weight: 100;
+  font-family: system-ui;
+}
+
+code,
+pre {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+  background: var(--code-block-bg);
+  color: var(--code-block-color);
+  padding: 10px;
+  border-radius: 3px;
+}
+code {
+  font-size: 12px;
+  font-family: monospace, sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+li {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-family: system-ui;
+}
+
+p {
+  margin: 8px 0;
+  line-height: 1.5em;
+}
+
+button:focus,
+button:hover {
+  background: var(--text-color-mod);
+  color: var(--bg-color-mod);
+}
+button:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+button:active {
+  transform: scale(0.99);
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: 2.5em;
+  line-height: 1.1em;
+}
+
+h2 {
+  margin: 20px 0;
+  font-size: 2em;
+  border-bottom: 0.1px solid var(--border-color);
+}
+
+h3,
+h4,
+h5,
+h6 {
+  margin: 24px 0;
+  font-size: 1.5em;
+}
+
+p {
+  margin: 12px 0;
+  font-size: 1.1em;
+}
+
+p code {
+  display: inline;
+  padding: 0;
+}
+
+p pre {
+  display: inline;
+  padding: 0;
+}
+
+code {
+  margin: 20px;
+}
+
+pre {
+  margin: 20px;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 30px;
+}
+
+ol {
+  margin-left: 30px;
+  list-style-type: decimal; /* Ensure the list uses numbers */
+}
+
+ol::marker {
+  /* Change the color of the numbers */
+  font-size: 1.2em; /* Change the font size of the numbers */
+  font-weight: bold; /* Make the numbers bold */
+}
+
+figcaption {
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--site-anchor);
+}
+
+hr {
+  border: 0;
+  height: 0.1px;
+  background: var(--border-color);
+  margin: 10px 0;
+}

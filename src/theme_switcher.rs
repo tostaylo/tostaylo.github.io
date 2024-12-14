@@ -16,7 +16,7 @@ pub fn theme_switcher(on_click: rust_fel::ClosureProp, title: String) -> rust_fe
     );
 
     rust_fel::Element::new(
-        "li".to_owned(),
+        "div".to_owned(),
         rust_fel::Props {
             children: Some(vec![theme_button]),
             ..Default::default()

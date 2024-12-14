@@ -1,5 +1,7 @@
 use crate::about::about;
 use crate::handle;
+// TODO: Uncomment when implementing the log function
+// use crate::js::log;
 use crate::posts::posts;
 use crate::site_info::site_info;
 use std::cell::RefCell;
@@ -43,10 +45,22 @@ pub struct Content {
 
 impl Content {
     pub fn create() -> handle::Handle<Self> {
+        let window = web_sys::window().expect("no global `window` exists");
+        let href = window.get("location").unwrap().to_string();
+        let url = href.split("/").iter().nth(3).unwrap().as_string().unwrap();
+
+        let component = match url.as_str() {
+            "posts" => ContentType::Posts,
+            "site-info" => ContentType::SiteInfo,
+            "about" => ContentType::About,
+            "/" => ContentType::Home,
+            _ => ContentType::Home,
+        };
+
         let content = Content {
             id: "content".to_owned(),
             state: ContentState {
-                content: ContentType::Home,
+                content: component,
                 is_nav: false,
             },
         };
@@ -63,10 +77,11 @@ impl rust_fel::Component for handle::Handle<Content> {
 
     fn reduce_state(&mut self, message: Self::Message) {
         let window = web_sys::window().expect("no global `window` exists");
-        let mut opts = ScrollToOptions::new();
-        opts.top(0.0);
+        let opts = ScrollToOptions::new();
+        opts.set_top(0.0);
         window.scroll_with_scroll_to_options(&opts);
 
+        // May not need to change content state since we are using anchor tags but I'll keep it for now
         match message {
             Actions::ContentType(x) => {
                 self.0.borrow_mut().state.content = x;
@@ -98,18 +113,19 @@ impl rust_fel::Component for handle::Handle<Content> {
                 let mut clone = self.clone();
 
                 let (label, html_type) = match content_type {
-                    ContentType::Home => ("<span>Home</span>", "li"),
-                    ContentType::Posts => ("<span | data-cy=nav-posts |>Posts</span>", "li"),
-                    ContentType::SiteInfo => {
-                        ("<span | data-cy=nav-site-info |>Site Info</span>", "li")
-                    }
-                    ContentType::About => ("<span | data-cy=nav-about |>About</span>", "li"),
+                    ContentType::Home => ("<a | href=/ |>Home</a>", "div"),
+                    ContentType::Posts => ("<a | data-cy=nav-posts href=/posts|>Posts</a>", "div"),
+                    ContentType::SiteInfo => (
+                        "<a | data-cy=nav-site-info href=/site-info |>Site Info</a>",
+                        "div",
+                    ),
+                    ContentType::About => ("<a | data-cy=nav-about href=/about |>About</a>", "div"),
                     ContentType::Github => {
-                        ("<a | href=https://github.com/tostaylo |>Github</a>", "li")
+                        ("<a | href=https://github.com/tostaylo |>Github</a>", "div")
                     }
                     ContentType::LinkedIn => (
                         "<a | href=https://www.linkedin.com/in/taylortorre |>LinkedIn</a>",
-                        "li",
+                        "div",
                     ),
                 };
                 let owned_content_type = content_type.to_owned();
@@ -141,7 +157,7 @@ impl rust_fel::Component for handle::Handle<Content> {
 
         fn navigation(list_items: Vec<rust_fel::Element>, class_name: String) -> rust_fel::Element {
             let ul = rust_fel::Element::new(
-                "ul".to_owned(),
+                "div".to_owned(),
                 rust_fel::Props {
                     children: Some(list_items),
                     ..Default::default()

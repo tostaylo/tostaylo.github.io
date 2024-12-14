@@ -3,9 +3,10 @@ pub fn site_info() -> rust_fel::Element {
 <div |class=site-info-text-block|> 
   <h2>Site Info</h2>
   <p> You are viewing a site built with
-     <a | href=https://www.rust-lang.org/ |>Rust</a> <span>,
-     </span> <a | href=https://webassembly.org/ |>Web Assembly</a><span>, </span> 
-      <span>and </span> <a | href=https://svelte.dev/ |>Svelte</a><span>.</span></p>
+     <a | href=https://www.rust-lang.org/ |>Rust</a> 
+     <span> and </span>
+      <a | href=https://webassembly.org/ |>Web Assembly</a>
+  </p>
    <p>There are a million articles online about why Rust is a good choice but I'll only link to one.
     <a | href=https://rustwasm.github.io/docs/book/why-rust-and-webassembly.html |> Why Rust and Web Assembly? </a>
   </p>
@@ -133,13 +134,10 @@ fn render(&self) -> rust_fel::Element {{
 }}"
     .to_owned();
 
-    let rust_fel_struct_code_block = code_pre_block(
-        rust_fel_component_text,
-        "Here is a rust_fel struct component.",
-    );
+    let rust_fel_struct_code_block =
+        code_pre_block(rust_fel_component_text, "A rust_fel struct component");
 
-    let rust_fel_rsx_code_block =
-        code_pre_block(rust_fel_html_text, "Here is a rust_fel html function.");
+    let rust_fel_rsx_code_block = code_pre_block(rust_fel_html_text, "Arust_fel html function");
 
     let post_component_text = rust_fel::html(
         "
@@ -203,8 +201,9 @@ fn render(&self) -> rust_fel::Element {{
 
     let comparison = rust_fel::html(
         "
-<div |class=site-info-text-block|> 
-  <a | data-cy=comparison-main-text href=https://front-end-framework-bench.torretaylor.me/comparison |>
+<div> 
+  <h3>Performance</h3>
+  <a | data-cy=comparison-main-text target=blank href=https://tostaylo.github.io/front-end-framework-bench-viewer/ |>
     Performance comparison with other front-end frameworks
   </a>
 </div>"
