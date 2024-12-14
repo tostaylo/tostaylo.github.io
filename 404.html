@@ -49,7 +49,7 @@
     <style>
       :root {
         --full-opacity: 1;
-        --mid-opacity: 0.9;
+        --mid-opacity: 0.8;
         --low-opacity: 0.3;
         --desktop-width: 900px;
       }
@@ -73,66 +73,7 @@
         --border-color: hsl(0, 0%, 60%);
         --site-anchor: #085d8b;
       }
-      body,
-      html {
-        margin: 0;
-        font-family: Helvetica, Arial, sans-serif;
-        box-sizing: border-box;
-        -webkit-text-size-adjust: 100%;
-      }
-      code,
-      pre {
-        justify-content: flex-start;
-        align-items: center;
-        display: flex;
-        max-width: 100%;
-      }
-      pre {
-        overflow-x: auto;
-        background: var(--code-block-bg);
-        color: var(--code-block-color);
-        padding: 10px;
-        border-radius: 3px;
-      }
-      code {
-        font-size: 12px;
-        font-family: Menlo, monospace, sans-serif;
-      }
-      img {
-        max-width: 100%;
-      }
 
-      li {
-        cursor: pointer;
-      }
-      a {
-        text-decoration: none;
-        color: var(--text-color);
-      }
-      p {
-        margin: 8px 0;
-        line-height: 1.5em;
-      }
-      h2,
-      h3,
-      h4,
-      h5,
-      p,
-      span {
-        opacity: var(--mid-opacity);
-      }
-      button:focus,
-      button:hover {
-        background: var(--text-color-mod);
-        color: var(--bg-color-mod);
-      }
-      button:focus {
-        outline: 1px solid #fff;
-        outline-offset: -4px;
-      }
-      button:active {
-        transform: scale(0.99);
-      }
       .main {
         width: 100vw;
         min-height: 100vh;
@@ -178,6 +119,7 @@
         transition: background 250ms ease-in-out, transform 150ms ease;
         -webkit-appearance: none;
         -moz-appearance: none;
+        appearance: none;
       }
       .theme-toggle {
         right: 15px;
@@ -301,7 +243,7 @@
         bottom: 0;
         height: 100vh;
         z-index: 1;
-        opacity: var(--mid-opacity);
+        opacity: 0.9;
         color: var(--text-color);
         background: var(--bg-color);
         margin-bottom: 0;
