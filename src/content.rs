@@ -77,8 +77,8 @@ impl rust_fel::Component for handle::Handle<Content> {
 
     fn reduce_state(&mut self, message: Self::Message) {
         let window = web_sys::window().expect("no global `window` exists");
-        let mut opts = ScrollToOptions::new();
-        opts.top(0.0);
+        let opts = ScrollToOptions::new();
+        opts.set_top(0.0);
         window.scroll_with_scroll_to_options(&opts);
 
         // May not need to change content state since we are using anchor tags but I'll keep it for now
@@ -115,9 +115,10 @@ impl rust_fel::Component for handle::Handle<Content> {
                 let (label, html_type) = match content_type {
                     ContentType::Home => ("<a | href=/ |>Home</a>", "div"),
                     ContentType::Posts => ("<a | data-cy=nav-posts href=/posts|>Posts</a>", "div"),
-                    ContentType::SiteInfo => {
-                        ("<a | data-cy=nav-site-info href=/site-info |>Site Info</a>", "div")
-                    }
+                    ContentType::SiteInfo => (
+                        "<a | data-cy=nav-site-info href=/site-info |>Site Info</a>",
+                        "div",
+                    ),
                     ContentType::About => ("<a | data-cy=nav-about href=/about |>About</a>", "div"),
                     ContentType::Github => {
                         ("<a | href=https://github.com/tostaylo |>Github</a>", "div")

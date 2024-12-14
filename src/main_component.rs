@@ -38,11 +38,23 @@ impl rust_fel::Component for handle::Handle<Main> {
 
         let children = vec![theme_component, child_content_component];
 
+        let window = web_sys::window().expect("no global `window` exists");
+        let storage = window.local_storage();
+
+        let theme = storage
+            .unwrap()
+            .unwrap()
+            .get_item("theme")
+            .unwrap()
+            .unwrap_or("dark".to_owned());
+
+        let class_name = Some(format!("main {}", theme));
+
         rust_fel::Element::new(
             "main".to_owned(),
             rust_fel::Props {
                 id: Some(borrow.id.clone()),
-                class_name: Some("main dark".to_owned()),
+                class_name,
                 children: Some(children),
                 ..Default::default()
             },

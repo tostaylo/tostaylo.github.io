@@ -49,6 +49,14 @@ impl rust_fel::Component for handle::Handle<ThemeComponent> {
                     .unwrap()
                     .set_class_name("main light");
 
+                let storage = window.local_storage().ok();
+                if let Some(storage) = storage {
+                    storage
+                        .unwrap()
+                        .set_item("theme", "light")
+                        .expect("should set item in storage");
+                }
+
                 self.0.borrow_mut().state.show_themes = false
             }
             Actions::DarkMode => {
@@ -58,6 +66,14 @@ impl rust_fel::Component for handle::Handle<ThemeComponent> {
                     .get_element_by_id("main")
                     .unwrap()
                     .set_class_name("main dark");
+
+                let storage = window.local_storage().ok();
+                if let Some(storage) = storage {
+                    storage
+                        .unwrap()
+                        .set_item("theme", "dark")
+                        .expect("should set item in storage");
+                }
 
                 self.0.borrow_mut().state.show_themes = false
             }
