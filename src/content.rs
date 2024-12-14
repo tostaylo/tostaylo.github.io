@@ -1,7 +1,7 @@
 use crate::about::about;
 use crate::handle;
 // TODO: Uncomment when implementing the log function
-use crate::js::log;
+// use crate::js::log;
 use crate::posts::posts;
 use crate::site_info::site_info;
 use std::cell::RefCell;
@@ -48,8 +48,6 @@ impl Content {
         let window = web_sys::window().expect("no global `window` exists");
         let href = window.get("location").unwrap().to_string();
         let url = href.split("/").iter().nth(3).unwrap().as_string().unwrap();
-        
-        log(&format!("url segment: {:?}", url));
 
         let component = match url.as_str() {
             "posts" => ContentType::Posts,
@@ -115,7 +113,7 @@ impl rust_fel::Component for handle::Handle<Content> {
                 let mut clone = self.clone();
 
                 let (label, html_type) = match content_type {
-                    ContentType::Home => ("<span>Home</span>", "div"),
+                    ContentType::Home => ("<a | href=/ |>Home</a>", "div"),
                     ContentType::Posts => ("<a | data-cy=nav-posts href=/posts|>Posts</a>", "div"),
                     ContentType::SiteInfo => {
                         ("<a | data-cy=nav-site-info href=/site-info |>Site Info</a>", "div")

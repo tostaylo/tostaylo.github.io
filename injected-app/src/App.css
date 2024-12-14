@@ -3,6 +3,7 @@
 h1 {
   margin: 20px 0;
   font-size: 2.5em;
+  line-height: 1.1em;
 }
 
 h2 {
@@ -26,10 +27,12 @@ p {
 
 p code {
   display: inline;
+  padding: 0;
 }
 
 p pre {
   display: inline;
+  padding: 0;
 }
 
 code {

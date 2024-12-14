@@ -1,3 +1,7 @@
+<h1 id="automateuxperformancetestingwithpuppeteerandthechromedevtoolsperformancetimeline">Automate UX Performance Testing with Puppeteer and the Chrome Dev Tools Performance Timeline</h1>
+<p><strong>Torre Taylor</strong>
+<strong>12/20/2020</strong></p>
+<hr />
 <p>There are many tools out there to help us measure performance metrics occurring on website page-load. <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a>, <a href="https://tools.pingdom.com/">Pingdom</a>, and <a href="https://www.webpagetest.org/">WebPageTest</a> to name a few (many tools use <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a> under the hood). Tooling targeted at measuring the performance of user interactions on websites after page-load is harder to find. The lack of tools may be due to how each site has its own unique requirements and user interactions. Therefore, the developer (you!), must tailor post-page-load, user-centric performance testing based on what your individual site requirements are.</p>
 <p>I've been dabbling with building a testing framework that automates measuring the duration of certain user interactions on my website. My hope is this post provides a starting point to anyone who is considering doing the same with their own site.</p>
 <h2 id="whattotest">What to Test</h2>
@@ -35,22 +39,25 @@
 </ul>
 <h2 id="process">Process</h2>
 <p>Assuming you've already installed Node and Puppeteer, let's look at a starting point for your Node.js script taken from <a href="https://addyosmani.com/blog/puppeteer-recipes/">this blog post</a> by Addy Osmani.</p>
-<pre><code class="javascript language-javascript">const puppeteer = require('puppeteer');
+<pre><code class="javascript language-javascript">const puppeteer = require("puppeteer");
 
 (async () =&gt; {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    const navigationPromise = page.waitForNavigation();
-    await page.goto('https://pptr.dev/#?product=Puppeteer&amp;version=v2.1.1&amp;show=outline');
-    await page.setViewport({ width: 1440, height: 714 });
-    await navigationPromise;
-    const selector = 'body &gt; sidebar-component &gt; sidebar-item:nth-child(3) &gt; .pptr-sidebar-item';
-    await page.waitForSelector(selector);
-    await page.tracing.start({ path: 'trace.json', screenshots: true });
-    await page.click(selector);
-    await page.tracing.stop();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const navigationPromise = page.waitForNavigation();
+  await page.goto(
+    "https://pptr.dev/#?product=Puppeteer&amp;version=v2.1.1&amp;show=outline"
+  );
+  await page.setViewport({ width: 1440, height: 714 });
+  await navigationPromise;
+  const selector =
+    "body &gt; sidebar-component &gt; sidebar-item:nth-child(3) &gt; .pptr-sidebar-item";
+  await page.waitForSelector(selector);
+  await page.tracing.start({ path: "trace.json", screenshots: true });
+  await page.click(selector);
+  await page.tracing.stop();
 
-    await browser.close();
+  await browser.close();
 })();
 </code></pre>
 <p>What you see above is the basic idea.</p>
@@ -65,33 +72,33 @@
 <p>The output of the trace file generated (trace.json) will look similar to the following only with many more entries.</p>
 <pre><code class="json language-json">// trace.json
 {
-    "traceEvents": [
-        {
-            "args": { "data": { "type": "click" } },
-            "cat": "devtools.timeline",
-            "dur": 7761,
-            "name": "EventDispatch",
-            "ph": "X",
-            "pid": 61589,
-            "tdur": 7706,
-            "tid": 775,
-            "ts": 161565081204,
-            "tts": 119022
-        },
-        {
-            "args": {
-                "cat": "devtools.timeline,rail",
-                "dur": 18,
-                "name": "Paint",
-                "ph": "X",
-                "pid": 61589,
-                "tdur": 18,
-                "tid": 775,
-                "ts": 161565160795,
-                "tts": 196604
-            }
-        }
-    ]
+  "traceEvents": [
+    {
+      "args": { "data": { "type": "click" } },
+      "cat": "devtools.timeline",
+      "dur": 7761,
+      "name": "EventDispatch",
+      "ph": "X",
+      "pid": 61589,
+      "tdur": 7706,
+      "tid": 775,
+      "ts": 161565081204,
+      "tts": 119022
+    },
+    {
+      "args": {
+        "cat": "devtools.timeline,rail",
+        "dur": 18,
+        "name": "Paint",
+        "ph": "X",
+        "pid": 61589,
+        "tdur": 18,
+        "tid": 775,
+        "ts": 161565160795,
+        "tts": 196604
+      }
+    }
+  ]
 }
 </code></pre>
 <p><figcaption>Here is the <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit">documentation</a> on the trace file and what the key-value pairs represent.</figcaption></p>
@@ -114,7 +121,8 @@ An optional parameter tdur specifies the thread clock duration of complete event
 <li>Composite</li>
 </ul>
 <p>We can find all of these events in the trace file generated by Puppeteer. If we follow the order of events of the "Pixel Pipeline" we should be able to determine the total duration of the rendering process initiated from the user interaction. Subtract the "User Interaction" event start time ("click" event in my example) from the sum of the start time of the final "Composite" event and the duration of the final "Composite" event.</p>
-<pre><code class="typescript language-typescript">const totalDuration = finalCompositeStartTime + finalCompositeDuration - clickStartTime;
+<pre><code class="typescript language-typescript">const totalDuration =
+  finalCompositeStartTime + finalCompositeDuration - clickStartTime;
 </code></pre>
 <p><figcaption>What your calculation may look like.</figcaption></p>
 <p><img src="https://dev-to-uploads.s3.amazonaws.com/i/2otnht0qsjllu42ghc0l.png" alt="Alt Text" /></p>
@@ -127,15 +135,15 @@ An optional parameter tdur specifies the thread clock duration of complete event
 const client = await page.target().createCDPSession();
 
 //Set Network Throttling property
-await client.send('Network.emulateNetworkConditions', {
-    offline: false,
-    downloadThroughput: (200 * 1024) / 8,
-    uploadThroughput: (200 * 1024) / 8,
-    latency: 20,
+await client.send("Network.emulateNetworkConditions", {
+  offline: false,
+  downloadThroughput: (200 * 1024) / 8,
+  uploadThroughput: (200 * 1024) / 8,
+  latency: 20,
 });
 
 // Set  CPU Throttling property
-await client.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+await client.send("Emulation.setCPUThrottlingRate", { rate: 4 });
 </code></pre>
 <p><figcaption>Credit to <a href="https://michaljanaszek.com/blog/test-website-performance-with-puppeteer/#emulateSlowNetworkAndCPU" >this blog post</a> by Michal Janaszek for the code snippet.</figcaption></p>
 <p>That's all there is to it! Utilizing this tooling and knowledge of the browser's rendering process we can create baselines, execute user interactions, and analyze the resulting timings. We now have a starting point to incorporate performance tests into a CI/CD pipeline.</p>

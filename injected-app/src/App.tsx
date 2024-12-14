@@ -1,7 +1,7 @@
 import { Route, Switch, Router } from "wouter";
-
-import "./App.css";
 import { Post } from "./Post";
+import { Posts } from "./Posts";
+import "./App.css";
 
 export default function App() {
   const base = window.location.pathname.includes("posts")
@@ -11,6 +11,7 @@ export default function App() {
   return (
     <Router base={base}>
       <Switch>
+        <Route path="/">{() => <Posts />}</Route>
         <Route path="/post/:id">{(params) => <Post params={params} />}</Route>
 
         <Route>404: No such page!</Route>
