@@ -196,6 +196,7 @@
       }
       .about,
       .posts,
+      .projects,
       .site-info {
         width: 100%;
         flex: 1;
@@ -204,9 +205,115 @@
       @media screen and (min-width: 900px) {
         .about,
         .posts,
+        .projects,
         .site-info {
           padding-top: 0;
         }
+      }
+
+      /* Projects page styles */
+      .projects-header {
+        margin-bottom: 40px;
+      }
+
+      .projects-header h2 {
+        margin-bottom: 10px;
+      }
+
+      .projects-header p {
+        font-size: 1.1em;
+        opacity: var(--mid-opacity);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-top: 30px;
+      }
+
+      @media screen and (min-width: 900px) {
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 30px;
+        }
+      }
+
+      .project-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .project-image-container {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-color-mod);
+      }
+
+      .project-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .project-content {
+        padding: 20px;
+      }
+
+      .project-content h3 {
+        margin: 0 0 15px 0;
+        font-size: 1.5em;
+      }
+
+      .project-content p {
+        margin: 0 0 15px 0;
+        line-height: 1.6em;
+        opacity: var(--mid-opacity);
+      }
+
+      .project-tech {
+        margin: 15px 0;
+        font-size: 0.95em;
+      }
+
+      .project-tech strong {
+        color: var(--text-color);
+        font-weight: 500;
+      }
+
+      .project-tech span {
+        opacity: var(--mid-opacity);
+      }
+
+      .project-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .project-link {
+        color: var(--site-anchor);
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+      }
+
+      .project-link:hover {
+        text-decoration: underline;
+        opacity: var(--mid-opacity);
       }
 
       .profile-img-container {
