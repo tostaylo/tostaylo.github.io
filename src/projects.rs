@@ -3,7 +3,7 @@ pub fn projects() -> rust_fel::Element {
     struct Project {
         title: &'static str,
         description: &'static str,
-        image_path: &'static str,
+        // image_path: &'static str,
         github_url: Option<&'static str>,
         live_url: Option<&'static str>,
         tech_stack: &'static str,
@@ -14,7 +14,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "SecureViz",
             description: "A desktop Mac application for AI-powered data visualization that processes everything locally with zero cloud uploads. Features natural language querying, supports CSV/Excel import, and handles 100,000+ rows with sub-100ms query performance using local Ollama AI.",
-            image_path: "/assets/images/composite-layers.webp",
+            // image_path: "/assets/images/composite-layers.webp",
             github_url: None,
             live_url: Some("https://secure-suite.github.io/secure-viz/"),
             tech_stack: "Go, SQLite, Apache ECharts, React, Ollama, VitePress",
@@ -22,7 +22,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "rust-fel",
             description: "An experimental frontend library built on rustwasm that enables client-side development using Rust compiled to WebAssembly. Features a Virtual DOM, JSX-like syntax, and component-based architecture with state management.",
-            image_path: "/assets/images/composite-layers.webp",
+            // image_path: "/assets/images/composite-layers.webp",
             github_url: Some("https://github.com/tostaylo/rust-fel"),
             live_url: None,
             tech_stack: "Rust, WebAssembly, wasm-bindgen",
@@ -30,7 +30,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Front-End Framework Bench Viewer",
             description: "A Vue 3 application for visualizing benchmark results from front-end framework performance testing. Displays comparative metrics across multiple frameworks to help developers make informed technology choices.",
-            image_path: "/assets/images/perf-timeline-full.webp",
+            // image_path: "/assets/images/perf-timeline-full.webp",
             github_url: Some("https://github.com/tostaylo/front-end-framework-bench-viewer"),
             live_url: Some("https://tostaylo.github.io/front-end-framework-bench-viewer/"),
             tech_stack: "Vue 3, TypeScript, Vite",
@@ -38,7 +38,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Front-End Framework Bench",
             description: "Automated testing suite that compares rendering performance across client-side frameworks. Uses Puppeteer to simulate user interactions and Chrome DevTools Performance Timeline to record timings for fair comparison.",
-            image_path: "/assets/images/composite-layers.webp",
+            // image_path: "/assets/images/composite-layers.webp",
             github_url: Some("https://github.com/tostaylo/front-end-framework-bench"),
             live_url: Some("https://tostaylo.github.io/front-end-framework-bench-viewer/"),
             tech_stack: "Rust, TypeScript, Puppeteer, Chrome DevTools",
@@ -46,7 +46,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Audio Effects",
             description: "A guitar effects simulator implementing amps, pedals, and mixing effects. Features decoupled core logic for portability across different audio context environments, deployed on Cloudflare Workers.",
-            image_path: "/assets/images/torre-bw-2018.webp",
+            // image_path: "/assets/images/torre-bw-2018.webp",
             github_url: Some("https://github.com/tostaylo/audio-effects"),
             live_url: Some("https://audio-effects.torretaylor.workers.dev/"),
             tech_stack: "TypeScript, Web Audio API, Cloudflare Workers",
@@ -54,7 +54,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Object Detection to Speech",
             description: "A Flask-based web API that integrates machine learning object detection libraries to identify objects in images and convert results to speech output. Supports deployment via Docker, Google Cloud Run, and local environments.",
-            image_path: "/assets/images/composite-layers.webp",
+            // image_path: "/assets/images/composite-layers.webp",
             github_url: Some("https://github.com/tostaylo/object-detection-to-speech"),
             live_url: Some("https://object-detection-qq4ppihdsa-uc.a.run.app/"),
             tech_stack: "Python, Flask, YOLOv5, Detectron2, Docker",
@@ -62,7 +62,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Chrome Measure User Perf",
             description: "Automates performance testing of user interactions using Puppeteer and Chrome DevTools Performance Timeline. Records click event durations and browser render processes with configurable timing thresholds to determine pass/fail outcomes.",
-            image_path: "/assets/images/perf-timeline-full.webp",
+            // image_path: "/assets/images/perf-timeline-full.webp",
             github_url: Some("https://github.com/tostaylo/chrome-measure-user-perf"),
             live_url: None,
             tech_stack: "TypeScript, Node.js, Puppeteer, Chrome DevTools",
@@ -70,7 +70,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Song Recommender",
             description: "A recommendation engine for songs built with Apache Kafka Streams and Scala. Users submit a song ID via Kafka, and the system processes the request and outputs a recommended track to a CSV file.",
-            image_path: "/assets/images/torre-bw-2018.webp",
+            // image_path: "/assets/images/torre-bw-2018.webp",
             github_url: Some("https://github.com/tostaylo/song-recommender"),
             live_url: None,
             tech_stack: "Scala, Apache Kafka Streams, Docker",
@@ -78,7 +78,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Lighthouse Captcha Plugin",
             description: "A Google Lighthouse plugin designed to detect captcha scripts loading at page load time. Helps identify potentially invalid Lighthouse performance results caused by captcha interference during automated testing.",
-            image_path: "/assets/images/composite-layers.webp",
+            // image_path: "/assets/images/composite-layers.webp",
             github_url: Some("https://github.com/tostaylo/lighthouse-plugin-has-captcha-on-page-load"),
             live_url: None,
             tech_stack: "TypeScript, Node.js, Google Lighthouse",
