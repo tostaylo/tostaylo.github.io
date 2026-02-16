@@ -19,7 +19,7 @@ pub fn projects() -> rust_fel::Element {
             live_url: Some("https://secure-suite.github.io/secure-viz/"),
             tech_stack: "Go, SQLite, Apache ECharts, React, Ollama, VitePress",
         },
-           Project {
+        Project {
             title: "WhisperClip",
             description: "A lightweight macOS menu bar application for instant voice-to-text transcription using OpenAI's Whisper speech recognition model. Features global hotkey recording, automatic clipboard integration, and completely offline processing with whisper.cpp for fast, accurate transcription.",
             image_path: "/assets/images/whisper-clip.png",
