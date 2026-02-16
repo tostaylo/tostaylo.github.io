@@ -4,6 +4,7 @@ mod handle;
 mod js;
 mod main_component;
 mod posts;
+mod projects;
 mod site_info;
 mod theme_component;
 mod theme_switcher;

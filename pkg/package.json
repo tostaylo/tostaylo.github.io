@@ -15,7 +15,6 @@
     "rust-fel-portfolio_bg.wasm",
     "rust-fel-portfolio.js",
     "rust-fel-portfolio.d.ts",
-    "LICENSE 2.txt",
     "LICENSE.txt"
   ],
   "main": "rust-fel-portfolio.js",
