@@ -2,7 +2,7 @@ pub fn about() -> rust_fel::Element {
     let about_text = rust_fel::html(
         "<div>
           <h2>About</h2>
-          <p> I am a Staff Software Engineer at LegalZoom in Seattle, WA where I write and mantain web applications.</p>
+          <p> I am a Staff Software Engineer at LegalZoom in Seattle, WA where I write and maintain web applications.</p>
           <p> Outside of work I </p>
           <ul>
             <li>
