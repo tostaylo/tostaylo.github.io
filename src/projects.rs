@@ -19,6 +19,14 @@ pub fn projects() -> rust_fel::Element {
             live_url: Some("https://secure-suite.github.io/secure-viz/"),
             tech_stack: "Go, SQLite, Apache ECharts, React, Ollama, VitePress",
         },
+           Project {
+            title: "WhisperClip",
+            description: "A lightweight macOS menu bar application for instant voice-to-text transcription using OpenAI's Whisper speech recognition model. Features global hotkey recording, automatic clipboard integration, and completely offline processing with whisper.cpp for fast, accurate transcription.",
+            image_path: "/assets/images/whisper-clip.png",
+            github_url: None,
+            live_url: None,
+            tech_stack: "Swift, Whisper.cpp, OpenAI Whisper",
+        },
         Project {
             title: "rust-fel",
             description: "An experimental frontend library built on rustwasm that enables client-side development using Rust compiled to WebAssembly. Features a Virtual DOM, JSX-like syntax, and component-based architecture with state management.",
@@ -49,7 +57,7 @@ pub fn projects() -> rust_fel::Element {
             image_path: "/assets/images/audio-effects.png",
             github_url: Some("https://github.com/tostaylo/audio-effects"),
             live_url: Some("https://audio-effects.torretaylor.workers.dev/"),
-            tech_stack: "TypeScript, Web Audio API, Cloudflare Workers",
+            tech_stack: "Preact, Redux, TypeScript, Web Audio API, Cloudflare Workers",
         },
         Project {
             title: "Object Detection to Speech",
@@ -62,7 +70,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Chrome Measure User Perf",
             description: "Automates performance testing of user interactions using Puppeteer and Chrome DevTools Performance Timeline. Records click event durations and browser render processes with configurable timing thresholds to determine pass/fail outcomes.",
-            image_path: "/assets/images/image-coming-soon.png",
+            image_path: "/assets/images/perf-timeline-full.webp",
             github_url: Some("https://github.com/tostaylo/chrome-measure-user-perf"),
             live_url: None,
             tech_stack: "TypeScript, Node.js, Puppeteer, Chrome DevTools",
@@ -70,7 +78,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Song Recommender",
             description: "A recommendation engine for songs built with Apache Kafka Streams and Scala. Users submit a song ID via Kafka, and the system processes the request and outputs a recommended track to a CSV file.",
-            image_path: "/assets/images/image-coming-soon.png",
+            image_path: "/assets/images/song-recommender.png",
             github_url: Some("https://github.com/tostaylo/song-recommender"),
             live_url: Some("https://www.youtube.com/watch?v=DyHWdd0oyME"),
             tech_stack: "Scala, Apache Kafka Streams, Docker",
@@ -78,7 +86,7 @@ pub fn projects() -> rust_fel::Element {
         Project {
             title: "Lighthouse Captcha Plugin",
             description: "A Google Lighthouse plugin designed to detect captcha scripts loading at page load time. Helps identify potentially invalid Lighthouse performance results caused by captcha interference during automated testing.",
-            image_path: "/assets/images/image-coming-soon.png",
+            image_path: "/assets/images/lighthouse-captcha-plugin.png",
             github_url: Some("https://github.com/tostaylo/lighthouse-plugin-has-captcha-on-page-load"),
             live_url: None,
             tech_stack: "TypeScript, Node.js, Google Lighthouse",
