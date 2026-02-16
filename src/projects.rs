@@ -124,10 +124,7 @@ pub fn projects() -> rust_fel::Element {
                     </div>
                   </div>
                 </div>",
-                project.title,
-                project.description,
-                project.tech_stack,
-                links_html
+                project.title, project.description, project.tech_stack, links_html
             );
 
             rust_fel::html(project_html)
